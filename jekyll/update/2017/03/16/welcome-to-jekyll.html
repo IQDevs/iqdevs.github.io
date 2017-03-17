@@ -92,6 +92,24 @@
 </code></pre>
 </div>
 
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Response</span>
+<span class="p">{</span>
+	<span class="n">code</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+	<span class="n">message</span><span class="p">:</span> <span class="o">&amp;</span><span class="err">'</span><span class="k">static</span> <span class="nb">str</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">get_response</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">Response</span>
+<span class="p">{</span>
+	<span class="n">Response</span> <span class="p">{</span><span class="n">code</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="s">""</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="nf">get_response</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
 
   </div>
 
