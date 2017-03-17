@@ -1,4 +1,0 @@
-# iqdevs.github.io
-
-# Author
-
