@@ -66,14 +66,15 @@
   <div class="post-content" itemprop="articleBody">
     <p>So you’ve been doing high-level programming all your life and you’ve been eying Rust for some time and you’re not sure where to start –or how to start. Well, this walk-through-like post will guide you through some of the common tasks you preform in high-level languages such as JavaScript, Python, or even C#. I’ll try to stay away from C++ for reasons I won’t get to discuss here. Just know that this is a C++-free post.</p>
 
-<h3 id="so-json-in-rust-the-short-answer-is-no-built-in-support-for-json-but">So, JSON in Rust? The short answer is ‘no built in support for JSON’, but…</h3>
+<h3 id="so-json-in-rust">So, JSON in Rust?</h3>
+<h4 id="the-short-answer-is-no-built-in-support-for-json-but">The short answer is ‘no built-in support for JSON’, but…</h4>
 <p>Well, Rust has no built-in support for JSON objects, but before you let that throw you off, Rust <code class="highlighter-rouge">struct</code>s are ~ 99% identical to JSON objects in their outer structure and the way they are defined and used. Let’s look at an example:</p>
 
 <p>Say you want to define a Person JSON object with fields holding things like the <code class="highlighter-rouge">full name</code>, <code class="highlighter-rouge">date of birth</code>, and <code class="highlighter-rouge">gender</code> of a person. Here’s how you’d likely define your object in a language like JavaScript:</p>
 
 <div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">fullName</span><span class="p">:</span> <span class="s1">'Fadi Hanna Al-Kass'</span><span class="p">,</span>
-  <span class="na">dateOfBirth</span><span class="p">:</span> <span class="s1">'MM-DD-19YY'</span><span class="p">,</span>
+  <span class="na">dateOfBirth</span><span class="p">:</span> <span class="s1">'01-01-1990'</span><span class="p">,</span>
   <span class="na">gender</span><span class="p">:</span> <span class="s1">'MALE'</span>
 <span class="p">};</span>
 </code></pre>
@@ -91,7 +92,7 @@
 <span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
   <span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span> <span class="p">{</span>
     <span class="n">full_name</span><span class="p">:</span> <span class="s">"Fadi Hanna Al-Kass"</span><span class="nf">.to_string</span><span class="p">(),</span>
-    <span class="n">date_of_birth</span><span class="p">:</span> <span class="s">"MM-DD-19YY"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="n">date_of_birth</span><span class="p">:</span> <span class="s">"01-01-1990"</span><span class="nf">.to_string</span><span class="p">(),</span>
     <span class="n">gender</span><span class="p">:</span> <span class="s">"MALE"</span><span class="nf">.to_string</span><span class="p">()</span>
   <span class="p">};</span>
 <span class="p">}</span>
@@ -111,7 +112,8 @@
   <p>You can always replace a strongly typed pseudo-JSON object with a <code class="highlighter-rouge">HashMap</code> to get around the static typing issue, but I’d advice against that, and I believe I can convince you to stick to the <code class="highlighter-rouge">struct</code> approach. You may, at this point, still don’t think so, but wait until we get to these magical little thingies called <code class="highlighter-rouge">traits</code> and then we’ll see ;-)</p>
 </blockquote>
 
-<h3 id="nested-pseudo-json-objects-sure-forward-we-go">Nested pseudo-JSON Objects? Sure, forward we go</h3>
+<h3 id="nested-pseudo-json-objects">Nested pseudo-JSON Objects?</h3>
+<h4 id="sure-forward-we-go">Sure, forward we go</h4>
 
 <p>Let’s design our <code class="highlighter-rouge">Person</code> JSON object in a more modern fashion. Instead of having a field to contain the <code class="highlighter-rouge">full_name</code>, we can turn <code class="highlighter-rouge">full_name</code> into a sub-<code class="highlighter-rouge">struct</code> that has two fields (<code class="highlighter-rouge">first_name</code> and <code class="highlighter-rouge">last_name</code>). Instead of storing <code class="highlighter-rouge">date_of_birth</code> as a string that we may, at some point, need to parse down to extract the day, month, and the year, we can store this information in a <code class="highlighter-rouge">struct</code> with 3 separate fields. And for our <code class="highlighter-rouge">gender</code> field, we can reference an <code class="highlighter-rouge">enum</code> value.</p>
 
@@ -253,7 +255,7 @@ Well, so Rust has two ways of printing out stuff (or maybe more than two that I 
 </code></pre>
 </div>
 
-<p>Our output is looking pretty verbose already, and you may not like that. Is there a way to manipulate this output in terms of re-arranging its layout or limiting the amount of information being displayed? You bet there is, and it’s through writing our own <code class="highlighter-rouge">Debug</code> <code class="highlighter-rouge">trait</code> instead of using a <code class="highlighter-rouge">derive</code>d one. I think it’s better to introduce one more thing right before we get down to business with <code class="highlighter-rouge">trait</code>s, and that is Rust’s <code class="highlighter-rouge">OOP</code>-like paradigm. I call it OOP-like because Rust doesn’t consider itself an Object-Oriented Programming Language, but sure that in no way means we can’t do OOP in Rust. It just means OOP is done differently. To be more precise, OOP in Rust is done in a way Rust wouldn’t consider OOP.</p>
+<p>Our output is looking pretty verbose already, and you may not like that. Is there a way to manipulate this output in terms of re-arranging its layout or limiting the amount of information being displayed? You bet there is, and it’s through writing our own <code class="highlighter-rouge">Debug</code> <code class="highlighter-rouge">trait</code> instead of using a <code class="highlighter-rouge">derive</code>d one. I think it’s better to introduce one more thing right before we get down to business with <code class="highlighter-rouge">trait</code>s, and that is Rust’s <code class="highlighter-rouge">OOP</code>-like paradigm. I call it <code class="highlighter-rouge">OOP</code>-like because Rust doesn’t consider itself an Object-Oriented Programming Language, but sure that in no way means we can’t do <code class="highlighter-rouge">OOP</code> in Rust. It just means <code class="highlighter-rouge">OOP</code> is done differently. To be more precise, <code class="highlighter-rouge">OOP</code> in Rust is done in a way Rust wouldn’t consider <code class="highlighter-rouge">OOP</code>.</p>
 
 <p>Up until now, we’ve only been working with <code class="highlighter-rouge">struct</code>s and <code class="highlighter-rouge">enum</code>s. You’ve probably already noticed that we used them to store data, but no logic (constructors, function, destructors, etc) was added to them. That’s because that’s not where the functions go. before I further explain this, let’s look at a tiny Python class and discuss how its alternative can be written in Rust.
 Say you have a <code class="highlighter-rouge">Person</code> <code class="highlighter-rouge">class</code> with a constructor that takes a first_name and a last_name and provides two separate getter functions that give you these two string values whenever you need them. You’d write your class something as follows:</p>
@@ -307,6 +309,8 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
   <p>In short, your class constructor is a static function located inside an <code class="highlighter-rouge">impl</code> and turns an object of the type of the class you’re instantiating (Person in our case).</p>
 </blockquote>
 
+<h3 id="traits">Traits</h3>
+
 <h3 id="statements-vs-expressions">Statements vs. Expressions?</h3>
 
   </div>
@@ -352,8 +356,7 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>IQDevs is a Facebook group of technical Iraqi enthusiasts holding skills from various technical backgrounds spanning all over the globe. From Iraq to EU countries to North America, people who share a homeland and a passion for skill enhancement, sharing ideas and following bleeding edge technical trends. We focus to upgrade our knowledge and our limit is the sky.
-</p>
+        <p>Some things just can&#39;t be contained in a box</p>
       </div>
     </div>
 
