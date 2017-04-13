@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Rust for High-Level Programming Language Developers</title>
+  <meta name="description" content="So you’ve been doing high-level programming all your life and you’ve been eying Rust for some time and you’re not sure where to start –or how to start. Well,...">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="/rust/2017/04/12/welcome-to-jekyll.html">
+  <link rel="alternate" type="application/rss+xml" title="IQDevs Blog" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">IQDevs Blog</a>
+
+    <nav class="site-nav">
+      <span class="menu-icon">
+        <svg viewBox="0 0 18 15" width="18px" height="15px">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </span>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Rust for High-Level Programming Language Developers</h1>
+    <p class="post-meta"><time datetime="2017-04-12T21:05:58-05:00" itemprop="datePublished">Apr 12, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">alkass</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>So you’ve been doing high-level programming all your life and you’ve been eying Rust for some time and you’re not sure where to start –or how to start. Well, this walk-through-like post will guide you through some of the common tasks you preform in high-level languages such as JavaScript, Python, or even C#. I’ll try to stay away from C++ for reasons I won’t get to discuss here. Just know that this is a C++-free post.</p>
+
+<h3 id="so-json-in-rust">So, JSON in Rust?</h3>
+<p>Well, Rust has no built-in support for JSON objects, but before you let that throw you off, Rust <code class="highlighter-rouge">struct</code>s are ~ 99% identical to JSON objects in their outer structure and the way they are defined and used. Let’s look at an example:</p>
+
+<p>Say you want to define a Person JSON object with fields holding things like the <code class="highlighter-rouge">full name</code>, <code class="highlighter-rouge">date of birth</code>, and <code class="highlighter-rouge">gender</code> of a person. Here’s how you’d likely define your object in a language like JavaScript:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">fullName</span><span class="p">:</span> <span class="s1">'Fadi Hanna Al-Kass'</span><span class="p">,</span>
+  <span class="na">dateOfBirth</span><span class="p">:</span> <span class="s1">'MM-DD-19YY'</span><span class="p">,</span>
+  <span class="na">gender</span><span class="p">:</span> <span class="s1">'MALE'</span>
+<span class="p">};</span>
+</code></pre>
+</div>
+
+<p>Here’s how you’d write this in Rust:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="c">// Our pseudo-JSON object skeleton</span>
+<span class="k">struct</span> <span class="n">Person</span> <span class="p">{</span>
+  <span class="n">full_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="n">date_of_birth</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+  <span class="n">gender</span><span class="p">:</span> <span class="nb">String</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span> <span class="p">{</span>
+    <span class="n">full_name</span><span class="p">:</span> <span class="s">"Fadi Hanna Al-Kass"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="n">date_of_birth</span><span class="p">:</span> <span class="s">"MM-DD-19YY"</span><span class="nf">.to_string</span><span class="p">(),</span>
+    <span class="n">gender</span><span class="p">:</span> <span class="s">"MALE"</span><span class="nf">.to_string</span><span class="p">()</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>You’ve probably already noticed two differences between the two code snippets:</p>
+
+<ol>
+  <li>We had to define a skeleton for our pseudo-JSON object</li>
+  <li>We used lowerCamelCase with JavaScript and snake_case with our Rust code snippet. This is really nothing more than a naming convention that the Rust compiler will throw a bunch of warnings at you if you don’t follow, but it shouldn’t have an effect on the execution of your program if you so choose not to follow.</li>
+</ol>
+
+<p>Now back to the first (and perhaps, more obvious) difference. Rust is a very (and I mean very) strongly typed programming language. That said, it needs to own as much information about your object types during the compilation process as possible. Of course, <code class="highlighter-rouge">struct</code>s are no exception, and you can really consider two ways (or more, depending on how imaginational you are) of looking at this: it is either (1) <code class="highlighter-rouge">limiting</code> or (2) <code class="highlighter-rouge">validating</code>. I wouldn’t be putting this post together had I considered strong typeness limiting.</p>
+
+<blockquote>
+  <p>You can always replace a strongly typed pseudo-JSON object with a <code class="highlighter-rouge">HashMap</code> to get around the static typing issue, but I’d advice against that, and I believe I can convince you to stick to the <code class="highlighter-rouge">struct</code> approach. You may, at this point, still don’t think so, but wait until we get to these magical little thingies called <code class="highlighter-rouge">traits</code> and then we’ll see ;-)</p>
+</blockquote>
+
+<h3 id="nested-pseudo-json-objects">Nested pseudo-JSON Objects?</h3>
+<p>Sure, forward we go</p>
+
+<p>Let’s design our <code class="highlighter-rouge">Person</code> JSON object in a more modern fashion. Instead of having a field to contain the <code class="highlighter-rouge">full_name</code>, we can turn <code class="highlighter-rouge">full_name</code> into a sub-<code class="highlighter-rouge">struct</code>ure that has two fields (<code class="highlighter-rouge">first_name</code> and <code class="highlighter-rouge">last_name</code>). Instead of storing <code class="highlighter-rouge">date_of_birth</code> as a string that we may, at some point, need to parse down to extract the day, month, and the year, we can store this information in a <code class="highlighter-rouge">struct</code> with 3 separate fields. And for our <code class="highlighter-rouge">gender</code> field, we can reference an <code class="highlighter-rouge">enum</code> value.</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">FullName</span> <span class="p">{</span>
+    <span class="n">first_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">last_name</span><span class="p">:</span> <span class="nb">String</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">DateOfBirth</span> <span class="p">{</span>
+    <span class="n">day</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>  <span class="c">// 8-bit integer variable</span>
+    <span class="n">month</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">i16</span> <span class="c">// 16-bit integer variable</span>
+<span class="p">}</span>
+
+<span class="k">enum</span> <span class="n">Gender</span> <span class="p">{</span>
+    <span class="n">MALE</span><span class="p">,</span>
+    <span class="n">FEMALE</span><span class="p">,</span>
+    <span class="n">NotDisclosed</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">Person</span> <span class="p">{</span>
+  <span class="n">full_name</span><span class="p">:</span> <span class="n">FullName</span><span class="p">,</span>
+  <span class="n">date_of_birth</span><span class="p">:</span> <span class="n">DateOfBirth</span><span class="p">,</span>
+  <span class="n">gender</span><span class="p">:</span> <span class="n">Gender</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span> <span class="p">{</span>
+      <span class="n">full_name</span><span class="p">:</span> <span class="n">FullName</span> <span class="p">{</span>
+          <span class="n">first_name</span><span class="p">:</span> <span class="s">"Fadi"</span><span class="nf">.to_string</span><span class="p">(),</span>
+          <span class="n">last_name</span><span class="p">:</span> <span class="s">"Hanna Al-Kass"</span><span class="nf">.to_string</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="n">date_of_birth</span><span class="p">:</span> <span class="n">DateOfBirth</span> <span class="p">{</span>
+          <span class="n">day</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="n">month</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="n">year</span><span class="p">:</span> <span class="mi">1990</span>
+      <span class="p">},</span>
+      <span class="n">gender</span><span class="p">:</span> <span class="nn">Gender</span><span class="p">::</span><span class="n">MALE</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Our pseudo-JSON object is now looking much cleaner and even user to utilize. Speaking of utilization, how do we reference our fields? Well, you’ve probably guessed it already. Yes, it’s the dot operator. If you’re interested in, say, printing the full name of your person object. Here’s how you’d do that:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="c">// The following line of code goes inside your main function right after</span>
+<span class="c">// your person object has been instantiated, or really anywhere after the</span>
+<span class="c">// object has been declared.</span>
+
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{} {}"</span><span class="p">,</span> <span class="n">person</span><span class="py">.full_name.first_name</span><span class="p">,</span> <span class="n">person</span><span class="py">.full_name.last_name</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>and you’re probably seeing a problem here already. It would absolutely be tedious to use this approach to print out the full name of a person especially if you were to do this from multiple places of your program let alone the fact the way the print is done looks really primitive. There must be a different (perhaps, even, better) way you say. You bet there is. In fact, there not only is but are many ways you can go about handling this issue, which one of which would be the use of <code class="highlighter-rouge">traits</code>. A trait is a programmatical way of telling the compiler how to carry out specific functionalities during the build process. We’re going to use one her learn how to write our own further below. The trait we’re about to use in a moment is called the <code class="highlighter-rouge">Debug</code> trait which basically sets out a specific printing layout for your defined <code class="highlighter-rouge">enum</code>, <code class="highlighter-rouge">struct</code> or what have you.</p>
+
+<p>If you simply add <code class="highlighter-rouge">#[derive(Debug)]</code> right on top of your <code class="highlighter-rouge">FullName</code> <code class="highlighter-rouge">struct</code> definition: i.e.:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="err">#</span><span class="p">[</span><span class="nf">derive</span><span class="p">(</span><span class="n">Debug</span><span class="p">)]</span>
+<span class="k">struct</span> <span class="n">FullName</span> <span class="p">{</span>
+    <span class="n">first_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">last_name</span><span class="p">:</span> <span class="nb">String</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>and replace:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="nd">println!</span><span class="p">(</span><span class="s">"{} {}"</span><span class="p">,</span> <span class="n">person</span><span class="py">.full_name.first_name</span><span class="p">,</span> <span class="n">person</span><span class="py">.full_name.last_name</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>with:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">person</span><span class="py">.full_name</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>You’ll end up with:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">FullName</span> <span class="p">{</span> <span class="n">first_name</span><span class="p">:</span> <span class="s">"Fadi"</span><span class="p">,</span> <span class="n">last_name</span><span class="p">:</span> <span class="s">"Hanna Al-Kass"</span> <span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Cool, isn’t it? Well, it gets even cooler in a bit.</p>
+
+<p>But hang on a second, why did I have to replace <code class="highlighter-rouge">"{}"</code> with <code class="highlighter-rouge">"{:?}"</code> in my <code class="highlighter-rouge">println</code> statement? Or an even more proper question to ask is: what is the difference between two two?
+Well, so Rust has two ways of printing out stuff (or maybe more than two that I still haven’t discovered yet!): a (1) <code class="highlighter-rouge">Display</code> and a <code class="highlighter-rouge">Debug</code>. <code class="highlighter-rouge">Display</code> is what you’d probably want to use to allow the program to communicate some meaningful output to your user, and <code class="highlighter-rouge">Debug</code> is what you could use during the development process. Each one of these two is a separate <code class="highlighter-rouge">trait</code> that can co-exist without overlapping each other. By that I mean, you can allow your object to print something with <code class="highlighter-rouge">"{}"</code> and something entirely different with <code class="highlighter-rouge">"{:?}"</code>, but that’s to be covered when we get down to writing our own <code class="highlighter-rouge">trait</code>.</p>
+
+<p>So is it possible to use <code class="highlighter-rouge">#[derive(Debug)]</code> to print out nested objects? Yes, it is, and following is how. Simply add <code class="highlighter-rouge">#[derive(Debug)]</code> right on top of your main object and every object that’s part of it and then print the object as a whole by passing it to a  <code class="highlighter-rouge">println</code> function using the <code class="highlighter-rouge">"{:?}"</code> notation, i.e.:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="err">#</span><span class="p">[</span><span class="nf">derive</span><span class="p">(</span><span class="n">Debug</span><span class="p">)]</span>
+<span class="k">struct</span> <span class="n">FullName</span> <span class="p">{</span>
+    <span class="n">first_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">last_name</span><span class="p">:</span> <span class="nb">String</span>
+<span class="p">}</span>
+
+<span class="cp">#[derive(Debug)]</span>
+<span class="k">struct</span> <span class="n">DateOfBirth</span> <span class="p">{</span>
+    <span class="n">day</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>  <span class="c">// 8-bit integer variable</span>
+    <span class="n">month</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">i16</span> <span class="c">// 16-bit integer variable</span>
+<span class="p">}</span>
+
+<span class="cp">#[derive(Debug)]</span>
+<span class="k">enum</span> <span class="n">Gender</span> <span class="p">{</span>
+    <span class="n">MALE</span><span class="p">,</span>
+    <span class="n">FEMALE</span><span class="p">,</span>
+    <span class="n">NotDisclosed</span>
+<span class="p">}</span>
+
+<span class="cp">#[derive(Debug)]</span>
+<span class="k">struct</span> <span class="n">Person</span> <span class="p">{</span>
+  <span class="n">full_name</span><span class="p">:</span> <span class="n">FullName</span><span class="p">,</span>
+  <span class="n">date_of_birth</span><span class="p">:</span> <span class="n">DateOfBirth</span><span class="p">,</span>
+  <span class="n">gender</span><span class="p">:</span> <span class="n">Gender</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span> <span class="p">{</span>
+      <span class="n">full_name</span><span class="p">:</span> <span class="n">FullName</span> <span class="p">{</span>
+          <span class="n">first_name</span><span class="p">:</span> <span class="s">"Fadi"</span><span class="nf">.to_string</span><span class="p">(),</span>
+          <span class="n">last_name</span><span class="p">:</span> <span class="s">"Hanna Al-Kass"</span><span class="nf">.to_string</span><span class="p">()</span>
+      <span class="p">},</span>
+      <span class="n">date_of_birth</span><span class="p">:</span> <span class="n">DateOfBirth</span> <span class="p">{</span>
+          <span class="n">day</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="n">month</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="n">year</span><span class="p">:</span> <span class="mi">1990</span>
+      <span class="p">},</span>
+      <span class="n">gender</span><span class="p">:</span> <span class="nn">Gender</span><span class="p">::</span><span class="n">MALE</span>
+  <span class="p">};</span>
+  <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">person</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>And your output will look like:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">Person</span> <span class="p">{</span> <span class="n">full_name</span><span class="p">:</span> <span class="n">FullName</span> <span class="p">{</span> <span class="n">first_name</span><span class="p">:</span> <span class="s">"Fadi"</span><span class="p">,</span> <span class="n">last_name</span><span class="p">:</span> <span class="s">"Hanna Al-Kass"</span> <span class="p">},</span> <span class="n">date_of_birth</span><span class="p">:</span> <span class="n">DateOfBirth</span> <span class="p">{</span> <span class="n">day</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">month</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="mi">1990</span> <span class="p">},</span> <span class="n">gender</span><span class="p">:</span> <span class="n">MALE</span> <span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Our output is looking pretty verbose already, and you may not like that. Is there a way to manipulate this output in terms of re-arranging its layout or limiting the amount of information being displayed? You bet there is, and it’s through writing our own <code class="highlighter-rouge">Debug</code> <code class="highlighter-rouge">trait</code> instead of using a <code class="highlighter-rouge">derive</code>d one. I think it’s better to introduce one more thing right before we get down to business with <code class="highlighter-rouge">trait</code>s, and that is Rust’s <code class="highlighter-rouge">OOP</code>-like paradigm. I call it OOP-like because Rust doesn’t consider itself an Object-Oriented Programming Language, but sure that in no way means we can’t do OOP in Rust. It just means OOP is done differently. To be more precise, OOP in Rust is done in a way Rust wouldn’t consider OOP.</p>
+
+<p>Up until now, we’ve only been working with <code class="highlighter-rouge">struct</code>s and <code class="highlighter-rouge">enum</code>s. You’ve probably already noticed that we used them to store data, but no logic (constructors, function, destructors, etc) was added to them. That’s because that’s not where the functions go. before I further explain this, let’s look at a tiny ES6 JavaScript class and discuss how its alternative can be written in Rust.
+Say you have a <code class="highlighter-rouge">Person</code> <code class="highlighter-rouge">class</code> with a constructor that takes a first_name and a last_name and provides two separate getter functions that give you these two string values whenever you need them. You’d write your class something as follows:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">class</span> <span class="nx">Person</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">firstName</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">lastName</span><span class="p">;</span>
+
+  <span class="nx">constructor</span> <span class="p">(</span><span class="nx">firstName</span><span class="p">,</span> <span class="nx">lastName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">firstName</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">lastName</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">getFirstName</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">getLastName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre>
+</div>
+
+<p>Notice how we have our fields and functions mixed together inside a single class. Rust separates the two. You’d have your fields defined inside a <code class="highlighter-rouge">struct</code> and an <code class="highlighter-rouge">impl</code> containing all relevant functions. So, when interpreted, our JavaScript class would look in Rust as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Person</span> <span class="p">{</span>
+    <span class="n">first_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="n">last_name</span><span class="p">:</span> <span class="nb">String</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Person</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">new</span> <span class="p">(</span><span class="n">first_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">last_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Person</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Person</span> <span class="p">{</span>
+            <span class="n">first_name</span><span class="p">:</span> <span class="n">first_name</span><span class="p">,</span>
+            <span class="n">last_name</span><span class="p">:</span> <span class="n">last_name</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+    <span class="k">fn</span> <span class="nf">get_first_name</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="nb">str</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&amp;</span><span class="k">self</span><span class="py">.first_name</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="nf">get_last_name</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="nb">str</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&amp;</span><span class="k">self</span><span class="py">.last_name</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>And to instantiate the object and access/utilize its functions, we do the following:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="nn">Person</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="s">"Fadi"</span><span class="nf">.to_string</span><span class="p">(),</span> <span class="s">"Hanna Al-Kass"</span><span class="nf">.to_string</span><span class="p">());</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}, {}"</span><span class="p">,</span> <span class="n">person</span><span class="nf">.get_last_name</span><span class="p">(),</span> <span class="n">person</span><span class="nf">.get_first_name</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>You’ve probably already looked at the code and thought to yourself “aha, <code class="highlighter-rouge">Person::new()</code> must be the constructor” to which you’d definitely be right. however, one thing you need to meek in mind is that Rust has no concept of a <code class="highlighter-rouge">constructor</code> per se. Instead, we define a static function that we use to instantiate our object. This also means <code class="highlighter-rouge">new</code> is not a keyword nor is it the required name of your entry point to your object; it can really be anything but <code class="highlighter-rouge">new</code> is the convention.</p>
+
+<blockquote>
+  <p>In short, your class constructor is a static function located inside an <code class="highlighter-rouge">impl</code> and turns an object of the type of the class you’re instantiating (Person in our case).</p>
+</blockquote>
+
+<p>Statements vs. Expressions?</p>
+
+  </div>
+
+  
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">IQDevs Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            
+              IQDevs Blog
+            
+            </li>
+            
+            <li><a href="mailto:ceo@skaykeapp.com">ceo@skaykeapp.com</a></li>
+            
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/iqdevs"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">iqdevs</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>IQDevs is a Facebook group of technical Iraqi enthusiasts holding skills from various technical backgrounds spanning all over the globe. From Iraq to EU countries to North America, people who share a homeland and a passion for skill enhancement, sharing ideas and following bleeding edge technical trends. We focus to upgrade our knowledge and our limit is the sky.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
