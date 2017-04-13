@@ -310,6 +310,99 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 </blockquote>
 
 <h3 id="traits">Traits</h3>
+<h4 id="if-this-doesnt-turn-you-into-a-rust-fanatic-i-dont-think-anything-will-sad--">If this doesn’t turn you into a Rust fanatic, I don’t think anything will. <em>Sad :-(</em></h4>
+
+<p>A <code class="highlighter-rouge">trait</code> is nothing but a language feature that tells the compiler about a type-specific functionality. The definition of a <code class="highlighter-rouge">trait</code> may be confusing as heck to you, but it’ll all settle for you with the first example or two.</p>
+
+<p>Remember how we were talking about classes with constructors, functions, and destructors? Well, we’ve already discussed how constructors and functions are done in Rust. Let’s talk a little about destructors. A <code class="highlighter-rouge">destructor</code> is normally a class function that invokes itself once the class is out of scope. In some low-level programming languages like C++, a class destructor is normally used to deallocate all allocated memory and preform some house cleaning. Rust has an <code class="highlighter-rouge">impl</code> destruction functionality (<code class="highlighter-rouge">trait</code>) called <code class="highlighter-rouge">Drop</code>. Let’s look at how this trait can be implemented and invoked:</p>
+
+<p>Let’s say you have a <code class="highlighter-rouge">Response</code> object you return to a HTTP validation layer that sends it to an end-client. Once this operation is complete, you have no business in maintaining this <code class="highlighter-rouge">Response</code> object, so it’ll delete itself once it’s out of scope. Let’s start by defining this structure:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Response</span> <span class="p">{</span>
+	<span class="n">code</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+	<span class="n">message</span><span class="p">:</span> <span class="nb">String</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span><span class="p">{</span>
+		<span class="n">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+		<span class="n">message</span><span class="p">:</span> <span class="s">"OK"</span><span class="nf">.to_string</span><span class="p">()</span>
+	<span class="p">};</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now let’s add a <code class="highlighter-rouge">Drop</code> <code class="highlighter-rouge">trait</code> to our object and see when <code class="highlighter-rouge">Drop</code> is invoked:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">impl</span> <span class="n">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
+	<span class="k">fn</span> <span class="k">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>If you try to run the complete program now, i.e.:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Response</span> <span class="p">{</span>
+	<span class="n">code</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+	<span class="n">message</span><span class="p">:</span> <span class="nb">String</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
+	<span class="k">fn</span> <span class="k">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span><span class="p">{</span>
+		<span class="n">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+		<span class="n">message</span><span class="p">:</span> <span class="s">"OK"</span><span class="nf">.to_string</span><span class="p">()</span>
+	<span class="p">};</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>You’ll see the following output right before the program finishes executing:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>I ran out of scope. I'm about to be destroyed
+</code></pre>
+</div>
+
+<p>Let’s look at another example.
+If you’ve ever done any scientific computation in Python, chances are you’ve overloaded some of the arithmetic operations (<code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">-</code>, <code class="highlighter-rouge">*</code>, <code class="highlighter-rouge">/</code>, <code class="highlighter-rouge">%</code>, etc). A vector class with <code class="highlighter-rouge">+</code> overloaded would look something like the following:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Vector</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+	<span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otherVector</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">otherVector</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">+</span> <span class="n">otherVector</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="s">"Vector(</span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s)"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>And if you were to add two <code class="highlighter-rouge">Vector</code> objects, you’d so something like the following:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">v1</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span>
+</code></pre>
+</div>
+
+<p>And print the result as follows:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">v3</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>This will print the following:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">Vector</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</code></pre>
+</div>
 
 <h3 id="statements-vs-expressions">Statements vs. Expressions?</h3>
 
