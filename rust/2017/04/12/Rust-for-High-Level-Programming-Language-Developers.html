@@ -261,13 +261,13 @@ Well, so Rust has two ways of printing out stuff (or maybe more than two that I 
 Say you have a <code class="highlighter-rouge">Person</code> <code class="highlighter-rouge">class</code> with a constructor that takes a first_name and a last_name and provides two separate getter functions that give you these two string values whenever you need them. You’d write your class something as follows:</p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">firstName</span> <span class="o">=</span> <span class="n">firstName</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">lastName</span> <span class="o">=</span> <span class="n">lastName</span>
-	<span class="k">def</span> <span class="nf">getFirstName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstName</span>
-	<span class="k">def</span> <span class="nf">getLastName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastName</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">firstName</span> <span class="o">=</span> <span class="n">firstName</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lastName</span> <span class="o">=</span> <span class="n">lastName</span>
+  <span class="k">def</span> <span class="nf">getFirstName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstName</span>
+  <span class="k">def</span> <span class="nf">getLastName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastName</span>
 </code></pre>
 </div>
 
@@ -319,15 +319,15 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 <p>Let’s say you have a <code class="highlighter-rouge">Response</code> object you return to a HTTP validation layer that sends it to an end-client. Once this operation is complete, you have no business in maintaining this <code class="highlighter-rouge">Response</code> object, so it’ll delete itself once it’s out of scope. Let’s start by defining this structure:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Response</span> <span class="p">{</span>
-	<span class="n">code</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
-	<span class="n">message</span><span class="p">:</span> <span class="nb">String</span>
+  <span class="n">code</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+  <span class="n">message</span><span class="p">:</span> <span class="nb">String</span>
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
-	<span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span><span class="p">{</span>
-		<span class="n">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-		<span class="n">message</span><span class="p">:</span> <span class="s">"OK"</span><span class="nf">.to_string</span><span class="p">()</span>
-	<span class="p">};</span>
+  <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span><span class="p">{</span>
+    <span class="n">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="n">message</span><span class="p">:</span> <span class="s">"OK"</span><span class="nf">.to_string</span><span class="p">()</span>
+  <span class="p">};</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -335,9 +335,9 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 <p>Now let’s add a <code class="highlighter-rouge">Drop</code> <code class="highlighter-rouge">trait</code> to our object and see when <code class="highlighter-rouge">Drop</code> is invoked:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">impl</span> <span class="n">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
-	<span class="k">fn</span> <span class="k">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
-	<span class="p">}</span>
+  <span class="k">fn</span> <span class="k">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -345,21 +345,21 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 <p>If you try to run the complete program now, i.e.:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Response</span> <span class="p">{</span>
-	<span class="n">code</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
-	<span class="n">message</span><span class="p">:</span> <span class="nb">String</span>
+  <span class="n">code</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+  <span class="n">message</span><span class="p">:</span> <span class="nb">String</span>
 <span class="p">}</span>
 
 <span class="k">impl</span> <span class="n">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
-	<span class="k">fn</span> <span class="k">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
-	<span class="p">}</span>
+  <span class="k">fn</span> <span class="k">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
-	<span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span><span class="p">{</span>
-		<span class="n">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
-		<span class="n">message</span><span class="p">:</span> <span class="s">"OK"</span><span class="nf">.to_string</span><span class="p">()</span>
-	<span class="p">};</span>
+  <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span><span class="p">{</span>
+    <span class="n">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="n">message</span><span class="p">:</span> <span class="s">"OK"</span><span class="nf">.to_string</span><span class="p">()</span>
+  <span class="p">};</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -374,13 +374,13 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 If you’ve ever done any scientific computation in Python, chances are you’ve overloaded some of the arithmetic operations (<code class="highlighter-rouge">+</code>, <code class="highlighter-rouge">-</code>, <code class="highlighter-rouge">*</code>, <code class="highlighter-rouge">/</code>, <code class="highlighter-rouge">%</code>, etc). A vector class with <code class="highlighter-rouge">+</code> overloaded would look something like the following:</p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Vector</span><span class="p">:</span>
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
-	<span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otherVector</span><span class="p">):</span>
-		<span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">otherVector</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">+</span> <span class="n">otherVector</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
-	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="s">"Vector(</span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s)"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+  <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otherVector</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">otherVector</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">+</span> <span class="n">otherVector</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">"Vector(</span><span class="si">%</span><span class="s">s, </span><span class="si">%</span><span class="s">s)"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
 </code></pre>
 </div>
 
@@ -409,8 +409,8 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <p>Here’s our Rust <code class="highlighter-rouge">Vector</code> object:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Vector</span> <span class="p">{</span>
-	<span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
-	<span class="n">b</span><span class="p">:</span> <span class="nb">i32</span>
+  <span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+  <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -420,13 +420,13 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">ops</span><span class="p">::</span><span class="nb">Add</span><span class="p">;</span>
 
 <span class="k">impl</span> <span class="nb">Add</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
-	<span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">;</span>
-	<span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
-			<span class="n">a</span><span class="p">:</span> <span class="k">self</span><span class="py">.a</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.a</span><span class="p">,</span>
-			<span class="n">b</span><span class="p">:</span> <span class="k">self</span><span class="py">.b</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.b</span>
-		<span class="p">};</span>
-	<span class="p">}</span>
+  <span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">;</span>
+  <span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
+      <span class="n">a</span><span class="p">:</span> <span class="k">self</span><span class="py">.a</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.a</span><span class="p">,</span>
+      <span class="n">b</span><span class="p">:</span> <span class="k">self</span><span class="py">.b</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.b</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -443,9 +443,9 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
 <span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
-	<span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
-		<span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">)</span>
-	<span class="p">}</span>
+  <span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
+    <span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">)</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -465,34 +465,34 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <p>Your final program should look like the following:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Vector</span> <span class="p">{</span>
-	<span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
-	<span class="n">b</span><span class="p">:</span> <span class="nb">i32</span>
+  <span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+  <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span>
 <span class="p">}</span>
 
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">ops</span><span class="p">::</span><span class="nb">Add</span><span class="p">;</span>
 
 <span class="k">impl</span> <span class="nb">Add</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
-	<span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">;</span>
-	<span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
-			<span class="n">a</span><span class="p">:</span> <span class="k">self</span><span class="py">.a</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.a</span><span class="p">,</span>
-			<span class="n">b</span><span class="p">:</span> <span class="k">self</span><span class="py">.b</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.b</span>
-		<span class="p">};</span>
-	<span class="p">}</span>
+  <span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">;</span>
+  <span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
+      <span class="n">a</span><span class="p">:</span> <span class="k">self</span><span class="py">.a</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.a</span><span class="p">,</span>
+      <span class="n">b</span><span class="p">:</span> <span class="k">self</span><span class="py">.b</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.b</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
 <span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
-	<span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
-		<span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">)</span>
-	<span class="p">}</span>
+  <span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
+    <span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">)</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
-	<span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">};</span>
-	<span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">7</span><span class="p">};</span>
-	<span class="k">let</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">;</span>
-	<span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+  <span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">};</span>
+  <span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">7</span><span class="p">};</span>
+  <span class="k">let</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">;</span>
+  <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre>
 </div>
