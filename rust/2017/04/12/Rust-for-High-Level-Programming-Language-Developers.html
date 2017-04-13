@@ -404,7 +404,141 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 </code></pre>
 </div>
 
+<p>Hmm.. Let’s see how we could go about implementing this in Rust. First, we’d need to somehow find a way to add objects (i.e., overload the <code class="highlighter-rouge">+</code> operator). Second, we’d need to be able to give our object to <code class="highlighter-rouge">println</code> and see it print something like <code class="highlighter-rouge">Vector(#, #)</code>. Lucky for us, both of these features are available as <code class="highlighter-rouge">trait</code>s we can implement. Let’s chase them one at a time. We’ll start with the <code class="highlighter-rouge">Add</code> <code class="highlighter-rouge">trait</code>.</p>
+
+<p>Here’s our Rust <code class="highlighter-rouge">Vector</code> object:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Vector</span> <span class="p">{</span>
+	<span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+	<span class="n">b</span><span class="p">:</span> <span class="nb">i32</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>We, then, add the <code class="highlighter-rouge">+</code> operation overloaded to our <code class="highlighter-rouge">Vector</code> <code class="highlighter-rouge">struct</code> as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">ops</span><span class="p">::</span><span class="nb">Add</span><span class="p">;</span>
+
+<span class="k">impl</span> <span class="nb">Add</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
+	<span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">;</span>
+	<span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
+			<span class="n">a</span><span class="p">:</span> <span class="k">self</span><span class="py">.a</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.a</span><span class="p">,</span>
+			<span class="n">b</span><span class="p">:</span> <span class="k">self</span><span class="py">.b</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.b</span>
+		<span class="p">};</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>At this point, we can have the following in our <code class="highlighter-rouge">main</code> function:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">};</span>
+<span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">7</span><span class="p">};</span>
+<span class="k">let</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>But we can’t print quite yet. Let’s implement this:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
+<span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
+	<span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
+		<span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Now we can print <code class="highlighter-rouge">v3</code> as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>And get the following output:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="nf">Vector</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Your final program should look like the following:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Vector</span> <span class="p">{</span>
+	<span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span>
+	<span class="n">b</span><span class="p">:</span> <span class="nb">i32</span>
+<span class="p">}</span>
+
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">ops</span><span class="p">::</span><span class="nb">Add</span><span class="p">;</span>
+
+<span class="k">impl</span> <span class="nb">Add</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
+	<span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">;</span>
+	<span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
+			<span class="n">a</span><span class="p">:</span> <span class="k">self</span><span class="py">.a</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.a</span><span class="p">,</span>
+			<span class="n">b</span><span class="p">:</span> <span class="k">self</span><span class="py">.b</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.b</span>
+		<span class="p">};</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
+<span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
+	<span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
+		<span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">};</span>
+	<span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">7</span><span class="p">};</span>
+	<span class="k">let</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">;</span>
+	<span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Oh, and you know how I said <code class="highlighter-rouge">"{}"</code> is used to communicate output to the user while <code class="highlighter-rouge">"{:?}"</code> is usually used for debugging purposes? Well, it turns out you can overload the <code class="highlighter-rouge">Display</code> trail (available under <code class="highlighter-rouge">std::fmt</code> as well) to print your object using <code class="highlighter-rouge"><span class="p">{}</span></code> instead of <code class="highlighter-rouge">"{:?}"</code>.</p>
+
+<p>So, simply replace:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
+</code></pre>
+</div>
+
+<p>With:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Display</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
+</code></pre>
+</div>
+
+<p>And:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
+</code></pre>
+</div>
+
+<p>With:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">impl</span> <span class="n">Display</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
+</code></pre>
+</div>
+
+<p>And:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>With:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>And voila, you’re all set.</p>
+
 <h3 id="statements-vs-expressions">Statements vs. Expressions?</h3>
+<p>To be continued</p>
 
   </div>
 
