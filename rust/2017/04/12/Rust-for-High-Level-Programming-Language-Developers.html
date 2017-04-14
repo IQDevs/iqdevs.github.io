@@ -324,7 +324,7 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span><span class="p">{</span>
+  <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span> <span class="p">{</span>
     <span class="n">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
     <span class="n">message</span><span class="p">:</span> <span class="s">"OK"</span><span class="nf">.to_string</span><span class="p">()</span>
   <span class="p">};</span>
@@ -335,7 +335,7 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 <p>Now let’s add a <code class="highlighter-rouge">Drop</code> <code class="highlighter-rouge">trait</code> to our object and see when <code class="highlighter-rouge">Drop</code> is invoked:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">impl</span> <span class="n">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
-  <span class="k">fn</span> <span class="k">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">fn</span> <span class="k">drop</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -350,13 +350,13 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 <span class="p">}</span>
 
 <span class="k">impl</span> <span class="n">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
-  <span class="k">fn</span> <span class="k">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">fn</span> <span class="k">drop</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span><span class="p">{</span>
+  <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Response</span> <span class="p">{</span>
     <span class="n">code</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
     <span class="n">message</span><span class="p">:</span> <span class="s">"OK"</span><span class="nf">.to_string</span><span class="p">()</span>
   <span class="p">};</span>
@@ -415,13 +415,26 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 </code></pre>
 </div>
 
+<p>Then we add the <code class="highlighter-rouge">constructor</code>:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">impl</span> <span class="n">Vector</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">new</span> <span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
+            <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span>
+            <span class="n">b</span><span class="p">:</span> <span class="n">b</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
 <p>We, then, add the <code class="highlighter-rouge">+</code> operation overloaded to our <code class="highlighter-rouge">Vector</code> <code class="highlighter-rouge">struct</code> as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">ops</span><span class="p">::</span><span class="nb">Add</span><span class="p">;</span>
 
 <span class="k">impl</span> <span class="nb">Add</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
   <span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">;</span>
-  <span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
+  <span class="k">fn</span> <span class="nf">add</span> <span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
       <span class="n">a</span><span class="p">:</span> <span class="k">self</span><span class="py">.a</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.a</span><span class="p">,</span>
       <span class="n">b</span><span class="p">:</span> <span class="k">self</span><span class="py">.b</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.b</span>
@@ -433,14 +446,8 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 
 <p>At this point, we can have the following in our <code class="highlighter-rouge">main</code> function:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">Vector</span> <span class="p">{</span>
-  <span class="n">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="n">b</span><span class="p">:</span> <span class="mi">2</span>
-<span class="p">};</span>
-<span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">Vector</span> <span class="p">{</span>
-  <span class="n">a</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="n">b</span><span class="p">:</span> <span class="mi">7</span>
-<span class="p">};</span>
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="nn">Vector</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="nn">Vector</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
 <span class="k">let</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">;</span>
 </code></pre>
 </div>
@@ -450,7 +457,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
 <span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
   <span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
-    <span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
@@ -475,11 +482,19 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
   <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span>
 <span class="p">}</span>
 
-<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">ops</span><span class="p">::</span><span class="nb">Add</span><span class="p">;</span>
+<span class="k">impl</span> <span class="n">Vector</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">new</span> <span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
+            <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span>
+            <span class="n">b</span><span class="p">:</span> <span class="n">b</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">ops</span><span class="p">::</span><span class="nb">Add</span><span class="p">;</span>
 <span class="k">impl</span> <span class="nb">Add</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
   <span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">;</span>
-  <span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
+  <span class="k">fn</span> <span class="nf">add</span> <span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">:</span> <span class="n">Vector</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Vector</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">Vector</span> <span class="p">{</span>
       <span class="n">a</span><span class="p">:</span> <span class="k">self</span><span class="py">.a</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.a</span><span class="p">,</span>
       <span class="n">b</span><span class="p">:</span> <span class="k">self</span><span class="py">.b</span> <span class="o">+</span> <span class="n">other_vector</span><span class="py">.b</span>
@@ -490,19 +505,15 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
 <span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
   <span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
-    <span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">Vector</span> <span class="p">{</span>
-    <span class="n">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">2</span>
-  <span class="p">};</span>
-  <span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">Vector</span> <span class="p">{</span>
-    <span class="n">a</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="mi">7</span>
-  <span class="p">};</span>
-  <span class="k">let</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">;</span>
-  <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="nn">Vector</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+   <span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="nn">Vector</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+   <span class="k">let</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span><span class="p">;</span>
+   <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -571,20 +582,155 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <p>From this point on, I will be using expressions whenever possible.</p>
 
 <h3 id="our-journey-into-the-specifics">Our Journey into the Specifics</h3>
+<p>We’re now going to dive into the basics of Rust.</p>
+
+<h3 id="variableobject-decleration">Variable/Object Decleration</h3>
+<p>To be added</p>
+
+<h4 id="mutibility">Mutibility</h4>
+<p>To be added</p>
+
+<h3 id="type-aliases">Type Aliases</h3>
+<p>Rust has a keyword called <code class="highlighter-rouge">type</code> used to declare aliases of other types.
+Say you want to use <code class="highlighter-rouge">i32</code> across a whole <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">module</code> or even across your whole application, and for clarity’s sake you’d rather use <code class="highlighter-rouge">Int</code> insteat of <code class="highlighter-rouge">i32</code> to reference 32-bit integers. You could define your <code class="highlighter-rouge">Int</code> type as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="n">Int</span> <span class="o">=</span> <span class="nb">i32</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>And now to use your new type, you could define your variables like this:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">var1</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="k">let</span> <span class="n">var2</span><span class="p">:</span> <span class="n">Int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>And so on.</p>
+
+<h3 id="functions">Functions</h3>
+<p>Function decleration are pretty intuative and starightforward. Say you want to write a <code class="highlighter-rouge">greeting</code> function that prints out the test <code class="highlighter-rouge">"hello there!"</code> over <code class="highlighter-rouge">stdio</code>. You’d write your function as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">greeting</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"hello there!"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>What if you want to pass the string to the function instead of hard-coding a specefic value? Then, you’d write it like this:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">greeting</span> <span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// TODO: Implement</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Multiple function arguments? Sure! Here’s how:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">greeting</span> <span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// TODO: Implement</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Functions with return values? Here’s how:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">add</span> <span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
+ <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>i32 is a 32-bit integer type in Rust. You can read more about Rust’s support for numeric types <a href="https://doc.rust-lang.org/book/primitive-types.html#numeric-types">here</a></p>
+</blockquote>
+
+<p>Remember that we’re using an <code class="highlighter-rouge">expression</code> in the code snippet above. If you wanted to replace it with a statement <code class="highlighter-rouge">return a + b;</code> will do.</p>
+
+<h3 id="closures">Closures</h3>
+<p>To be added</p>
+
+<h3 id="function-pointers">Function Pointers</h3>
+<p>To be added</p>
+
+<h3 id="passing-functionsclosures-to-functionsclosures">Passing Functions/Closures to Functions/Closures</h3>
 <p>To be added</p>
 
 <h3 id="conditionals">Conditionals</h3>
 <p>To be added</p>
 
-<h3 id="pseudo-switch-case-statements">pseudo-Switch-Case Statements</h3>
+<h3 id="pattern-matching-aka-pseudo-switch-case-statements">Pattern Matching (aka pseudo-Switch-Case Statements)</h3>
 <p>To be added</p>
 
-<h4 id="loops">Loops</h4>
+<h3 id="loops">Loops</h3>
+<p>Loops are a very interesting subject in Rust. The langauge currently has three approaches to any kind of iterative activity. These three approaches use three separate keywords: <code class="highlighter-rouge">for</code>, <code class="highlighter-rouge">while</code>, and <code class="highlighter-rouge">loop</code>.</p>
+
+<p>The <code class="highlighter-rouge">for</code> loop is used when you’ve already decided the number of times you’d like to iterate. For example, the following will loop 9 times and print the values <code class="highlighter-rouge">0</code> through <code class="highlighter-rouge">9</code>:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="mi">0</span><span class="err">..</span><span class="mi">10</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>This interprets to the following Python code:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">d"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You can also iterate over a list using a <code class="highlighter-rouge">for</code> loop as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="o">&amp;</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>This is equivelent to the following python code:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">d"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">for</code> loops can also preform some sophisticated tasks. For instance, if you have the string <code class="highlighter-rouge">"hello\nworld\nmy\nname\nis\nFadi"</code> and you want it up split it up using the linefeeed (<code class="highlighter-rouge">\n</code>) delimiter, you can use the <code class="highlighter-rouge">lines()</code> function. This function returns an enumerator containing both the substring and the line number. So something like the following:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">my_str_tokens</span> <span class="o">=</span> <span class="s">"hello</span><span class="se">\n</span><span class="s">world</span><span class="se">\n</span><span class="s">my</span><span class="se">\n</span><span class="s">name</span><span class="se">\n</span><span class="s">is</span><span class="se">\n</span><span class="s">Fadi"</span><span class="nf">.lines</span><span class="p">();</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">line_no</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span> <span class="n">in</span> <span class="n">my_str_tokens</span><span class="nf">.enumerate</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}: {}"</span><span class="p">,</span> <span class="n">line_no</span><span class="p">,</span> <span class="n">term</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Results in this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0: hello
+1: world
+2: my
+3: name
+4: is
+5: Fadi
+</code></pre>
+</div>
+
+<p>The above example is equivilent to the following python code:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">myStrTokens</span> <span class="o">=</span> <span class="s">"hello</span><span class="se">\n</span><span class="s">world</span><span class="se">\n</span><span class="s">my</span><span class="se">\n</span><span class="s">name</span><span class="se">\n</span><span class="s">is</span><span class="se">\n</span><span class="s">Fadi"</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">myStrTokens</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">d: </span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">myStrTokens</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">while</code> loop is used when you’re not sure how many times you need to loop.
+TO BE ADDED
+TO BE ADDED
+TO BE ADDED</p>
+
+<h3 id="object-wrappingunwrapping">Object Wrapping/Unwrapping</h3>
 <p>To be added</p>
 
-<h4 id="macros">Macros!</h4>
-
-<h4 id="object-wrappingunwrapping">Object Wrapping/Unwrapping</h4>
+<h3 id="macros">Macros!</h3>
 <p>To be added</p>
 
 <h4 id="generics">Generics</h4>
