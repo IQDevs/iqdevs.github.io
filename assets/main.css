@@ -26,7 +26,11 @@ body {
   -moz-font-feature-settings: "kern" 1;
   -o-font-feature-settings: "kern" 1;
   font-feature-settings: "kern" 1;
+<<<<<<< HEAD
   font-kerning: normal;
+=======
+  font-kerning: normal; 
+>>>>>>> 61702d6161bb07c6546480ca5e6aaee3d314616c
   font-family: 'Open Sans', sans-serif;
   line-height: 1.6em;
   }
