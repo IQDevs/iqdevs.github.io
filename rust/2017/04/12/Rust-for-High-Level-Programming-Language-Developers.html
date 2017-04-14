@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Rust for High-Level Programming Language Developers</title>
-  <meta name="description" content="So you’ve been doing high-level programming all your life and you’ve been eying Rust for some time and you’re not sure where to start –or how to start. Well,...">
+  <meta name="description" content="So you’ve been doing high-level programming all your life, and you’ve been eyeing Rust for some time now, and you’re not sure where to start (or how to start...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="/rust/2017/04/12/Rust-for-High-Level-Programming-Language-Developers.html">
@@ -64,7 +64,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>So you’ve been doing high-level programming all your life and you’ve been eying Rust for some time and you’re not sure where to start –or how to start. Well, this walk-through-like post will guide you through some of the common tasks you preform in high-level languages such as JavaScript, Python, or even C#. I’ll try to stay away from C++ for reasons I won’t get to discuss here. Just know that this is a C++-free post.</p>
+    <p>So you’ve been doing high-level programming all your life, and you’ve been eyeing Rust for some time now, and you’re not sure where to start (or how to start). Well, this walk-through-like post will guide you through some of the common tasks you preform in high-level languages like JavaScript, Python, or even C#. I’ll try to stay away from C++ for reasons I won’t get to discuss here. Just know that this is a C++-free post.</p>
 
 <h3 id="so-json-in-rust">So, JSON in Rust?</h3>
 <h4 id="the-short-answer-is-no-built-in-support-for-json-but">The short answer is ‘no built-in support for JSON’, but…</h4>
@@ -115,7 +115,7 @@
 <h3 id="nested-pseudo-json-objects">Nested pseudo-JSON Objects?</h3>
 <h4 id="sure-forward-we-go">Sure, forward we go</h4>
 
-<p>Let’s design our <code class="highlighter-rouge">Person</code> JSON object in a more modern fashion. Instead of having a field to contain the <code class="highlighter-rouge">full_name</code>, we can turn <code class="highlighter-rouge">full_name</code> into a sub-<code class="highlighter-rouge">struct</code> that has two fields (<code class="highlighter-rouge">first_name</code> and <code class="highlighter-rouge">last_name</code>). Instead of storing <code class="highlighter-rouge">date_of_birth</code> as a string that we may, at some point, need to parse down to extract the day, month, and the year, we can store this information in a <code class="highlighter-rouge">struct</code> with 3 separate fields. And for our <code class="highlighter-rouge">gender</code> field, we can reference an <code class="highlighter-rouge">enum</code> value.</p>
+<p>Let’s design our <code class="highlighter-rouge">Person</code> JSON object in a more modern fashion. Instead of having a field containing the <code class="highlighter-rouge">full_name</code>, we can turn <code class="highlighter-rouge">full_name</code> into a sub-<code class="highlighter-rouge">struct</code> that has two fields (<code class="highlighter-rouge">first_name</code> and <code class="highlighter-rouge">last_name</code>). Instead of storing <code class="highlighter-rouge">date_of_birth</code> as a string that we may, at some point, need to parse down to extract the day, month, and the year from, we can store this information in a <code class="highlighter-rouge">struct</code> with three separate fields. And for our <code class="highlighter-rouge">gender</code> field, we can reference an <code class="highlighter-rouge">enum</code> value.</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">FullName</span> <span class="p">{</span>
     <span class="n">first_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
@@ -157,7 +157,7 @@
 </code></pre>
 </div>
 
-<p>Our pseudo-JSON object is now looking much cleaner and even user to utilize. Speaking of utilization, how do we reference our fields? Well, you’ve probably guessed it already. Yes, it’s the dot operator. If you’re interested in, say, printing the full name of your person object. Here’s how you’d do that:</p>
+<p>Our pseudo-JSON object is now looking much cleaner and even easier to utilize. Speaking of utilization, how do we reference our fields? Well, you’ve probably guessed it already. Yes, it’s the dot operator. If you’re interested in, say, printing the full name of your person object. Here’s how you’d do that:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="c">// The following line of code goes inside your main function right after</span>
 <span class="c">// your person object has been instantiated, or really anywhere after the</span>
@@ -167,7 +167,7 @@
 </code></pre>
 </div>
 
-<p>and you’re probably seeing a problem here already. It would absolutely be tedious to use this approach to print out the full name of a person especially if you were to do this from multiple places of your program let alone the fact the way the print is done looks really primitive. There must be a different (perhaps, even, better) way you say. You bet there is. In fact, there not only is but are many ways you can go about handling this issue, which one of which would be the use of <code class="highlighter-rouge">traits</code>. A trait is a programmatical way of telling the compiler how to carry out specific functionalities during the build process. We’re going to use one her learn how to write our own further below. The trait we’re about to use in a moment is called the <code class="highlighter-rouge">Debug</code> trait which basically sets out a specific printing layout for your defined <code class="highlighter-rouge">enum</code>, <code class="highlighter-rouge">struct</code> or what have you.</p>
+<p>and you’re probably seeing a problem here already. It would absolutely be tedious to use this approach to print out the full name of a person especially if you were to do this from multiple places in your program let alone the fact the way the print is done looks really primitive. There must be a different (perhaps, even, better) way you say. You bet there is. In fact, there not only is but are many ways you can go about handling this issue, which one of which would be the use of <code class="highlighter-rouge">traits</code>. A trait is a programmatical way of telling the compiler how to carry out specific functionalities during the build process. We’re going to use one here to learn how to write our own further below. The trait we’re about to use in a moment is called the <code class="highlighter-rouge">Debug</code> trait which basically sets out a specific printing layout for your defined <code class="highlighter-rouge">enum</code>, <code class="highlighter-rouge">struct</code> or what have you.</p>
 
 <p>If you simply add <code class="highlighter-rouge">#[derive(Debug)]</code> right on top of your <code class="highlighter-rouge">FullName</code> <code class="highlighter-rouge">struct</code> definition: i.e.:</p>
 
@@ -199,8 +199,8 @@
 
 <p>Cool, isn’t it? Well, it gets even cooler in a bit.</p>
 
-<p>But hang on a second, why did I have to replace <code class="highlighter-rouge">"{}"</code> with <code class="highlighter-rouge">"{:?}"</code> in my <code class="highlighter-rouge">println</code> statement? Or an even more proper question to ask is: what is the difference between two two?
-Well, so Rust has two ways of printing out stuff (or maybe more than two that I still haven’t discovered yet!): a (1) <code class="highlighter-rouge">Display</code> and a <code class="highlighter-rouge">Debug</code>. <code class="highlighter-rouge">Display</code> is what you’d probably want to use to allow the program to communicate some meaningful output to your user, and <code class="highlighter-rouge">Debug</code> is what you could use during the development process. Each one of these two is a separate <code class="highlighter-rouge">trait</code> that can co-exist without overlapping each other. By that I mean, you can allow your object to print something with <code class="highlighter-rouge">"{}"</code> and something entirely different with <code class="highlighter-rouge">"{:?}"</code>, but that’s to be covered when we get down to writing our own <code class="highlighter-rouge">trait</code>.</p>
+<p>But hang on a second, why did I have to replace <code class="highlighter-rouge">"{}"</code> with <code class="highlighter-rouge">"{:?}"</code> in my <code class="highlighter-rouge">println</code> statement? Or an even more proper question to ask is: what is the difference between the two?
+Well, so Rust has two ways of printing out stuff (or maybe more than two that I still haven’t discovered yet!): a (1) <code class="highlighter-rouge">Display</code> and a <code class="highlighter-rouge">Debug</code>. <code class="highlighter-rouge">Display</code> is what you’d probably want to use to allow the program to communicate some meaningful output to your user, and <code class="highlighter-rouge">Debug</code> is what you could use during the development process. Each one of these two is a separate <code class="highlighter-rouge">trait</code> that can co-exist without overlapping each other. By that I mean, you can allow your object to print something with <code class="highlighter-rouge">"{}"</code> and something entirely different with <code class="highlighter-rouge">"{:?}"</code>, but that’s to be covered when we get down to writing our own <code class="highlighter-rouge">trait</code>s.</p>
 
 <p>So is it possible to use <code class="highlighter-rouge">#[derive(Debug)]</code> to print out nested objects? Yes, it is, and following is how. Simply add <code class="highlighter-rouge">#[derive(Debug)]</code> right on top of your main object and every object that’s part of it and then print the object as a whole by passing it to a  <code class="highlighter-rouge">println</code> function using the <code class="highlighter-rouge">"{:?}"</code> notation, i.e.:</p>
 
@@ -258,7 +258,7 @@ Well, so Rust has two ways of printing out stuff (or maybe more than two that I 
 <p>Our output is looking pretty verbose already, and you may not like that. Is there a way to manipulate this output in terms of re-arranging its layout or limiting the amount of information being displayed? You bet there is, and it’s through writing our own <code class="highlighter-rouge">Debug</code> <code class="highlighter-rouge">trait</code> instead of using a <code class="highlighter-rouge">derive</code>d one. I think it’s better to introduce one more thing right before we get down to business with <code class="highlighter-rouge">trait</code>s, and that is Rust’s <code class="highlighter-rouge">OOP</code>-like paradigm. I call it <code class="highlighter-rouge">OOP</code>-like because Rust doesn’t consider itself an Object-Oriented Programming Language, but sure that in no way means we can’t do <code class="highlighter-rouge">OOP</code> in Rust. It just means <code class="highlighter-rouge">OOP</code> is done differently. To be more precise, <code class="highlighter-rouge">OOP</code> in Rust is done in a way Rust wouldn’t consider <code class="highlighter-rouge">OOP</code>.</p>
 
 <p>Up until now, we’ve only been working with <code class="highlighter-rouge">struct</code>s and <code class="highlighter-rouge">enum</code>s. You’ve probably already noticed that we used them to store data, but no logic (constructors, function, destructors, etc) was added to them. That’s because that’s not where the functions go. before I further explain this, let’s look at a tiny Python class and discuss how its alternative can be written in Rust.
-Say you have a <code class="highlighter-rouge">Person</code> <code class="highlighter-rouge">class</code> with a constructor that takes a first_name and a last_name and provides two separate getter functions that give you these two string values whenever you need them. You’d write your class something as follows:</p>
+Say you have a <code class="highlighter-rouge">Person</code> <code class="highlighter-rouge">class</code> with a constructor that takes a <code class="highlighter-rouge">first_name</code> and a <code class="highlighter-rouge">last_name</code> and provides two separate getter functions that give you these two string values whenever you need them. You’d write your class something as follows:</p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">):</span>
@@ -271,7 +271,7 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 </code></pre>
 </div>
 
-<p>Notice how we have our fields and functions mixed together inside a single class. Rust separates the two. You’d have your fields defined inside a <code class="highlighter-rouge">struct</code> and an <code class="highlighter-rouge">impl</code> containing all relevant functions. So, when interpreted, our JavaScript class would look in Rust as follows:</p>
+<p>Notice how we have our fields and functions mixed together inside a single class. Rust separates the two. You’d have your fields defined inside a <code class="highlighter-rouge">struct</code> and an <code class="highlighter-rouge">impl</code> containing all relevant functions. So, when interpreted, our Python class would look in Rust as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">Person</span> <span class="p">{</span>
     <span class="n">first_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
@@ -303,7 +303,7 @@ Say you have a <code class="highlighter-rouge">Person</code> <code class="highli
 </code></pre>
 </div>
 
-<p>You’ve probably already looked at the code and thought to yourself “aha, <code class="highlighter-rouge">Person::new()</code> must be the constructor” to which you’d definitely be right. however, one thing you need to meek in mind is that Rust has no concept of a <code class="highlighter-rouge">constructor</code> per se. Instead, we define a static function that we use to instantiate our object. This also means <code class="highlighter-rouge">new</code> is not a keyword nor is it the required name of your entry point to your object; it can really be anything but <code class="highlighter-rouge">new</code> is the convention.</p>
+<p>You’ve probably already looked at the code and thought to yourself “aha, <code class="highlighter-rouge">Person::new()</code> must be the constructor” to which you’d definitely be right. however, one thing you need to keep in mind is that Rust has no concept of a <code class="highlighter-rouge">constructor</code> per se. Instead, we define a static function that we use to instantiate our object. This also means <code class="highlighter-rouge">new</code> is not a keyword nor is it the required name of your entry point to your object; it can really be anything but <code class="highlighter-rouge">new</code> is the convention.</p>
 
 <blockquote>
   <p>In short, your class constructor is a static function located inside an <code class="highlighter-rouge">impl</code> and turns an object of the type of the class you’re instantiating (Person in our case).</p>
