@@ -66,7 +66,7 @@
   <div class="post-content" itemprop="articleBody">
     <p>I was introduced to TypeScript when it first came with angular 2. However, I tried to avoid it as much as possible. This was actually the main reason of why I left angular in favor of Vue. “A new quirky front-end language is the last thing I would need,” I thought.</p>
 
-<p>That was true until I was deep into my <a href="https://github.com/finnlp/">NLP</a> project in late 2016. The code base was relatively large, so many modules and functions. A friend of mine, recommended TypeScript, and I tried it. I’ve been working with it for the last 4 months, and here’s my thoughts.</p>
+<p>That was true until I was deep into my <a href="https://github.com/finnlp/">NLP</a> project in late 2016. The code base was relatively large, so many modules and functions. A friend of mine, recommended TypeScript, and I tried it. I’ve been working with it for the last 4 months, and here are my thoughts.</p>
 
 <h2 id="type-checking-is-more-important-than-what-you-think">Type checking is more important than what you think</h2>
 
@@ -97,6 +97,8 @@
 
 <p>As for time and energy, developers usually spend more time reading code than writing it. TypeScript is clean and well-designed (a Microsoft product by Anders Hejlsberg the author of C#, Turbo Pascal and Delphi). So while you’re going to spend a little bit extra time writing code, but with better tooling you’ll be reading less. Especially when working in a team.</p>
 
+<p>As you import the module, you’ll have inline documentation, code completion and you can jump to definition. Those are limited, or sometimes, not even possible with a dynamic language such as JavaScript.</p>
+
 <h3 id="reduced-bugs-and-compile-time-errors">Reduced bugs and compile time errors</h3>
 
 <p>Take the previous example for instance:</p>
@@ -117,7 +119,7 @@
 
 <p>And I can’t emphasize enough how true this statement is.</p>
 
-<p>You might argue that “no one would pass a string to a function called <code class="highlighter-rouge">add</code>, that’s too obvious”. I agree, however, imagine for a second a larger code base, many functions, classes, abstractions, on multiple modules. Things can get out of hands in JavaScript pretty quickly.</p>
+<p>You might argue that “no one would pass a string to a function called <code class="highlighter-rouge">add</code>, that’s too obvious”. I agree, however, think of a larger code base, many functions, classes, abstractions, on multiple modules. Things can get out of hands in JavaScript pretty quickly.</p>
 
 <p>Have a look at this code for instance:</p>
 
@@ -126,23 +128,18 @@
 	<span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^author: </span><span class="se">(</span><span class="sr">.*</span><span class="se">)</span><span class="sr">$/gmi</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">getAuthorNames</span><span class="p">(</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nx">getAuthorNames</span><span class="p">(</span><span class="nx">lines</span><span class="p">)</span> <span class="p">{</span>
 	<span class="k">return</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">line</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">line</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
 <span class="p">}</span>
 
-<span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="err">`</span>
-<span class="nx">Paper</span> <span class="nx">title</span><span class="err">:</span> <span class="nx">TypeScript</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">Win</span>
-<span class="nl">Author</span><span class="p">:</span> <span class="nx">Alex</span> <span class="nx">Corvi</span>
-<span class="nl">Author</span><span class="p">:</span> <span class="nx">John</span> <span class="nx">Doe</span>
-<span class="nl">Author</span><span class="p">:</span> <span class="nx">Jane</span> <span class="nx">Doe</span>
-<span class="err">`</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="s2">"Paper title: TypeScript for the Win\nAuthor: Alex Corvi\nAuthor: John Doe\nAuthor: Jane Doe\n"</span><span class="p">;</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getAuthorNames</span><span class="p">(</span><span class="nx">getAuthorLines</span><span class="p">(</span><span class="nx">text</span><span class="p">)));</span>
 
 </code></pre>
 </div>
 
-<p>What do you expect the result? You guessed it, it’s:</p>
+<p>What do you expect the result to be? You guessed it, it’s:</p>
 
 <div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="p">[</span>
 	<span class="s2">"Alex Corvi"</span><span class="p">,</span>
@@ -351,12 +348,12 @@ Microsoft Developer Network</p>
 </ul>
 
 <blockquote>
-  <p>You won’t have to use Babel, buble anymore. TypeScript bridges the gap between the recent versions of JavaScript and what’s available on every modern browser, by compiling your code down to even ES3. However, you still have the option to compile to any ES version you like.</p>
+  <p>You won’t have to use Babel/buble anymore. TypeScript bridges the gap between the recent versions of JavaScript and what’s available on every modern browser, by compiling your code down to even ES3. However, you still have the option to compile to any ES version you like.</p>
 </blockquote>
 
 <h2 id="type-inference">Type inference</h2>
 
-<p>One of the killer features of TypeScript, is a really good type inference. Meaning that sometimes you don’t even have to declare the type of the variable.</p>
+<p>One of the killer features of TypeScript, is a really good type inference. Meaning that sometimes you won’t even have to declare some of the types.</p>
 
 <p>For example:</p>
 
@@ -405,7 +402,7 @@ Microsoft Developer Network</p>
 
 <h2 id="node-and-typescript">Node and TypeScript</h2>
 
-<p>Node.JS support was a priority when developing TypeScript. Your TypeScript code can be distributed as a node module, consumed in JavaScript just like any JavaScript module, and consumed in TypeScript with type definitions included, all while writing only once.</p>
+<p>Node.JS support was a priority when developing TypeScript. Your TypeScript code can be distributed as a node module, consumed in JavaScript just like any JavaScript module, and consumed in TypeScript with type declarations included, all while writing only once.</p>
 
 <h3 id="authoring-and-distributing-typescript-node-modules">Authoring and distributing TypeScript Node Modules</h3>
 
@@ -468,7 +465,7 @@ Microsoft Developer Network</p>
 
 <h2 id="closing-statement">Closing statement</h2>
 
-<p>I’ve been developing with JavaScript for at least 5 years. However, After trying TypeScript for mere 4 months, working with JavaScript feels like walking on thin ice, you may make it for 10 meters or so, but you shouldn’t go any longer.</p>
+<p>I’ve been developing with JavaScript for at least 5 years. However, After trying TypeScript for merly 4 months, working with JavaScript feels like walking on thin ice, you may make it for 10 meters or so, but you shouldn’t go any longer.</p>
 
 <p>I can now understand why there are so many well-educated developers disliking the dynamic nature of JavaScript.</p>
 

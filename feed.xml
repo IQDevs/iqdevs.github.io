@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-04-15T02:10:17-05:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things just can't be contained in a box</subtitle><entry><title type="html">My Thoughts on TypeScript</title><link href="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html" rel="alternate" type="text/html" title="My Thoughts on TypeScript" /><published>2017-04-14T00:00:00-05:00</published><updated>2017-04-14T00:00:00-05:00</updated><id>/typescript/2017/04/14/My%20Thoughts%20on%20TypeScript</id><content type="html" xml:base="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html">&lt;p&gt;I was introduced to TypeScript when it first came with angular 2. However, I tried to avoid it as much as possible. This was actually the main reason of why I left angular in favor of Vue. “A new quirky front-end language is the last thing I would need,” I thought.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-04-15T11:46:46-05:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things just can't be contained in a box</subtitle><entry><title type="html">My Thoughts on TypeScript</title><link href="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html" rel="alternate" type="text/html" title="My Thoughts on TypeScript" /><published>2017-04-14T00:00:00-05:00</published><updated>2017-04-14T00:00:00-05:00</updated><id>/typescript/2017/04/14/My%20Thoughts%20on%20TypeScript</id><content type="html" xml:base="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html">&lt;p&gt;I was introduced to TypeScript when it first came with angular 2. However, I tried to avoid it as much as possible. This was actually the main reason of why I left angular in favor of Vue. “A new quirky front-end language is the last thing I would need,” I thought.&lt;/p&gt;
 
-&lt;p&gt;That was true until I was deep into my &lt;a href=&quot;https://github.com/finnlp/&quot;&gt;NLP&lt;/a&gt; project in late 2016. The code base was relatively large, so many modules and functions. A friend of mine, recommended TypeScript, and I tried it. I’ve been working with it for the last 4 months, and here’s my thoughts.&lt;/p&gt;
+&lt;p&gt;That was true until I was deep into my &lt;a href=&quot;https://github.com/finnlp/&quot;&gt;NLP&lt;/a&gt; project in late 2016. The code base was relatively large, so many modules and functions. A friend of mine, recommended TypeScript, and I tried it. I’ve been working with it for the last 4 months, and here are my thoughts.&lt;/p&gt;
 
 &lt;h2 id=&quot;type-checking-is-more-important-than-what-you-think&quot;&gt;Type checking is more important than what you think&lt;/h2&gt;
 
@@ -31,6 +31,8 @@
 
 &lt;p&gt;As for time and energy, developers usually spend more time reading code than writing it. TypeScript is clean and well-designed (a Microsoft product by Anders Hejlsberg the author of C#, Turbo Pascal and Delphi). So while you’re going to spend a little bit extra time writing code, but with better tooling you’ll be reading less. Especially when working in a team.&lt;/p&gt;
 
+&lt;p&gt;As you import the module, you’ll have inline documentation, code completion and you can jump to definition. Those are limited, or sometimes, not even possible with a dynamic language such as JavaScript.&lt;/p&gt;
+
 &lt;h3 id=&quot;reduced-bugs-and-compile-time-errors&quot;&gt;Reduced bugs and compile time errors&lt;/h3&gt;
 
 &lt;p&gt;Take the previous example for instance:&lt;/p&gt;
@@ -51,7 +53,7 @@
 
 &lt;p&gt;And I can’t emphasize enough how true this statement is.&lt;/p&gt;
 
-&lt;p&gt;You might argue that “no one would pass a string to a function called &lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;, that’s too obvious”. I agree, however, imagine for a second a larger code base, many functions, classes, abstractions, on multiple modules. Things can get out of hands in JavaScript pretty quickly.&lt;/p&gt;
+&lt;p&gt;You might argue that “no one would pass a string to a function called &lt;code class=&quot;highlighter-rouge&quot;&gt;add&lt;/code&gt;, that’s too obvious”. I agree, however, think of a larger code base, many functions, classes, abstractions, on multiple modules. Things can get out of hands in JavaScript pretty quickly.&lt;/p&gt;
 
 &lt;p&gt;Have a look at this code for instance:&lt;/p&gt;
 
@@ -60,23 +62,18 @@
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/^author: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;$/gmi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getAuthorNames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getAuthorNames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Paper&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TypeScript&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Win&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Alex&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Corvi&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;John&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Doe&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Jane&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Doe&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Paper title: TypeScript for the Win\nAuthor: Alex Corvi\nAuthor: John Doe\nAuthor: Jane Doe\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAuthorNames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAuthorLines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)));&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;What do you expect the result? You guessed it, it’s:&lt;/p&gt;
+&lt;p&gt;What do you expect the result to be? You guessed it, it’s:&lt;/p&gt;
 
 &lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
 	&lt;span class=&quot;s2&quot;&gt;&quot;Alex Corvi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -285,12 +282,12 @@ Microsoft Developer Network&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;You won’t have to use Babel, buble anymore. TypeScript bridges the gap between the recent versions of JavaScript and what’s available on every modern browser, by compiling your code down to even ES3. However, you still have the option to compile to any ES version you like.&lt;/p&gt;
+  &lt;p&gt;You won’t have to use Babel/buble anymore. TypeScript bridges the gap between the recent versions of JavaScript and what’s available on every modern browser, by compiling your code down to even ES3. However, you still have the option to compile to any ES version you like.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;type-inference&quot;&gt;Type inference&lt;/h2&gt;
 
-&lt;p&gt;One of the killer features of TypeScript, is a really good type inference. Meaning that sometimes you don’t even have to declare the type of the variable.&lt;/p&gt;
+&lt;p&gt;One of the killer features of TypeScript, is a really good type inference. Meaning that sometimes you won’t even have to declare some of the types.&lt;/p&gt;
 
 &lt;p&gt;For example:&lt;/p&gt;
 
@@ -339,7 +336,7 @@ Microsoft Developer Network&lt;/p&gt;
 
 &lt;h2 id=&quot;node-and-typescript&quot;&gt;Node and TypeScript&lt;/h2&gt;
 
-&lt;p&gt;Node.JS support was a priority when developing TypeScript. Your TypeScript code can be distributed as a node module, consumed in JavaScript just like any JavaScript module, and consumed in TypeScript with type definitions included, all while writing only once.&lt;/p&gt;
+&lt;p&gt;Node.JS support was a priority when developing TypeScript. Your TypeScript code can be distributed as a node module, consumed in JavaScript just like any JavaScript module, and consumed in TypeScript with type declarations included, all while writing only once.&lt;/p&gt;
 
 &lt;h3 id=&quot;authoring-and-distributing-typescript-node-modules&quot;&gt;Authoring and distributing TypeScript Node Modules&lt;/h3&gt;
 
@@ -402,7 +399,7 @@ Microsoft Developer Network&lt;/p&gt;
 
 &lt;h2 id=&quot;closing-statement&quot;&gt;Closing statement&lt;/h2&gt;
 
-&lt;p&gt;I’ve been developing with JavaScript for at least 5 years. However, After trying TypeScript for mere 4 months, working with JavaScript feels like walking on thin ice, you may make it for 10 meters or so, but you shouldn’t go any longer.&lt;/p&gt;
+&lt;p&gt;I’ve been developing with JavaScript for at least 5 years. However, After trying TypeScript for merly 4 months, working with JavaScript feels like walking on thin ice, you may make it for 10 meters or so, but you shouldn’t go any longer.&lt;/p&gt;
 
 &lt;p&gt;I can now understand why there are so many well-educated developers disliking the dynamic nature of JavaScript.&lt;/p&gt;
 
