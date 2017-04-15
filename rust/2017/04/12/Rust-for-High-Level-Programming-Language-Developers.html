@@ -565,7 +565,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 
 <p>So, let’s say you have a function that takes two <code class="highlighter-rouge">i32</code> arguments and returns the sum of the two values. You could have your function written like this:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">sum</span> <span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
   <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
@@ -573,7 +573,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 
 <p>or you could have the shorthand notation of the function by using an expression instead of a statement:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">sub</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">sum</span> <span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="p">{</span>
   <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 <span class="p">}</span>
 </code></pre>
@@ -584,15 +584,15 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <h3 id="our-journey-into-the-specifics">Our Journey into the Specifics</h3>
 <p>We’re now going to dive into the basics of Rust.</p>
 
-<h3 id="variableobject-decleration">Variable/Object Decleration</h3>
+<h3 id="variableobject-declaration">Variable/Object Declaration</h3>
 <p>To be added</p>
 
-<h4 id="mutibility">Mutibility</h4>
+<h4 id="mutability">Mutability</h4>
 <p>To be added</p>
 
 <h3 id="type-aliases">Type Aliases</h3>
 <p>Rust has a keyword called <code class="highlighter-rouge">type</code> used to declare aliases of other types.
-Say you want to use <code class="highlighter-rouge">i32</code> across a whole <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">module</code> or even across your whole application, and for clarity’s sake you’d rather use <code class="highlighter-rouge">Int</code> insteat of <code class="highlighter-rouge">i32</code> to reference 32-bit integers. You could define your <code class="highlighter-rouge">Int</code> type as follows:</p>
+Say you want to use <code class="highlighter-rouge">i32</code> across a whole <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">module</code> or even across your whole application, and for clarity’s sake you’d rather use <code class="highlighter-rouge">Int</code> instead of <code class="highlighter-rouge">i32</code> to reference 32-bit integers. You could define your <code class="highlighter-rouge">Int</code> type as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="n">Int</span> <span class="o">=</span> <span class="nb">i32</span><span class="p">;</span>
 </code></pre>
@@ -608,7 +608,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 <p>And so on.</p>
 
 <h3 id="functions">Functions</h3>
-<p>Function decleration are pretty intuative and starightforward. Say you want to write a <code class="highlighter-rouge">greeting</code> function that prints out the test <code class="highlighter-rouge">"hello there!"</code> over <code class="highlighter-rouge">stdio</code>. You’d write your function as follows:</p>
+<p>Function declaration are pretty intuitive and straightforward. Say you want to write a <code class="highlighter-rouge">greeting</code> function that prints out the test <code class="highlighter-rouge">"hello there!"</code> over <code class="highlighter-rouge">stdio</code>. You’d write your function as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">greeting</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"hello there!"</span><span class="p">);</span>
@@ -616,7 +616,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 </code></pre>
 </div>
 
-<p>What if you want to pass the string to the function instead of hard-coding a specefic value? Then, you’d write it like this:</p>
+<p>What if you want to pass the string to the function instead of hard-coding a specific value? Then, you’d write it like this:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">greeting</span> <span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="p">{</span>
     <span class="c">// TODO: Implement</span>
@@ -650,7 +650,94 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 <p>To be added</p>
 
 <h3 id="function-pointers">Function Pointers</h3>
-<p>To be added</p>
+<p>If you’re coming from a solid background in languages like C and C++, chances are you’ve worked with function pointers a lot. You’ve probably even worked with function pointers in languages like JavaScript and Python without ever coming across the name.
+At their core, a function pointer is a variable holding access to a specific memory location representing the beginning of function. In JavaScript, if you were to have the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">callee</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// TODO: Implement me</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">caller</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// TODO: Implement a task</span>
+  <span class="nx">callback</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">caller</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>It can be said that “<code class="highlighter-rouge">caller</code> if a function that takes an argument of type function pointer (which in this case is our <code class="highlighter-rouge">callee</code> function)”.</p>
+
+<p>Rust isn’t that flexible when it comes to function pointers. If you were to pass a function pointer to a function, the calling function needs to have a somewhat hard set on callback function specifications; your calling function needs to specify the arguments and the return type of the callee function. Let’s discuss a use case where you may want to use a function pointer.</p>
+
+<p>Say you’re creating a struct called <code class="highlighter-rouge">CommandInterface</code> that will contain two fields: (1) a command string, and (2) a function pointer pointing to the function to be executed with the specified command. Let’s start by defining the outer skeleton of our interface <code class="highlighter-rouge">struct</code>:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">struct</span> <span class="n">CommandInterface</span> <span class="p">{</span>
+	<span class="nb">str</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+	<span class="n">exec</span><span class="p">:</span> <span class="k">fn</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">i8</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>Here we’re telling the compiler to expect our function pointer to have no arguments and return an 8-bit integer value. Let’s now define a function according to these specifications:</p>
+
+<p>fn ls () -&gt; i8 {
+	// TODO: Implement me
+	return 0;
+}</p>
+
+<blockquote>
+  <p>Our function needs not have a specific name. I’m only naming it after the command you’re about to see below to maintain a convention.</p>
+</blockquote>
+
+<p>Let’s now define our function, set the function pointer, and see how we could use the function pointer in calling our function.</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">CommandInterface</span> <span class="p">{</span>
+	<span class="nb">str</span><span class="p">:</span> <span class="s">"ls"</span><span class="nf">.to_string</span><span class="p">(),</span>
+	<span class="n">exec</span><span class="p">:</span> <span class="n">ls</span> <span class="c">// points to the ls function declared above</span>
+<span class="p">};</span>
+
+<span class="p">(</span><span class="n">cmd</span><span class="py">.exec</span><span class="p">)();</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>The parenthesis (<code class="highlighter-rouge">()</code>) around <code class="highlighter-rouge">cmd.exec</code> are a syntax requirement. If you forget to add them, the compiler will throw an error at you.</p>
+</blockquote>
+
+<p>But what about functions with arguments? Say we want to pass some command arguments to our function, how would we do that? Well, this is pretty easy and it’ll require very slight changes. You could replace:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">exec</span><span class="p">:</span> <span class="k">fn</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">i8</span>
+</code></pre>
+</div>
+
+<p>with:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">exec</span><span class="p">:</span> <span class="k">fn</span><span class="p">(</span><span class="n">arg1</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">arg2</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i8</span>
+</code></pre>
+</div>
+
+<p>and:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">ls</span> <span class="p">(</span><span class="n">arg1</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">arg2</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i8</span>
+</code></pre>
+</div>
+
+<p>with:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="n">cmd</span><span class="py">.exec</span><span class="p">)();</span>
+</code></pre>
+</div>
+
+<p>with something like this:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="n">cmd</span><span class="py">.exec</span><span class="p">)(</span><span class="s">"-a"</span><span class="nf">.to_string</span><span class="p">(),</span> <span class="s">"-l"</span><span class="nf">.to_string</span><span class="p">());</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>In a practical world, it’d be better to pass a vector of arguments but I intentionally ignored vectors just to keep things looking more clean.</p>
+</blockquote>
 
 <h3 id="passing-functionsclosures-to-functionsclosures">Passing Functions/Closures to Functions/Closures</h3>
 <p>To be added</p>
@@ -662,7 +749,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 <p>To be added</p>
 
 <h3 id="loops">Loops</h3>
-<p>Loops are a very interesting subject in Rust. The langauge currently has three approaches to any kind of iterative activity. These three approaches use three separate keywords: <code class="highlighter-rouge">for</code>, <code class="highlighter-rouge">while</code>, and <code class="highlighter-rouge">loop</code>.</p>
+<p>Loops are a very interesting subject in Rust. The language currently has three approaches to any kind of iterative activity. These three approaches use three separate keywords: <code class="highlighter-rouge">for</code>, <code class="highlighter-rouge">while</code>, and <code class="highlighter-rouge">loop</code>.</p>
 
 <p>The <code class="highlighter-rouge">for</code> loop is used when you’ve already decided the number of times you’d like to iterate. For example, the following will loop 9 times and print the values <code class="highlighter-rouge">0</code> through <code class="highlighter-rouge">9</code>:</p>
 
@@ -687,14 +774,14 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 </code></pre>
 </div>
 
-<p>This is equivelent to the following python code:</p>
+<p>This is equivalent to the following python code:</p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]:</span>
     <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">d"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
 </code></pre>
 </div>
 
-<p><code class="highlighter-rouge">for</code> loops can also preform some sophisticated tasks. For instance, if you have the string <code class="highlighter-rouge">"hello\nworld\nmy\nname\nis\nFadi"</code> and you want it up split it up using the linefeeed (<code class="highlighter-rouge">\n</code>) delimiter, you can use the <code class="highlighter-rouge">lines()</code> function. This function returns an enumerator containing both the substring and the line number. So something like the following:</p>
+<p><code class="highlighter-rouge">for</code> loops can also preform some sophisticated tasks. For instance, if you have the string <code class="highlighter-rouge">"hello\nworld\nmy\nname\nis\nFadi"</code> and you want it up split it up using the linefeed (<code class="highlighter-rouge">\n</code>) delimiter, you can use the <code class="highlighter-rouge">lines()</code> function. This function returns an enumerator containing both the substring and the line number. So something like the following:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">my_str_tokens</span> <span class="o">=</span> <span class="s">"hello</span><span class="se">\n</span><span class="s">world</span><span class="se">\n</span><span class="s">my</span><span class="se">\n</span><span class="s">name</span><span class="se">\n</span><span class="s">is</span><span class="se">\n</span><span class="s">Fadi"</span><span class="nf">.lines</span><span class="p">();</span>
 <span class="k">for</span> <span class="p">(</span><span class="n">line_no</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span> <span class="n">in</span> <span class="n">my_str_tokens</span><span class="nf">.enumerate</span><span class="p">()</span> <span class="p">{</span>
@@ -714,7 +801,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 </code></pre>
 </div>
 
-<p>The above example is equivilent to the following python code:</p>
+<p>The above example is equivalent to the following python code:</p>
 
 <div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">myStrTokens</span> <span class="o">=</span> <span class="s">"hello</span><span class="se">\n</span><span class="s">world</span><span class="se">\n</span><span class="s">my</span><span class="se">\n</span><span class="s">name</span><span class="se">\n</span><span class="s">is</span><span class="se">\n</span><span class="s">Fadi"</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">myStrTokens</span><span class="p">)):</span>
