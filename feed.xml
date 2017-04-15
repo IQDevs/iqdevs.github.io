@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-04-15T15:42:05-05:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things just can't be contained in a box</subtitle><entry><title type="html">My Thoughts on TypeScript</title><link href="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html" rel="alternate" type="text/html" title="My Thoughts on TypeScript" /><published>2017-04-14T00:00:00-05:00</published><updated>2017-04-14T00:00:00-05:00</updated><id>/typescript/2017/04/14/My%20Thoughts%20on%20TypeScript</id><content type="html" xml:base="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html">&lt;p&gt;I was introduced to TypeScript when it first came with angular 2. However, I tried to avoid it as much as possible. This was actually the main reason of why I left angular in favor of Vue. “A new quirky front-end language is the last thing I would need,” I thought.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-04-15T15:43:33-05:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things just can't be contained in a box</subtitle><entry><title type="html">My Thoughts on TypeScript</title><link href="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html" rel="alternate" type="text/html" title="My Thoughts on TypeScript" /><published>2017-04-14T00:00:00-05:00</published><updated>2017-04-14T00:00:00-05:00</updated><id>/typescript/2017/04/14/My%20Thoughts%20on%20TypeScript</id><content type="html" xml:base="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html">&lt;p&gt;I was introduced to TypeScript when it first came with angular 2. However, I tried to avoid it as much as possible. This was actually the main reason of why I left angular in favor of Vue. “A new quirky front-end language is the last thing I would need,” I thought.&lt;/p&gt;
 
 &lt;p&gt;That was true until I was deep into my &lt;a href=&quot;https://github.com/finnlp/&quot;&gt;NLP&lt;/a&gt; project in late 2016. The code base was relatively large, so many modules and functions. A friend of mine, recommended TypeScript, and I tried it. I’ve been working with it for the last 4 months, and here are my thoughts.&lt;/p&gt;
 
@@ -930,7 +930,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 &lt;h3 id=&quot;our-journey-into-the-specifics&quot;&gt;Our Journey into the Specifics&lt;/h3&gt;
 &lt;p&gt;We’re now going to dive into the basics of Rust.&lt;/p&gt;
 
-&lt;h3 id=&quot;variableobject-declaration&quot;&gt;Variable/Object Declaration&lt;/h3&gt;
+&lt;h4 id=&quot;variableobject-declaration&quot;&gt;Variable/Object Declaration&lt;/h4&gt;
 &lt;p&gt;We’ve been declaring objects and variables all over the place already, but perhaps there’s more to them than what’s been covered already. If you want to declare an integer &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; and assign the value &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; to it, you could do so as follows:&lt;/p&gt;
 
 &lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -953,7 +953,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 
 &lt;p&gt;Read more about Primitive Types and Object Declaration &lt;a href=&quot;https://doc.rust-lang.org/book/primitive-types.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;mutability&quot;&gt;Mutability&lt;/h4&gt;
+&lt;h6 id=&quot;mutability&quot;&gt;Mutability&lt;/h6&gt;
 &lt;p&gt;By default, objects and variables in Rust are immutable (not modifiable after they’ve been declared). Something like the following won’t work:&lt;/p&gt;
 
 &lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i8&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -973,7 +973,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;type-aliases&quot;&gt;Type Aliases&lt;/h3&gt;
+&lt;h4 id=&quot;type-aliases&quot;&gt;Type Aliases&lt;/h4&gt;
 &lt;p&gt;Rust has a keyword called &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; used to declare aliases of other types.
 Say you want to use &lt;code class=&quot;highlighter-rouge&quot;&gt;i32&lt;/code&gt; across a whole &lt;code class=&quot;highlighter-rouge&quot;&gt;class&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;module&lt;/code&gt; or even across your whole application, and for clarity’s sake you’d rather use &lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;i32&lt;/code&gt; to reference 32-bit integers. You could define your &lt;code class=&quot;highlighter-rouge&quot;&gt;Int&lt;/code&gt; type as follows:&lt;/p&gt;
 
@@ -990,7 +990,7 @@ Say you want to use &lt;code class=&quot;highlighter-rouge&quot;&gt;i32&lt;/code
 
 &lt;p&gt;And so on.&lt;/p&gt;
 
-&lt;h3 id=&quot;functions&quot;&gt;Functions&lt;/h3&gt;
+&lt;h4 id=&quot;functions&quot;&gt;Functions&lt;/h4&gt;
 &lt;p&gt;Function declaration are pretty intuitive and straightforward. Say you want to write a &lt;code class=&quot;highlighter-rouge&quot;&gt;greeting&lt;/code&gt; function that prints out the test &lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;hello there!&quot;&lt;/code&gt; over &lt;code class=&quot;highlighter-rouge&quot;&gt;stdio&lt;/code&gt;. You’d write your function as follows:&lt;/p&gt;
 
 &lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -1029,7 +1029,7 @@ Say you want to use &lt;code class=&quot;highlighter-rouge&quot;&gt;i32&lt;/code
 
 &lt;p&gt;Remember that we’re using an &lt;code class=&quot;highlighter-rouge&quot;&gt;expression&lt;/code&gt; in the code snippet above. If you wanted to replace it with a statement &lt;code class=&quot;highlighter-rouge&quot;&gt;return a + b;&lt;/code&gt; will do.&lt;/p&gt;
 
-&lt;h3 id=&quot;closures&quot;&gt;Closures&lt;/h3&gt;
+&lt;h4 id=&quot;closures&quot;&gt;Closures&lt;/h4&gt;
 &lt;p&gt;The easiest definition of a &lt;code class=&quot;highlighter-rouge&quot;&gt;closure&lt;/code&gt; I can give is that a &lt;code class=&quot;highlighter-rouge&quot;&gt;closure&lt;/code&gt; is a function with untyped arguments. If you were to write a function that multiplies two numbers together and return the product, you’d do so as follows:&lt;/p&gt;
 
 &lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -1050,7 +1050,7 @@ Say you want to use &lt;code class=&quot;highlighter-rouge&quot;&gt;i32&lt;/code
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;If you, for whatever reason, want to strongly-type your closure arguments, you can do so by defining their types the same way you’d define function argeuments, e.g.:&lt;/p&gt;
+&lt;p&gt;If you, for whatever reason, want to strongly-type your closure arguments, you can do so by defining their types the same way you’d define function arguments, e.g.:&lt;/p&gt;
 
 &lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mul&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -1066,7 +1066,7 @@ Say you want to use &lt;code class=&quot;highlighter-rouge&quot;&gt;i32&lt;/code
 
 &lt;p&gt;You can read more about most of the cool stuff you can do with &lt;code class=&quot;highlighter-rouge&quot;&gt;closure&lt;/code&gt;s &lt;a href=&quot;https://doc.rust-lang.org/book/closures.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;function-pointers&quot;&gt;Function Pointers&lt;/h3&gt;
+&lt;h4 id=&quot;function-pointers&quot;&gt;Function Pointers&lt;/h4&gt;
 &lt;p&gt;If you’re coming from a solid background in languages like C and C++, chances are you’ve worked with function pointers a lot. You’ve probably even worked with function pointers in languages like JavaScript and Python without ever coming across the name.
 At their core, a function pointer is a variable holding access to a specific memory location representing the beginning of function. In JavaScript, if you were to have the following:&lt;/p&gt;
 
@@ -1158,16 +1158,16 @@ At their core, a function pointer is a variable holding access to a specific mem
   &lt;p&gt;In a practical world, it’d be better to pass a vector of arguments but I intentionally ignored vectors just to keep things looking more clean.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;passing-functionsclosures-to-functionsclosures&quot;&gt;Passing Functions/Closures to Functions/Closures&lt;/h3&gt;
+&lt;h4 id=&quot;passing-functionsclosures-to-functionsclosures&quot;&gt;Passing Functions/Closures to Functions/Closures&lt;/h4&gt;
 &lt;p&gt;To be added&lt;/p&gt;
 
-&lt;h3 id=&quot;conditionals&quot;&gt;Conditionals&lt;/h3&gt;
+&lt;h4 id=&quot;conditionals&quot;&gt;Conditionals&lt;/h4&gt;
 &lt;p&gt;To be added&lt;/p&gt;
 
-&lt;h3 id=&quot;pattern-matching-aka-pseudo-switch-case-statements&quot;&gt;Pattern Matching (aka pseudo-Switch-Case Statements)&lt;/h3&gt;
+&lt;h4 id=&quot;pattern-matching-aka-pseudo-switch-case-statements&quot;&gt;Pattern Matching (aka pseudo-Switch-Case Statements)&lt;/h4&gt;
 &lt;p&gt;To be added&lt;/p&gt;
 
-&lt;h3 id=&quot;loops&quot;&gt;Loops&lt;/h3&gt;
+&lt;h4 id=&quot;loops&quot;&gt;Loops&lt;/h4&gt;
 &lt;p&gt;Loops are a very interesting subject in Rust. The language currently has three approaches to any kind of iterative activity. These three approaches use three separate keywords: &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;while&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;loop&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;for&lt;/code&gt; loop is used when you’ve already decided the number of times you’d like to iterate. For example, the following will loop 9 times and print the values &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; through &lt;code class=&quot;highlighter-rouge&quot;&gt;9&lt;/code&gt;:&lt;/p&gt;
@@ -1231,10 +1231,10 @@ At their core, a function pointer is a variable holding access to a specific mem
 &lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;while&lt;/code&gt; loop is used when you’re not sure how many times you need to loop.
 TO BE ADDED&lt;/p&gt;
 
-&lt;h3 id=&quot;object-wrappingunwrapping&quot;&gt;Object Wrapping/Unwrapping&lt;/h3&gt;
+&lt;h4 id=&quot;object-wrappingunwrapping&quot;&gt;Object Wrapping/Unwrapping&lt;/h4&gt;
 &lt;p&gt;To be added&lt;/p&gt;
 
-&lt;h3 id=&quot;macros&quot;&gt;Macros!&lt;/h3&gt;
+&lt;h4 id=&quot;macros&quot;&gt;Macros!&lt;/h4&gt;
 &lt;p&gt;To be added&lt;/p&gt;
 
 &lt;h4 id=&quot;generics&quot;&gt;Generics&lt;/h4&gt;

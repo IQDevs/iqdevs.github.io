@@ -584,7 +584,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <h3 id="our-journey-into-the-specifics">Our Journey into the Specifics</h3>
 <p>We’re now going to dive into the basics of Rust.</p>
 
-<h3 id="variableobject-declaration">Variable/Object Declaration</h3>
+<h4 id="variableobject-declaration">Variable/Object Declaration</h4>
 <p>We’ve been declaring objects and variables all over the place already, but perhaps there’s more to them than what’s been covered already. If you want to declare an integer <code class="highlighter-rouge">x</code> and assign the value <code class="highlighter-rouge">2</code> to it, you could do so as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
@@ -607,7 +607,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 
 <p>Read more about Primitive Types and Object Declaration <a href="https://doc.rust-lang.org/book/primitive-types.html">here</a></p>
 
-<h4 id="mutability">Mutability</h4>
+<h6 id="mutability">Mutability</h6>
 <p>By default, objects and variables in Rust are immutable (not modifiable after they’ve been declared). Something like the following won’t work:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i8</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
@@ -627,7 +627,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 </code></pre>
 </div>
 
-<h3 id="type-aliases">Type Aliases</h3>
+<h4 id="type-aliases">Type Aliases</h4>
 <p>Rust has a keyword called <code class="highlighter-rouge">type</code> used to declare aliases of other types.
 Say you want to use <code class="highlighter-rouge">i32</code> across a whole <code class="highlighter-rouge">class</code>, <code class="highlighter-rouge">module</code> or even across your whole application, and for clarity’s sake you’d rather use <code class="highlighter-rouge">Int</code> instead of <code class="highlighter-rouge">i32</code> to reference 32-bit integers. You could define your <code class="highlighter-rouge">Int</code> type as follows:</p>
 
@@ -644,7 +644,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 
 <p>And so on.</p>
 
-<h3 id="functions">Functions</h3>
+<h4 id="functions">Functions</h4>
 <p>Function declaration are pretty intuitive and straightforward. Say you want to write a <code class="highlighter-rouge">greeting</code> function that prints out the test <code class="highlighter-rouge">"hello there!"</code> over <code class="highlighter-rouge">stdio</code>. You’d write your function as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">greeting</span> <span class="p">()</span> <span class="p">{</span>
@@ -683,7 +683,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 
 <p>Remember that we’re using an <code class="highlighter-rouge">expression</code> in the code snippet above. If you wanted to replace it with a statement <code class="highlighter-rouge">return a + b;</code> will do.</p>
 
-<h3 id="closures">Closures</h3>
+<h4 id="closures">Closures</h4>
 <p>The easiest definition of a <code class="highlighter-rouge">closure</code> I can give is that a <code class="highlighter-rouge">closure</code> is a function with untyped arguments. If you were to write a function that multiplies two numbers together and return the product, you’d do so as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">mul</span> <span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
@@ -704,7 +704,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 </code></pre>
 </div>
 
-<p>If you, for whatever reason, want to strongly-type your closure arguments, you can do so by defining their types the same way you’d define function argeuments, e.g.:</p>
+<p>If you, for whatever reason, want to strongly-type your closure arguments, you can do so by defining their types the same way you’d define function arguments, e.g.:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">mul</span> <span class="o">=</span> <span class="p">|</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">|</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
 </code></pre>
@@ -720,7 +720,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 
 <p>You can read more about most of the cool stuff you can do with <code class="highlighter-rouge">closure</code>s <a href="https://doc.rust-lang.org/book/closures.html">here</a>.</p>
 
-<h3 id="function-pointers">Function Pointers</h3>
+<h4 id="function-pointers">Function Pointers</h4>
 <p>If you’re coming from a solid background in languages like C and C++, chances are you’ve worked with function pointers a lot. You’ve probably even worked with function pointers in languages like JavaScript and Python without ever coming across the name.
 At their core, a function pointer is a variable holding access to a specific memory location representing the beginning of function. In JavaScript, if you were to have the following:</p>
 
@@ -812,16 +812,16 @@ At their core, a function pointer is a variable holding access to a specific mem
   <p>In a practical world, it’d be better to pass a vector of arguments but I intentionally ignored vectors just to keep things looking more clean.</p>
 </blockquote>
 
-<h3 id="passing-functionsclosures-to-functionsclosures">Passing Functions/Closures to Functions/Closures</h3>
+<h4 id="passing-functionsclosures-to-functionsclosures">Passing Functions/Closures to Functions/Closures</h4>
 <p>To be added</p>
 
-<h3 id="conditionals">Conditionals</h3>
+<h4 id="conditionals">Conditionals</h4>
 <p>To be added</p>
 
-<h3 id="pattern-matching-aka-pseudo-switch-case-statements">Pattern Matching (aka pseudo-Switch-Case Statements)</h3>
+<h4 id="pattern-matching-aka-pseudo-switch-case-statements">Pattern Matching (aka pseudo-Switch-Case Statements)</h4>
 <p>To be added</p>
 
-<h3 id="loops">Loops</h3>
+<h4 id="loops">Loops</h4>
 <p>Loops are a very interesting subject in Rust. The language currently has three approaches to any kind of iterative activity. These three approaches use three separate keywords: <code class="highlighter-rouge">for</code>, <code class="highlighter-rouge">while</code>, and <code class="highlighter-rouge">loop</code>.</p>
 
 <p>The <code class="highlighter-rouge">for</code> loop is used when you’ve already decided the number of times you’d like to iterate. For example, the following will loop 9 times and print the values <code class="highlighter-rouge">0</code> through <code class="highlighter-rouge">9</code>:</p>
@@ -885,10 +885,10 @@ At their core, a function pointer is a variable holding access to a specific mem
 <p>The <code class="highlighter-rouge">while</code> loop is used when you’re not sure how many times you need to loop.
 TO BE ADDED</p>
 
-<h3 id="object-wrappingunwrapping">Object Wrapping/Unwrapping</h3>
+<h4 id="object-wrappingunwrapping">Object Wrapping/Unwrapping</h4>
 <p>To be added</p>
 
-<h3 id="macros">Macros!</h3>
+<h4 id="macros">Macros!</h4>
 <p>To be added</p>
 
 <h4 id="generics">Generics</h4>
