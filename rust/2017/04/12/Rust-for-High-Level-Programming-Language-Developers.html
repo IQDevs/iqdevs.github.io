@@ -812,11 +812,60 @@ At their core, a function pointer is a variable holding access to a specific mem
   <p>In a practical world, it’d be better to pass a vector of arguments but I intentionally ignored vectors just to keep things looking more clean.</p>
 </blockquote>
 
+<h3 id="reference-and-borrowing">Reference and Borrowing</h3>
+<p>To be added</p>
+
+<h3 id="lifetime">Lifetime</h3>
+
 <h4 id="passing-functionsclosures-to-functionsclosures">Passing Functions/Closures to Functions/Closures</h4>
 <p>To be added</p>
 
 <h4 id="conditionals">Conditionals</h4>
-<p>To be added</p>
+<p>When it comes to code path redirection, rust has the three keywords you’ll likely find in most programming languages out there: <code class="highlighter-rouge">if</code>, <code class="highlighter-rouge">else</code>, and <code class="highlighter-rouge">else if</code>. If you’ve worked with languages like <code class="highlighter-rouge">C</code>, <code class="highlighter-rouge">C++</code>, <code class="highlighter-rouge">C#</code>, <code class="highlighter-rouge">Java</code>, and <code class="highlighter-rouge">JavaScript</code>, then you already know how to work with conditional expressions in Rust. Here’s the trick: conditional expressions in Rust are done exactly the way they’re done in the languages I just mentioned, except without the wrapping parenthesis, e.g.:</p>
+
+<p>The following JavaScript code:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// TODO: Implement me</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// TODO: Implement me</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+	<span class="c1">// TODO: Implement me</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>is written in Rust as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">||</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+	<span class="c">// TODO: Implement me</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+	<span class="c">// TODO: Implement me</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+	<span class="c">// TODO: Implement me</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>And that’s really all there is to it when it comes to code path redirection.</p>
+
+<p>You might, however, be used to using the <code class="highlighter-rouge">?</code> operator for quick things like “if <code class="highlighter-rouge">x</code> is even do this and if <code class="highlighter-rouge">x</code> is odd do that”, e.g.:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// The following JavaScript statement sets `res` to 'even' if `x` is an even value, and 'odd' if `x` is an odd value</span>
+
+<span class="kd">var</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">?</span> <span class="s1">'even'</span> <span class="p">:</span> <span class="s1">'odd'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>In Rust, the same can be written as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span><span class="s">"even"</span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="s">"odd"</span><span class="p">};</span>
+</code></pre>
+</div>
 
 <h4 id="pattern-matching-aka-pseudo-switch-case-statements">Pattern Matching (aka pseudo-Switch-Case Statements)</h4>
 <p>To be added</p>
@@ -893,6 +942,9 @@ TO BE ADDED</p>
 
 <h4 id="generics">Generics</h4>
 <p>To be added</p>
+
+<h4 id="efficiency">Efficiency</h4>
+<h5 id="stack-vs-heap">Stack vs. Heap</h5>
 
   </div>
 

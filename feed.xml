@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-04-15T15:43:33-05:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things just can't be contained in a box</subtitle><entry><title type="html">My Thoughts on TypeScript</title><link href="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html" rel="alternate" type="text/html" title="My Thoughts on TypeScript" /><published>2017-04-14T00:00:00-05:00</published><updated>2017-04-14T00:00:00-05:00</updated><id>/typescript/2017/04/14/My%20Thoughts%20on%20TypeScript</id><content type="html" xml:base="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html">&lt;p&gt;I was introduced to TypeScript when it first came with angular 2. However, I tried to avoid it as much as possible. This was actually the main reason of why I left angular in favor of Vue. “A new quirky front-end language is the last thing I would need,” I thought.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-04-15T16:05:58-05:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things just can't be contained in a box</subtitle><entry><title type="html">My Thoughts on TypeScript</title><link href="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html" rel="alternate" type="text/html" title="My Thoughts on TypeScript" /><published>2017-04-14T00:00:00-05:00</published><updated>2017-04-14T00:00:00-05:00</updated><id>/typescript/2017/04/14/My%20Thoughts%20on%20TypeScript</id><content type="html" xml:base="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html">&lt;p&gt;I was introduced to TypeScript when it first came with angular 2. However, I tried to avoid it as much as possible. This was actually the main reason of why I left angular in favor of Vue. “A new quirky front-end language is the last thing I would need,” I thought.&lt;/p&gt;
 
 &lt;p&gt;That was true until I was deep into my &lt;a href=&quot;https://github.com/finnlp/&quot;&gt;NLP&lt;/a&gt; project in late 2016. The code base was relatively large, so many modules and functions. A friend of mine, recommended TypeScript, and I tried it. I’ve been working with it for the last 4 months, and here are my thoughts.&lt;/p&gt;
 
@@ -1158,11 +1158,60 @@ At their core, a function pointer is a variable holding access to a specific mem
   &lt;p&gt;In a practical world, it’d be better to pass a vector of arguments but I intentionally ignored vectors just to keep things looking more clean.&lt;/p&gt;
 &lt;/blockquote&gt;
 
+&lt;h3 id=&quot;reference-and-borrowing&quot;&gt;Reference and Borrowing&lt;/h3&gt;
+&lt;p&gt;To be added&lt;/p&gt;
+
+&lt;h3 id=&quot;lifetime&quot;&gt;Lifetime&lt;/h3&gt;
+
 &lt;h4 id=&quot;passing-functionsclosures-to-functionsclosures&quot;&gt;Passing Functions/Closures to Functions/Closures&lt;/h4&gt;
 &lt;p&gt;To be added&lt;/p&gt;
 
 &lt;h4 id=&quot;conditionals&quot;&gt;Conditionals&lt;/h4&gt;
-&lt;p&gt;To be added&lt;/p&gt;
+&lt;p&gt;When it comes to code path redirection, rust has the three keywords you’ll likely find in most programming languages out there: &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;else&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;else if&lt;/code&gt;. If you’ve worked with languages like &lt;code class=&quot;highlighter-rouge&quot;&gt;C&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;C++&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;C#&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Java&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;, then you already know how to work with conditional expressions in Rust. Here’s the trick: conditional expressions in Rust are done exactly the way they’re done in the languages I just mentioned, except without the wrapping parenthesis, e.g.:&lt;/p&gt;
+
+&lt;p&gt;The following JavaScript code:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// TODO: Implement me&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// TODO: Implement me&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;// TODO: Implement me&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;is written in Rust as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;// TODO: Implement me&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;// TODO: Implement me&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;// TODO: Implement me&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And that’s really all there is to it when it comes to code path redirection.&lt;/p&gt;
+
+&lt;p&gt;You might, however, be used to using the &lt;code class=&quot;highlighter-rouge&quot;&gt;?&lt;/code&gt; operator for quick things like “if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is even do this and if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is odd do that”, e.g.:&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// The following JavaScript statement sets `res` to 'even' if `x` is an even value, and 'odd' if `x` is an odd value&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'even'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'odd'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In Rust, the same can be written as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;even&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;odd&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;h4 id=&quot;pattern-matching-aka-pseudo-switch-case-statements&quot;&gt;Pattern Matching (aka pseudo-Switch-Case Statements)&lt;/h4&gt;
 &lt;p&gt;To be added&lt;/p&gt;
@@ -1238,4 +1287,7 @@ TO BE ADDED&lt;/p&gt;
 &lt;p&gt;To be added&lt;/p&gt;
 
 &lt;h4 id=&quot;generics&quot;&gt;Generics&lt;/h4&gt;
-&lt;p&gt;To be added&lt;/p&gt;</content><author><name>alkass</name></author><summary type="html">So you’ve been doing high-level programming all your life, and you’ve been eyeing Rust for some time now, and you’re not sure where to start (or how to start). Well, this walk-through-like post will guide you through some of the common tasks you preform in high-level languages like JavaScript, Python, or even C#. I’ll try to stay away from C++ for reasons I won’t get to discuss here. Just know that this is a C++-free post.</summary></entry></feed>
+&lt;p&gt;To be added&lt;/p&gt;
+
+&lt;h4 id=&quot;efficiency&quot;&gt;Efficiency&lt;/h4&gt;
+&lt;h5 id=&quot;stack-vs-heap&quot;&gt;Stack vs. Heap&lt;/h5&gt;</content><author><name>alkass</name></author><summary type="html">So you’ve been doing high-level programming all your life, and you’ve been eyeing Rust for some time now, and you’re not sure where to start (or how to start). Well, this walk-through-like post will guide you through some of the common tasks you preform in high-level languages like JavaScript, Python, or even C#. I’ll try to stay away from C++ for reasons I won’t get to discuss here. Just know that this is a C++-free post.</summary></entry></feed>
