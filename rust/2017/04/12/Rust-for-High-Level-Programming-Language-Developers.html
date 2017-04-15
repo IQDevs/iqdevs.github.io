@@ -585,10 +585,45 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 <p>We’re now going to dive into the basics of Rust.</p>
 
 <h3 id="variableobject-declaration">Variable/Object Declaration</h3>
-<p>To be added</p>
+<p>We’ve been declaring objects and variables all over the place already, but perhaps there’s more to them than what’s been covered already. If you want to declare an integer <code class="highlighter-rouge">x</code> and assign the value <code class="highlighter-rouge">2</code> to it, you could do so as follows:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>But if you were to write an operating system, a kernel module, and/or an application that runs on an embedded system, the size of your object really matters, and chances are you’ll need to control these sizes. Unless you dive into the specifics of the design of the compiler of Rust, you really have no idea how many bits are used to store your variable. There must be a better way to carry this out, and here’s how. Rust allows you to specify the type of your object with a slight edit to your statement. Instead of writing your variable declaration like this:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">var</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>You could write it like this:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">var</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i8</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>And you know for sure that your variable is stored as an 8-bit integer value.</p>
 
 <h4 id="mutability">Mutability</h4>
-<p>To be added</p>
+<p>By default, objects and variables in Rust are immutable (not modifiable after they’ve been declared). Something like the following won’t work:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">var</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i8</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>To be able to change the value of <code class="highlighter-rouge">x</code>, we need to tell the compiler to mark our variable as mutable (able to change value after it’s been declared). This introduces a slight change to our declaration that’s pretty intuitive; you simply add the keyword <code class="highlighter-rouge">mut</code> on the left side of your object declaration statement like this:</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">var</span> <span class="k">mut</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i8</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>And now the following will work like a charm!</p>
+
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</code></pre>
+</div>
 
 <h3 id="type-aliases">Type Aliases</h3>
 <p>Rust has a keyword called <code class="highlighter-rouge">type</code> used to declare aliases of other types.
@@ -812,8 +847,6 @@ At their core, a function pointer is a variable holding access to a specific mem
 </div>
 
 <p>The <code class="highlighter-rouge">while</code> loop is used when you’re not sure how many times you need to loop.
-TO BE ADDED
-TO BE ADDED
 TO BE ADDED</p>
 
 <h3 id="object-wrappingunwrapping">Object Wrapping/Unwrapping</h3>
