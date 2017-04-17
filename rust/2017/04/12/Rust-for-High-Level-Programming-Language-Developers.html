@@ -518,7 +518,7 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 </code></pre>
 </div>
 
-<p>Oh, and you know how I said <code class="highlighter-rouge">"{}"</code> is used to communicate output to the user while <code class="highlighter-rouge">"{:?}"</code> is usually used for debugging purposes? Well, it turns out you can overload the <code class="highlighter-rouge">Display</code> trail (available under <code class="highlighter-rouge">std::fmt</code> as well) to print your object using <code class="highlighter-rouge"><span class="p">{}</span></code> instead of <code class="highlighter-rouge">"{:?}"</code>.</p>
+<p>Oh, and you know how I said <code class="highlighter-rouge"><span class="p">{}</span></code> is used to communicate output to the user while <code class="highlighter-rouge"><span class="p">{</span><span class="err">:?</span><span class="p">}</span></code> is usually used for debugging purposes? Well, it turns out you can overload the <code class="highlighter-rouge">Display</code> trail (available under <code class="highlighter-rouge">std::fmt</code> as well) to print your object using <code class="highlighter-rouge"><span class="p">{}</span></code> instead of <code class="highlighter-rouge"><span class="p">{</span><span class="err">:?</span><span class="p">}</span></code>.</p>
 
 <p>So, simply replace:</p>
 
