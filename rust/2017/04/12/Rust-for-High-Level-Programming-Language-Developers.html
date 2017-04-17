@@ -64,7 +64,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>So you’ve been doing high-level programming all your life, and you’ve been eyeing Rust for some time now, and you’re not sure where to start (or how to start). Well, this walk-through-like post will guide you through some of the common tasks you preform in high-level languages like JavaScript, Python, or even C#. I’ll try to stay away from C++ for reasons I won’t get to discuss here. Just know that this is a C++-free post.</p>
+    <p>So you’ve been doing high-level programming all your life, and you’ve been eyeing Rust for some time now, and you’re not sure where to start (or how to start). Well, this walk-through-like post will guide you through some of the common tasks you preform in high-level languages like JavaScript, Python, or even C#.</p>
 
 <h3 id="so-json-in-rust">So, JSON in Rust?</h3>
 <h4 id="the-short-answer-is-no-built-in-support-for-json-but">The short answer is ‘no built-in support for JSON but…’</h4>
@@ -102,7 +102,7 @@
 <p>You’ve probably already noticed two differences between the two code snippets:</p>
 
 <ol>
-  <li>We had to define a skeleton for our pseudo-JSON object</li>
+  <li>We had to define a skeleton for our pseudo-JSON object.</li>
   <li>We used lowerCamelCase with JavaScript and snake_case with our Rust code snippet. This is really nothing more than a naming convention that the Rust compiler will throw a bunch of warnings at you if you don’t follow, but it shouldn’t have an effect on the execution of your program if you so choose not to follow.</li>
 </ol>
 
@@ -199,10 +199,10 @@
 
 <p>Cool, isn’t it? Well, it gets even cooler in a bit.</p>
 
-<p>But hang on a second, why did I have to replace <code class="highlighter-rouge">"{}"</code> with <code class="highlighter-rouge">"{:?}"</code> in my <code class="highlighter-rouge">println</code> statement? Or an even more proper question to ask is: what is the difference between the two?
-Well, so Rust has two ways of printing out stuff (or maybe more than two that I still haven’t discovered yet!): a (1) <code class="highlighter-rouge">Display</code> and a <code class="highlighter-rouge">Debug</code>. <code class="highlighter-rouge">Display</code> is what you’d probably want to use to allow the program to communicate some meaningful output to your user, and <code class="highlighter-rouge">Debug</code> is what you could use during the development process. Each one of these two is a separate <code class="highlighter-rouge">trait</code> that can co-exist without overlapping each other. By that I mean, you can allow your object to print something with <code class="highlighter-rouge">"{}"</code> and something entirely different with <code class="highlighter-rouge">"{:?}"</code>, but that’s to be covered when we get down to writing our own <code class="highlighter-rouge">trait</code>s.</p>
+<p>But hang on a second, why did I have to replace <code class="highlighter-rouge"><span class="p">{}</span></code> with <code class="highlighter-rouge"><span class="p">{</span><span class="err">:?</span><span class="p">}</span></code> in my <code class="highlighter-rouge">println</code> statement? Or an even more proper question to ask is: what is the difference between the two?
+Well, so Rust has two ways of printing out stuff (or maybe more than two that I still haven’t discovered yet!): a (1) <code class="highlighter-rouge">Display</code> and a <code class="highlighter-rouge">Debug</code>. <code class="highlighter-rouge">Display</code> is what you’d probably want to use to allow the program to communicate some meaningful output to your user, and <code class="highlighter-rouge">Debug</code> is what you could use during the development process. Each one of these two is a separate <code class="highlighter-rouge">trait</code> that can co-exist without overlapping each other. By that I mean, you can allow your object to print something with <code class="highlighter-rouge"><span class="p">{}</span></code> and something entirely different with <code class="highlighter-rouge"><span class="p">{</span><span class="err">:?</span><span class="p">}</span></code>, but that’s to be covered when we get down to writing our own <code class="highlighter-rouge">trait</code>s.</p>
 
-<p>So is it possible to use <code class="highlighter-rouge">#[derive(Debug)]</code> to print out nested objects? Yes, it is, and following is how. Simply add <code class="highlighter-rouge">#[derive(Debug)]</code> right on top of your main object and every object that’s part of it and then print the object as a whole by passing it to a  <code class="highlighter-rouge">println</code> function using the <code class="highlighter-rouge">"{:?}"</code> notation, i.e.:</p>
+<p>So is it possible to use <code class="highlighter-rouge">#[derive(Debug)]</code> to print out nested objects? Yes, it is, and following is how. Simply add <code class="highlighter-rouge">#[derive(Debug)]</code> right on top of your main object and every object that’s part of it and then print the object as a whole by passing it to a  <code class="highlighter-rouge">println</code> function using the <code class="highlighter-rouge"><span class="p">{</span><span class="err">:?</span><span class="p">}</span></code> notation, i.e.:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="err">#</span><span class="p">[</span><span class="nf">derive</span><span class="p">(</span><span class="n">Debug</span><span class="p">)]</span>
 <span class="k">struct</span> <span class="n">FullName</span> <span class="p">{</span>
@@ -678,7 +678,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 </div>
 
 <blockquote>
-  <p>i32 is a 32-bit integer type in Rust. You can read more about Rust’s support for numeric types <a href="https://doc.Rust-lang.org/book/primitive-types.html#numeric-types">here</a></p>
+  <p>i32 is a 32-bit integer type in Rust. You can read more about Rust’s support for numeric types <a href="https://doc.Rust-lang.org/book/primitive-types.html#numeric-types">here</a>.</p>
 </blockquote>
 
 <p>Remember that we’re using an <code class="highlighter-rouge">expression</code> in the code snippet above. If you wanted to replace it with a statement <code class="highlighter-rouge">return a + b;</code> will do.</p>
@@ -716,7 +716,7 @@ Say you want to use <code class="highlighter-rouge">i32</code> across a whole <c
 </code></pre>
 </div>
 
-<p>But that’ll require you to wrap your closure content within two curly brackets (<code class="highlighter-rouge"><span class="p">{</span></code> and <code class="highlighter-rouge">}</code>)</p>
+<p>But that’ll require you to wrap your closure content within two curly brackets (<code class="highlighter-rouge"><span class="p">{</span></code> and <code class="highlighter-rouge">}</code>).</p>
 
 <p>You can read more about most of the cool stuff you can do with <code class="highlighter-rouge">closure</code>s <a href="https://doc.Rust-lang.org/book/closures.html">here</a>.</p>
 
@@ -1043,6 +1043,8 @@ At their core, a function pointer is a variable holding access to a specific mem
 </div>
 
 <p>Read more about loops <a href="https://doc.rust-lang.org/book/loops.html">here</a>.</p>
+
+<p>I think I’ve covered enough in this post and will stop right here.</p>
 
   </div>
 
