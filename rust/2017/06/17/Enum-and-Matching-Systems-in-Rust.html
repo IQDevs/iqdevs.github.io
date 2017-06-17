@@ -113,7 +113,7 @@
 </code></pre>
 </div>
 
-<p>Now, of course <code class="highlighter-rouge">enums</code> don’t have to be part of a struct, and <code class="highlighter-rouge">enum</code> values don’t have to be primitives either. An enum value can point to a <code class="highlighter-rouge">struct</code> or even another <code class="highlighter-rouge">enum</code> and so on. For instance, you can write a function that returns a status that’s either <code class="highlighter-rouge">PASS</code> or <code class="highlighter-rouge">FAILURE</code>. <code class="highlighter-rouge">PASS</code> can include a string while <code class="highlighter-rouge">FAILURE</code> can contain more information about the severity of the failure. This functionality can be achieved as so:</p>
+<p>Now, of course <code class="highlighter-rouge">enums</code> don’t have to be part of a struct, and <code class="highlighter-rouge">enum</code> values don’t have to be primitives either. An <code class="highlighter-rouge">enum</code> value can point to a <code class="highlighter-rouge">struct</code> or even another <code class="highlighter-rouge">enum</code> and so on. For instance, you can write a function that returns a status that’s either <code class="highlighter-rouge">PASS</code> or <code class="highlighter-rouge">FAILURE</code>. <code class="highlighter-rouge">PASS</code> can include a string while <code class="highlighter-rouge">FAILURE</code> can contain more information about the severity of the failure. This functionality can be achieved as so:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">SeverityStatus</span> <span class="p">{</span>
     <span class="nf">BENIGN</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span>
@@ -135,7 +135,7 @@
 </code></pre>
 </div>
 
-<p>Now onto <code class="highlighter-rouge">match</code>. One of the things I love the most about <code class="highlighter-rouge">match</code> is its ability to unstructure objects. Let’s take a second look at our last code snippet and see how we can probably handle the response coming back to us from <code class="highlighter-rouge">compute_results()</code>. For this, i’d definitely use a set of <code class="highlighter-rouge">match</code> statements, e.g.:</p>
+<p>Now onto <code class="highlighter-rouge">match</code>. One of the things I love the most about <code class="highlighter-rouge">match</code> is its ability to unstructure objects. Let’s take a second look at our last code snippet and see how we can possibly handle the response coming back to us from <code class="highlighter-rouge">compute_results()</code>. For this, i’d definitely use a set of <code class="highlighter-rouge">match</code> statements, e.g.:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">compute_results</span><span class="p">();</span>
