@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Enum and Matching Systems in Rust</title>
+  <title>Enum and Match Systems in Rust</title>
   <meta name="description" content="You’ve probably worked with enums before, but if you haven’t, they’re basically a way to have a selection out of a number of different options. A Person stru...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/rust/2017/06/17/Enum-and-Matching-Systems-in-Rust.html">
+  <link rel="canonical" href="/rust/2017/06/17/Enum-and-Match-Systems-in-Rust.html">
   <link rel="alternate" type="application/rss+xml" title="IQDevs Blog" href="/feed.xml">
   
   
@@ -59,7 +59,7 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Enum and Matching Systems in Rust</h1>
+    <h1 class="post-title" itemprop="name headline">Enum and Match Systems in Rust</h1>
     <p class="post-meta"><time datetime="2017-06-17T05:00:00+00:00" itemprop="datePublished">Jun 17, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">alkass</span></span></p>
   </header>
 
@@ -135,7 +135,7 @@
 </code></pre>
 </div>
 
-<p>Now onto <code class="highlighter-rouge">match</code>. One of the things I love the most about <code class="highlighter-rouge">match</code> is its ability to unstructure objects. Let’s take a second look at our last code snippet and see how we can possibly handle the response coming back to us from <code class="highlighter-rouge">compute_results()</code>. For this, i’d definitely use a set of <code class="highlighter-rouge">match</code> statements, e.g.:</p>
+<p>Now onto <code class="highlighter-rouge">match</code>. One of the things I love the most about <code class="highlighter-rouge">match</code> is its ability to unstructure objects. Let’s take a second look at our last code snippet and see how we can possibly handle the response coming back to us from <code class="highlighter-rouge">compute_results()</code>. For this, I’d definitely use a set of <code class="highlighter-rouge">match</code> statements, e.g.:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">compute_results</span><span class="p">();</span>
