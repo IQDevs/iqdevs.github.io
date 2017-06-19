@@ -64,7 +64,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>You’ve probably worked with <code class="highlighter-rouge">enums</code> before, but if you haven’t, they’re basically a way to have a selection out of a number of different options. A <code class="highlighter-rouge">Person</code> struct could contain a <code class="highlighter-rouge">gender</code> field that points to an enum with 3 options (<code class="highlighter-rouge">Male</code>, <code class="highlighter-rouge">Female</code>, and <code class="highlighter-rouge">Undisclosed</code>), i.e.:</p>
+    <p>You’ve probably worked with <code class="highlighter-rouge">enums</code> before, but if you haven’t, they’re basically a way to have a selection out of a number of different options. A <code class="highlighter-rouge">Person</code> struct could contain a <code class="highlighter-rouge">gender</code> field that points to an enum of 3 options (<code class="highlighter-rouge">Male</code>, <code class="highlighter-rouge">Female</code>, and <code class="highlighter-rouge">Undisclosed</code>), i.e.:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">PersonGender</span> <span class="p">{</span>
     <span class="n">MALE</span><span class="p">,</span>
@@ -88,7 +88,7 @@
 </code></pre>
 </div>
 
-<p>Now what if a person so chooses to identify as something else? In that case, you could add a 4th option (<code class="highlighter-rouge">Other</code>) and attach a value of type <code class="highlighter-rouge">String</code> to it. Here’s what your end result would look like:</p>
+<p>Now, what if a person so chooses to identify as something else? In that case, you could add a 4th option (<code class="highlighter-rouge">Other</code>) and attach a value of type <code class="highlighter-rouge">String</code> to it. Here’s what your end result would look like:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">PersonGender</span> <span class="p">{</span>
     <span class="n">MALE</span><span class="p">,</span>
@@ -113,7 +113,7 @@
 </code></pre>
 </div>
 
-<p>Now, of course <code class="highlighter-rouge">enums</code> don’t have to be part of a struct, and <code class="highlighter-rouge">enum</code> values don’t have to be primitives either. An <code class="highlighter-rouge">enum</code> value can point to a <code class="highlighter-rouge">struct</code> or even another <code class="highlighter-rouge">enum</code> and so on. For instance, you can write a function that returns a status that’s either <code class="highlighter-rouge">PASS</code> or <code class="highlighter-rouge">FAILURE</code>. <code class="highlighter-rouge">PASS</code> can include a string while <code class="highlighter-rouge">FAILURE</code> can contain more information about the severity of the failure. This functionality can be achieved as so:</p>
+<p>Of course <code class="highlighter-rouge">enums</code> don’t have to be part of a struct, and <code class="highlighter-rouge">enum</code> values don’t have to be primitives either. An <code class="highlighter-rouge">enum</code> value can point to a <code class="highlighter-rouge">struct</code> or even another <code class="highlighter-rouge">enum</code> and so on. For instance, you can write a function that returns a status that’s either <code class="highlighter-rouge">PASS</code> or <code class="highlighter-rouge">FAILURE</code>. <code class="highlighter-rouge">PASS</code> can include a string while <code class="highlighter-rouge">FAILURE</code> can contain more information about the severity of the failure. This functionality can be achieved as so:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">SeverityStatus</span> <span class="p">{</span>
     <span class="nf">BENIGN</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span>
