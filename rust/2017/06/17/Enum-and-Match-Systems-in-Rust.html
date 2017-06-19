@@ -162,7 +162,7 @@
 </code></pre>
 </div>
 
-<p>Now, if you happen to add more options to any of the two <code class="highlighter-rouge">enums</code> (say, a <code class="highlighter-rouge">WARN</code> option to <code class="highlighter-rouge">FunctionStatus</code> or <code class="highlighter-rouge">UNCATEGORIZED</code> to <code class="highlighter-rouge">SeverityStatus</code>), the compiler will refuse to compile your code until all possible cases are handled.</p>
+<p>Now, if you happen to add more options to any of the two <code class="highlighter-rouge">enums</code> (say, a <code class="highlighter-rouge">WARN</code> option to <code class="highlighter-rouge">FunctionStatus</code> or <code class="highlighter-rouge">UNCATEGORIZED</code> to <code class="highlighter-rouge">SeverityStatus</code>), the compiler will refuse to compile your code until all possible cases are handled. This is definitely a plus as it forces you to think about all the paths your code could take.</p>
 
 <p>However, there will be times when you really only want to handle specific cases and not the rest. For instance, we may only be interested in handling the case of failure of <code class="highlighter-rouge">compute_results()</code> and ignore all passes. For that you could use the <code class="highlighter-rouge">_</code> case. <code class="highlighter-rouge">_</code> in the case of a <code class="highlighter-rouge">match</code> statement or expression means “everything else”. So, to write our <code class="highlighter-rouge">FunctionStatus</code> handling functionality in a way when only failures are handled, we could do the following:</p>
 
