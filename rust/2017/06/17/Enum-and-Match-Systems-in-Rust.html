@@ -189,7 +189,7 @@
 
 <p>The same thing can be applied to <code class="highlighter-rouge">SeverityStatus</code>. If you want to ignore benign failures, you can replace that specific case with <code class="highlighter-rouge">_</code>.</p>
 
-<p>The only drawback to using <code class="highlighter-rouge">_</code> is that “everything else” will include any options you include in future instances, so I’d personally strongly advocate against the use of <code class="highlighter-rouge">_</code>. If you want to leave some cases unhandled, you could still include them and point them to an emply block of code, e.g.:</p>
+<p>The only drawback to using <code class="highlighter-rouge">_</code> is that “everything else” will include any options you include in future instances, so I’d personally strongly advocate against the use of <code class="highlighter-rouge">_</code>. If you want to leave some cases unhandled, you could still include them and let them point to an empty block of code, e.g.:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">compute_results</span><span class="p">();</span>
@@ -216,7 +216,7 @@
 
 <p>One last thing I wanted to touch on before I wrap up with this post. When using <code class="highlighter-rouge">match</code> to unstructure objects, you’ll come across projects with multiple fields, or even worse, nested object structures. Our <code class="highlighter-rouge">Person</code> structure can be used as an example here. How would we match this object? following’s how.</p>
 
-<p>Say you’re interested in only structuring the gender and the age of a person object. You’d do this as follows:</p>
+<p>Say you’re interested in only unstructuring the gender and the age of a person object. You’d do this as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span> <span class="p">{</span>
