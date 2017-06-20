@@ -92,7 +92,7 @@
     <span class="s">"-"</span> <span class="k">=&gt;</span> <span class="nf">sub</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
     <span class="s">"*"</span> <span class="k">=&gt;</span> <span class="nf">mul</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
     <span class="s">"/"</span> <span class="k">=&gt;</span> <span class="nf">div</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
-    <span class="n">_</span> <span class="k">=&gt;</span> <span class="mi">0</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span>
+    <span class="n">_</span> <span class="k">=&gt;</span> <span class="mi">0</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span> <span class="c">// Everything else causes the function to return 0. Near future bug alert!!!</span>
   <span class="p">};</span>
 <span class="p">}</span>
 </code></pre>
