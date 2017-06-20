@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Crafting Code - Building Common Interfaces</title>
-  <meta name="description" content="When writing Libraries, APIs, and SDKs, the less stuff you ask your user to memorize the better it looks to you and feels to them. For instance, if you were ...">
+  <meta name="description" content="When writing libraries, APIs, and SDKs, the less stuff you ask your user to memorize the better it looks to you and feels to them. For instance, if you were ...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="/rust/2017/06/20/Crafting-Code-1.html">
@@ -64,7 +64,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>When writing Libraries, APIs, and SDKs, the less stuff you ask your user to memorize the better it looks to you and feels to them. For instance, if you were to write a Math library that performs some arithmetic operations, you could write your library functions ass so:</p>
+    <p>When writing libraries, APIs, and SDKs, the less stuff you ask your user to memorize the better it looks to you and feels to them. For instance, if you were to write a Math library that performs some arithmetic operations, you could write your library functions as so:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">op1</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">op2</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
   <span class="n">op1</span> <span class="o">+</span> <span class="n">op2</span>
@@ -110,7 +110,7 @@
 </code></pre>
 </div>
 
-<p>But there’s more we could do here. So, for instance, instead of specifiny the operation as a string and expose our code to all sorts of correctness bugs (afterall, our <code class="highlighter-rouge">passthrough()</code> function won’t warn us about an invalid operation), we could do something like this:</p>
+<p>But there’s more we could do here. So, for instance, instead of specifying the operation as a string and expose our code to all sorts of correctness bugs (afterall, our <code class="highlighter-rouge">passthrough()</code> function won’t warn us about an invalid operation), we could do something like this:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">enum</span> <span class="n">OperationType</span> <span class="p">{</span>
     <span class="n">ADD</span><span class="p">,</span>
@@ -132,7 +132,7 @@
 
 <p>That will at least force the user to select one of many options, and anything that’s not on the list won’t slide. But that’s not all either. There’s still more that can be done to tweak our code.</p>
 
-<p>Notice how <code class="highlighter-rouge">passthrough</code> will always take two operands, no more or less parameters. What if, in the future, you decide to add an operation that requires only one operand (a square root function for example). You may be able to get away with something as easy as <code class="highlighter-rouge">passthrough(OperationType::SQRT, 25, 0)</code>, but neither looks clean not is something a team of professional developers would approve of. Perhaps we could turn our operands into a flexible object, and for the sake of simplicity we shall call our object <code class="highlighter-rouge">Request</code> and have it implemented as follows:</p>
+<p>Notice how <code class="highlighter-rouge">passthrough</code> will always take two operands, no more or less parameters. What if, in the future, you decide to add an operation that requires only one operand (a square root function for example). You may be able to get away with something as easy as <code class="highlighter-rouge">passthrough(OperationType::SQRT, 25, 0)</code>, but that neither looks clean nor is something a team of professional developers would approve of. Perhaps we could turn our operands into a flexible object, and for the sake of simplicity we shall call our object <code class="highlighter-rouge">Request</code> and have it implemented as follows:</p>
 
 <div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">enum</span> <span class="n">Request</span> <span class="p">{</span>
     <span class="n">NoOps</span><span class="p">,</span>
