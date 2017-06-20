@@ -66,115 +66,126 @@
   <div class="post-content" itemprop="articleBody">
     <p>When writing Libraries, APIs, and SDKs, the less stuff you ask your user to memorize the better it looks to you and feels to them. For instance, if you were to write a Math library that performs some arithmetic operations, you could write your library functions ass so:</p>
 
-<pre><code class="language-Rust">fn add(op1: f32, op2: f32) -&gt; f32 {
-  op1 + op2
-}
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">op1</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">op2</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
+  <span class="n">op1</span> <span class="o">+</span> <span class="n">op2</span>
+<span class="p">}</span>
 
-fn sub(op1: f32, op2: f32) -&gt; f32 {
-  op1 - op2
-}
+<span class="k">fn</span> <span class="nf">sub</span><span class="p">(</span><span class="n">op1</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">op2</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
+  <span class="n">op1</span> <span class="o">-</span> <span class="n">op2</span>
+<span class="p">}</span>
 
-fn mul(op1: f32, op2: f32) -&gt; f32 {
-  op1 * op2
-}
+<span class="k">fn</span> <span class="nf">mul</span><span class="p">(</span><span class="n">op1</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">op2</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
+  <span class="n">op1</span> <span class="o">*</span> <span class="n">op2</span>
+<span class="p">}</span>
 
-fn div(op1: f32, op2: f32) -&gt; f32 {
-  op1 / op2
-}
+<span class="k">fn</span> <span class="nf">div</span><span class="p">(</span><span class="n">op1</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">op2</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
+  <span class="n">op1</span> <span class="err">/</span> <span class="n">op2</span>
+<span class="p">}</span>
 </code></pre>
+</div>
 
 <p>And that’ll require the user to import his/her desired function or set of functions when needed. This is fine, but wouldn’t it be better if you could provide only one function that does all these operations? We’re going to call this function a common interface, but this procedure is called a passthrough in the professional field. A passthrough function is a multi-purpose entry point to a set of different classes or functions. In the case of our Math library, we could have our passthrough function written as follows:</p>
 
-<pre><code class="language-Rust">fn passthrough(operation: &amp;'static str, op1: f32, op2: f32) -&gt; f32 {
-  return match operation {
-    "+" =&gt; add(op1, op2),
-    "-" =&gt; sub(op1, op2),
-    "*" =&gt; mul(op1, op2),
-    "/" =&gt; div(op1, op2),
-    _ =&gt; 0 as f32,
-  };
-}
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">passthrough</span><span class="p">(</span><span class="n">operation</span><span class="p">:</span> <span class="o">&amp;</span><span class="err">'</span><span class="k">static</span> <span class="nb">str</span><span class="p">,</span> <span class="n">op1</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">op2</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">match</span> <span class="n">operation</span> <span class="p">{</span>
+    <span class="s">"+"</span> <span class="k">=&gt;</span> <span class="nf">add</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
+    <span class="s">"-"</span> <span class="k">=&gt;</span> <span class="nf">sub</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
+    <span class="s">"*"</span> <span class="k">=&gt;</span> <span class="nf">mul</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
+    <span class="s">"/"</span> <span class="k">=&gt;</span> <span class="nf">div</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
+    <span class="n">_</span> <span class="k">=&gt;</span> <span class="mi">0</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
 </code></pre>
+</div>
 
 <p>That allows us to do something like this:</p>
 
-<pre><code class="language-Rust">let res = passthrough("+", 10 as f32, 12.3);
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">passthrough</span><span class="p">(</span><span class="s">"+"</span><span class="p">,</span> <span class="mi">10</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span> <span class="mf">12.3</span><span class="p">);</span>
 </code></pre>
+</div>
 
 <p>Instead of this:</p>
 
-<pre><code class="language-Rust">let res = add(32.4, 12 as f32);
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mf">32.4</span><span class="p">,</span> <span class="mi">12</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">);</span>
 </code></pre>
+</div>
 
 <p>But there’s more we could do here. So, for instance, instead of specifiny the operation as a string and expose our code to all sorts of correctness bugs (afterall, our <code class="highlighter-rouge">passthrough()</code> function won’t warn us about an invalid operation), we could do something like this:</p>
 
-<pre><code class="language-Rust">enum OperationType {
-    ADD,
-    SUB,
-    MUL,
-    DIV,
-}
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">enum</span> <span class="n">OperationType</span> <span class="p">{</span>
+    <span class="n">ADD</span><span class="p">,</span>
+    <span class="n">SUB</span><span class="p">,</span>
+    <span class="n">MUL</span><span class="p">,</span>
+    <span class="n">DIV</span><span class="p">,</span>
+<span class="p">}</span>
 
-fn passthrough(operation: OperationType, op1: f32, op2: f32) -&gt; f32 {
-  return match operation {
-    OperationType::ADD =&gt; add(op1, op2),
-    OperationType::SUB =&gt; sub(op1, op2),
-    OperationType::MUL =&gt; mul(op1, op2),
-    OperationType::DIV =&gt; div(op1, op2),
-  };
-}
+<span class="k">fn</span> <span class="nf">passthrough</span><span class="p">(</span><span class="n">operation</span><span class="p">:</span> <span class="n">OperationType</span><span class="p">,</span> <span class="n">op1</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">op2</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">match</span> <span class="n">operation</span> <span class="p">{</span>
+    <span class="nn">OperationType</span><span class="p">::</span><span class="n">ADD</span> <span class="k">=&gt;</span> <span class="nf">add</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
+    <span class="nn">OperationType</span><span class="p">::</span><span class="n">SUB</span> <span class="k">=&gt;</span> <span class="nf">sub</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
+    <span class="nn">OperationType</span><span class="p">::</span><span class="n">MUL</span> <span class="k">=&gt;</span> <span class="nf">mul</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
+    <span class="nn">OperationType</span><span class="p">::</span><span class="n">DIV</span> <span class="k">=&gt;</span> <span class="nf">div</span><span class="p">(</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">),</span>
+  <span class="p">};</span>
+<span class="p">}</span>
 </code></pre>
+</div>
 
 <p>That will at least force the user to select one of many options, and anything that’s not on the list won’t slide. But that’s not all either. There’s still more that can be done to tweak our code.</p>
 
 <p>Notice how <code class="highlighter-rouge">passthrough</code> will always take two operands, no more or less parameters. What if, in the future, you decide to add an operation that requires only one operand (a square root function for example). You may be able to get away with something as easy as <code class="highlighter-rouge">passthrough(OperationType::SQRT, 25, 0)</code>, but neither looks clean not is something a team of professional developers would approve of. Perhaps we could turn our operands into a flexible object, and for the sake of simplicity we shall call our object <code class="highlighter-rouge">Request</code> and have it implemented as follows:</p>
 
-<pre><code class="language-Rust">enum Request {
-    NoOps,
-    OneOp(f32),
-    TwoOps(f32, f32),
-    ThreeOps(f32, f32, f32),
-}
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">enum</span> <span class="n">Request</span> <span class="p">{</span>
+    <span class="n">NoOps</span><span class="p">,</span>
+    <span class="nf">OneOp</span><span class="p">(</span><span class="nb">f32</span><span class="p">),</span>
+    <span class="nf">TwoOps</span><span class="p">(</span><span class="nb">f32</span><span class="p">,</span> <span class="nb">f32</span><span class="p">),</span>
+    <span class="nf">ThreeOps</span><span class="p">(</span><span class="nb">f32</span><span class="p">,</span> <span class="nb">f32</span><span class="p">,</span> <span class="nb">f32</span><span class="p">),</span>
+<span class="p">}</span>
 </code></pre>
+</div>
 
 <p>And re-implement our <code class="highlighter-rouge">passthrough()</code> function to work with a <code class="highlighter-rouge">Request</code> object as follows:</p>
 
-<pre><code class="language-Rust">fn passthrough(operation: OperationType, req: Request) -&gt; f32 {
-  return match operation {
-    OperationType::ADD =&gt; add(req),
-    OperationType::SUB =&gt; sub(req),
-    OperationType::MUL =&gt; mul(req),
-    OperationType::DIV =&gt; div(req),
-  };
-}
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">passthrough</span><span class="p">(</span><span class="n">operation</span><span class="p">:</span> <span class="n">OperationType</span><span class="p">,</span> <span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">match</span> <span class="n">operation</span> <span class="p">{</span>
+    <span class="nn">OperationType</span><span class="p">::</span><span class="n">ADD</span> <span class="k">=&gt;</span> <span class="nf">add</span><span class="p">(</span><span class="n">req</span><span class="p">),</span>
+    <span class="nn">OperationType</span><span class="p">::</span><span class="n">SUB</span> <span class="k">=&gt;</span> <span class="nf">sub</span><span class="p">(</span><span class="n">req</span><span class="p">),</span>
+    <span class="nn">OperationType</span><span class="p">::</span><span class="n">MUL</span> <span class="k">=&gt;</span> <span class="nf">mul</span><span class="p">(</span><span class="n">req</span><span class="p">),</span>
+    <span class="nn">OperationType</span><span class="p">::</span><span class="n">DIV</span> <span class="k">=&gt;</span> <span class="nf">div</span><span class="p">(</span><span class="n">req</span><span class="p">),</span>
+  <span class="p">};</span>
+<span class="p">}</span>
 </code></pre>
+</div>
 
 <p>And re-implement our arithmetic functions to use our <code class="highlighter-rouge">Request</code> object instead of straight operands:</p>
 
-<pre><code class="language-Rust">fn add(req: Request) -&gt; f32 {
-  return match req {
-    Request::NoOps =&gt; 0 as f32,
-    Request::OneOp(a) =&gt; a,w
-    Request::TwoOps(a, b) =&gt; a + b,
-    Request::ThreeOps(a, b, c) =&gt; a + b + c,
-  };
-}
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="n">req</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">f32</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">match</span> <span class="n">req</span> <span class="p">{</span>
+    <span class="nn">Request</span><span class="p">::</span><span class="n">NoOps</span> <span class="k">=&gt;</span> <span class="mi">0</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">,</span>
+    <span class="nn">Request</span><span class="p">::</span><span class="nf">OneOp</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="n">a</span><span class="p">,</span><span class="n">w</span>
+    <span class="nn">Request</span><span class="p">::</span><span class="nf">TwoOps</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span>
+    <span class="nn">Request</span><span class="p">::</span><span class="nf">ThreeOps</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
 </code></pre>
+</div>
 
 <p>And the resulting code will then allow us to do something like this:</p>
 
-<pre><code class="language-Rust">let res = passthrough(OperationType::ADD, Request::NoOps);
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">passthrough</span><span class="p">(</span><span class="nn">OperationType</span><span class="p">::</span><span class="n">ADD</span><span class="p">,</span> <span class="nn">Request</span><span class="p">::</span><span class="n">NoOps</span><span class="p">);</span>
 </code></pre>
+</div>
 
 <p>Or this:</p>
 
-<pre><code class="language-Rust">let res = passthrough(OperationType::ADD, Request::TwoOps(10.1, 40.5));
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">passthrough</span><span class="p">(</span><span class="nn">OperationType</span><span class="p">::</span><span class="n">ADD</span><span class="p">,</span> <span class="nn">Request</span><span class="p">::</span><span class="nf">TwoOps</span><span class="p">(</span><span class="mf">10.1</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">));</span>
 </code></pre>
+</div>
 
 <p>Or this:</p>
 
-<pre><code class="language-Rust">let res = passthrough(OperationType::ADD, Request::ThreeOps(10.1, 40.5));
+<div class="language-rust highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">passthrough</span><span class="p">(</span><span class="nn">OperationType</span><span class="p">::</span><span class="n">ADD</span><span class="p">,</span> <span class="nn">Request</span><span class="p">::</span><span class="nf">ThreeOps</span><span class="p">(</span><span class="mf">10.1</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">));</span>
 </code></pre>
+</div>
 
 <p>There’s still more room for improvement, but you get the point.</p>
 
