@@ -78,7 +78,8 @@
 
 <p>Start a <code class="highlighter-rouge">Platformio</code> project as follows:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>mkdir my_device_driver <span class="o">&amp;&amp;</span> <span class="nb">cd </span>my_device_driver <span class="o">&amp;&amp;</span> pip init .
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>mkdir my_device_driver <span class="o">&amp;&amp;</span> <span class="nb">cd </span>my_device_driver
+<span class="gp">$ </span>pip init .
 </code></pre>
 </div>
 
@@ -89,6 +90,46 @@
 
 <span class="c"># Or the following if you're adding an ESP8266 board</span>
 <span class="gp">$ </span>pio init --board YYY
+</code></pre>
+</div>
+
+<p>Add a source file to your project:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>touch src/main.ino
+</code></pre>
+</div>
+
+<p>Open <code class="highlighter-rouge">src/main.ino</code> in your preferred code editor and add the following lines of code to it:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>void setup<span class="o">()</span>
+<span class="o">{</span>
+  Serial.begin<span class="o">(</span>9600<span class="o">)</span>;
+<span class="o">}</span>
+
+void loop<span class="o">()</span>
+<span class="o">{</span>
+  Serial.println<span class="o">(</span><span class="s2">"Hello, Device Driver!"</span><span class="o">)</span>;
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Now build your code and make sure everything completes successfully:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pio build
+</code></pre>
+</div>
+
+<p>Connect your board to your computer over a USB cable and run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pio run --target upload
+</code></pre>
+</div>
+
+<blockquote>
+  <p>The command above may fail due to lack of permission to access the device files. If you happen to be following along on a <code class="highlighter-rouge">Linux</code> machine (which is what I’d highly recommend), the following should fix your problem:</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sudo pio run --target upload
 </code></pre>
 </div>
 

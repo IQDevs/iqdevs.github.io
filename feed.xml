@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-08T18:27:23+00:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things are too good to contain in a little box</subtitle><entry><title type="html">Device Drivers and Communication Protocol Specification Writing</title><link href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html" rel="alternate" type="text/html" title="Device Drivers and Communication Protocol Specification Writing" /><published>2017-09-07T05:00:00+00:00</published><updated>2017-09-07T05:00:00+00:00</updated><id>/c/2017/09/07/Device%20Drivers%20and%20Communication%20Protocol%20Specification%20Writing</id><content type="html" xml:base="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">&lt;p&gt;Device drivers and protocol design are two areas where one could get really technical and dive into very complex topics, though this guide doesn’t need to be. We’re going to write a device driver that processes incomming commands and returns responses conforming to a standard specification that we’re going to write first.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-08T18:36:44+00:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things are too good to contain in a little box</subtitle><entry><title type="html">Device Drivers and Communication Protocol Specification Writing</title><link href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html" rel="alternate" type="text/html" title="Device Drivers and Communication Protocol Specification Writing" /><published>2017-09-07T05:00:00+00:00</published><updated>2017-09-07T05:00:00+00:00</updated><id>/c/2017/09/07/Device%20Drivers%20and%20Communication%20Protocol%20Specification%20Writing</id><content type="html" xml:base="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">&lt;p&gt;Device drivers and protocol design are two areas where one could get really technical and dive into very complex topics, though this guide doesn’t need to be. We’re going to write a device driver that processes incomming commands and returns responses conforming to a standard specification that we’re going to write first.&lt;/p&gt;
 
 &lt;p&gt;What device are we targetting? We could design a USB device and write a Linux Kernel module, but that’d be too heaftly of a task for a single blog post, so instead, we’re going to stick a device that doesn’t require an OS or even a Kernel. I decided to go Arduino, but everything discussed here works just fine with ESP8266 or any boards that allow you to flash Arduino-compiled code. I’m also going to use &lt;a href=&quot;http://platformio.org/&quot;&gt;Platformio&lt;/a&gt; to ease up the build and deployment process. If you don’t have &lt;code class=&quot;highlighter-rouge&quot;&gt;Platformio&lt;/code&gt; installed, the following command should take care of that part for you:&lt;/p&gt;
 
@@ -12,7 +12,8 @@
 
 &lt;p&gt;Start a &lt;code class=&quot;highlighter-rouge&quot;&gt;Platformio&lt;/code&gt; project as follows:&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mkdir my_device_driver &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;my_device_driver &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; pip init .
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;mkdir my_device_driver &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;my_device_driver
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pip init .
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -23,6 +24,46 @@
 
 &lt;span class=&quot;c&quot;&gt;# Or the following if you're adding an ESP8266 board&lt;/span&gt;
 &lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pio init --board YYY
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Add a source file to your project:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;touch src/main.ino
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Open &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main.ino&lt;/code&gt; in your preferred code editor and add the following lines of code to it:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void setup&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  Serial.begin&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;9600&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+void loop&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  Serial.println&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello, Device Driver!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now build your code and make sure everything completes successfully:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pio build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Connect your board to your computer over a USB cable and run the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pio run --target upload
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The command above may fail due to lack of permission to access the device files. If you happen to be following along on a &lt;code class=&quot;highlighter-rouge&quot;&gt;Linux&lt;/code&gt; machine (which is what I’d highly recommend), the following should fix your problem:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo pio run --target upload
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
