@@ -162,7 +162,9 @@ Our specification will cover both the HLD and the LLD sides of the project.</p>
 <h3 id="lld">LLD</h3>
 <p>Now that we’ve defined our expected bevaiour in our HLD, we can go ahead and decide how to go about having it all done. This is where LLD comes into place.</p>
 
-<p>We’ve decided that our end goal is to allow access to all pins over serial. We know the best way to maniuplate the pins is to use these functions: <code class="highlighter-rouge">pinMode</code>, <code class="highlighter-rouge">digitalRead</code>, <code class="highlighter-rouge">analogRead</code>, <code class="highlighter-rouge">digitalWrite</code>, and <code class="highlighter-rouge">analogWrite</code>. So, we can write our LLD specification to limt our use of the pins to these five functions only. This could be formly done as so:</p>
+<ul>
+  <li>We’ve decided that our end goal is to allow access to all pins over serial. We know the best way to maniuplate the pins is to use these functions: <code class="highlighter-rouge">pinMode</code>, <code class="highlighter-rouge">digitalRead</code>, <code class="highlighter-rouge">analogRead</code>, <code class="highlighter-rouge">digitalWrite</code>, and <code class="highlighter-rouge">analogWrite</code>. So, we can write our LLD specification to limt our use of the pins to these five functions only. This could be formly done as so:</li>
+</ul>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>All pin manipulation must be limitted to using `pinMode`, `digitalRead`, `analogRead`, `digitalWrite`, and `analogWrite`. No bit togolling is allowed.
 </code></pre>
@@ -170,13 +172,18 @@ Our specification will cover both the HLD and the LLD sides of the project.</p>
 
 <p>Now let’s talk a little about our inputs (requests) and outputs (responses).</p>
 
-<p>Every command we send to or recieve from the board MUST start with an agreed-upon hard-coded acknowledgment byte. The purpose of having this byte it so make sure we have a valid command to work with. If, for instance, your last command read less or more bytes that it was supposed to, all upcoming commands coming from thatpoint onward will be messed up. Not having the expeceted acknowledgment byte in place will draw our attention to a stagerring bug if the boards misbehaviour is, for any reason, not obvious. Because 0 is the natural result you get when you zero out a block of memory, making our acknowledgment zero will make our deiver implementation prone to all sorts of defects. So, we could specifically prohibit the use of zero as a valid acknowledgment byte:</p>
+<ul>
+  <li>Every command we send to or recieve from the board MUST start with an agreed-upon hard-coded acknowledgment byte. The purpose of having this byte it so make sure we have a valid command to work with. If, for instance, your last command read less or more bytes that it was supposed to, all upcoming commands coming from thatpoint onward will be messed up. Not having the expeceted acknowledgment byte in place will draw our attention to a stagerring bug if the boards misbehaviour is, for any reason, not obvious. Because 0 is the natural result you get when you zero out a block of memory, making our acknowledgment zero will make our deiver implementation prone to all sorts of defects. So, we could specifically prohibit the use of zero as a valid acknowledgment byte:</li>
+</ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Every request sent to the board and every response retrieved from the board must start with an agreed-upon hard-coded acknowledgment byte. For the same of conformity, we have decided that our acknowledgment byte is 0xA.
+<div class="highlighter-rouge"><pre class="highlight"><code>Every request sent to the board and every response retrieved from the board must start with an agreed-upon hard-coded acknowledgment byte. For the same of conformity across all possible future interfaces, we have decided that our acknowledgment byte is 0xA.
 </code></pre>
 </div>
 
-<p>To achieve a smooth experience, we need to decide on an upper byte limit for both requests and responses, that way we don’t have to calculate offsets on the fly which will require more processing power. For something as little as an Arduino board, you definitely need to consider solutions that require as little memory and processing power as possible. If you do the math correctly, you’ll need one byte for your <code class="highlighter-rouge">acknolwdgment</code> field, one for the <code class="highlighter-rouge">id</code>, one for the <code class="highlighter-rouge">pin</code>, one for the <code class="highlighter-rouge">type</code> of the pin, one for the <code class="highlighter-rouge">mode</code> (in the case of setting a pin mode), and one for the <code class="highlighter-rouge">value</code> (in the case of setting a pin value). Since <code class="highlighter-rouge">mode</code> and <code class="highlighter-rouge">value</code> can’t coexist, we can safely assume that the maximum size needed for each command is 5 bytes.</p>
+<ul>
+  <li></li>
+  <li>To achieve a smooth experience, we need to decide on an upper byte limit for both requests and responses, that way we don’t have to calculate offsets on the fly which will require more processing power. For something as little as an Arduino board, you definitely need to consider solutions that require as little memory and processing power as possible. If you do the math correctly, you’ll need one byte for your <code class="highlighter-rouge">acknolwdgment</code> field, one for the <code class="highlighter-rouge">id</code>, one for the <code class="highlighter-rouge">pin</code>, one for the <code class="highlighter-rouge">type</code> of the pin, one for the <code class="highlighter-rouge">mode</code> (in the case of setting a pin mode), and one for the <code class="highlighter-rouge">value</code> (in the case of setting a pin value). Since <code class="highlighter-rouge">mode</code> and <code class="highlighter-rouge">value</code> can’t coexist, we can safely assume that the maximum size needed for each command is 5 bytes:</li>
+</ul>
 
 <h2 id="driver-implementation">Driver Implementation</h2>
 
