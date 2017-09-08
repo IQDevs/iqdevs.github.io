@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-08T18:38:59+00:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things are too good to contain in a little box</subtitle><entry><title type="html">Device Drivers and Communication Protocol Specification Writing</title><link href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html" rel="alternate" type="text/html" title="Device Drivers and Communication Protocol Specification Writing" /><published>2017-09-07T05:00:00+00:00</published><updated>2017-09-07T05:00:00+00:00</updated><id>/c/2017/09/07/Device%20Drivers%20and%20Communication%20Protocol%20Specification%20Writing</id><content type="html" xml:base="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">&lt;p&gt;Device drivers and protocol design are two areas where one could get really technical and dive into very complex topics, though this guide doesn’t need to be. We’re going to write a device driver that processes incomming commands and returns responses conforming to a standard specification that we’re going to write first.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-08T18:41:11+00:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things are too good to contain in a little box</subtitle><entry><title type="html">Device Drivers and Communication Protocol Specification Writing</title><link href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html" rel="alternate" type="text/html" title="Device Drivers and Communication Protocol Specification Writing" /><published>2017-09-07T05:00:00+00:00</published><updated>2017-09-07T05:00:00+00:00</updated><id>/c/2017/09/07/Device%20Drivers%20and%20Communication%20Protocol%20Specification%20Writing</id><content type="html" xml:base="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">&lt;p&gt;Device drivers and protocol design are two areas where one could get really technical and dive into very complex topics, though this guide doesn’t need to be. We’re going to write a device driver that processes incomming commands and returns responses conforming to a standard specification that we’re going to write first.&lt;/p&gt;
 
 &lt;p&gt;What device are we targetting? We could design a USB device and write a Linux Kernel module, but that’d be too heaftly of a task for a single blog post, so instead, we’re going to stick a device that doesn’t require an OS or even a Kernel. I decided to go Arduino, but everything discussed here works just fine with ESP8266 or any boards that allow you to flash Arduino-compiled code. I’m also going to use &lt;a href=&quot;http://platformio.org/&quot;&gt;Platformio&lt;/a&gt; to ease up the build and deployment process. If you don’t have &lt;code class=&quot;highlighter-rouge&quot;&gt;Platformio&lt;/code&gt; installed, the following command should take care of that part for you:&lt;/p&gt;
 
@@ -35,15 +35,15 @@
 
 &lt;p&gt;Open &lt;code class=&quot;highlighter-rouge&quot;&gt;src/main.ino&lt;/code&gt; in your preferred code editor and add the following lines of code to it:&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;void setup&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  Serial.begin&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;9600&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-void loop&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  Serial.println&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello, Device Driver!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, Device Driver!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -66,6 +66,13 @@ void loop&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;sudo pio run --target upload
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;p&gt;Now if you run the following:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;pio device monitor &lt;span class=&quot;c&quot;&gt;# Or sudo pio device monitor&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You should be seeing an endless stream of the “Hello, Device Driver!” string. This is a clear indicator that everything (project setup, build chain, USB connection, and serial communication) is good to go.&lt;/p&gt;
 
 &lt;p&gt;Now onto designing our communication protocol specification. What would you like your device to do? Since I’m the one writing this blog post, I have decided to stick to writing the shortest specification possible. We’re going to allow the control of all digital and analog pins remotely.&lt;/p&gt;
 

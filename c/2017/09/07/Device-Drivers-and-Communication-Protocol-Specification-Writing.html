@@ -101,15 +101,15 @@
 
 <p>Open <code class="highlighter-rouge">src/main.ino</code> in your preferred code editor and add the following lines of code to it:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>void setup<span class="o">()</span>
-<span class="o">{</span>
-  Serial.begin<span class="o">(</span>9600<span class="o">)</span>;
-<span class="o">}</span>
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">9600</span><span class="p">);</span>
+<span class="p">}</span>
 
-void loop<span class="o">()</span>
-<span class="o">{</span>
-  Serial.println<span class="o">(</span><span class="s2">"Hello, Device Driver!"</span><span class="o">)</span>;
-<span class="o">}</span>
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Hello, Device Driver!"</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre>
 </div>
 
@@ -132,6 +132,13 @@ void loop<span class="o">()</span>
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>sudo pio run --target upload
 </code></pre>
 </div>
+
+<p>Now if you run the following:</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pio device monitor <span class="c"># Or sudo pio device monitor</span>
+</code></pre>
+</div>
+
+<p>You should be seeing an endless stream of the “Hello, Device Driver!” string. This is a clear indicator that everything (project setup, build chain, USB connection, and serial communication) is good to go.</p>
 
 <p>Now onto designing our communication protocol specification. What would you like your device to do? Since I’m the one writing this blog post, I have decided to stick to writing the shortest specification possible. We’re going to allow the control of all digital and analog pins remotely.</p>
 
