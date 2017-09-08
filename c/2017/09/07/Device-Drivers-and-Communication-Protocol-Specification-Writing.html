@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>IQDevs Blog</title>
-  <meta name="description" content="Some things are too good to contain in a little box">
+  <title>Device Drivers and Communication Protocol Specification Writing</title>
+  <meta name="description" content="Device drivers and protocol design are two areas wheere one could get really technical and dive into very complex details, though this guide doesn’t need to ...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/">
+  <link rel="canonical" href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">
   <link rel="alternate" type="application/rss+xml" title="IQDevs Blog" href="/feed.xml">
   
   
@@ -56,60 +56,28 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1 class="page-heading">Posts</h1>
-  
-  
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Device Drivers and Communication Protocol Specification Writing</h1>
+    <p class="post-meta"><time datetime="2017-09-07T05:00:00+00:00" itemprop="datePublished">Sep 7, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">alkass</span></span></p>
+  </header>
 
+  <div class="post-content" itemprop="articleBody">
+    <p>Device drivers and protocol design are two areas wheere one could get really technical and dive into very complex details, though this guide doesn’t need to be. We’re going to write a device driver that process incomming commands and send responses conforming to a standard specification that we’re going to write first.</p>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Sep 7, 2017</span>
+<p>What device are we targetting? We could design a USB device and write a Linux Kernel module, but that’d be too heaftly of a task, so we’re going to stick a device that doesn’t require an OS or even a Kernel. I decided to go Arduino, but everything discussed here applies to my preferred module, the almighty ESP8266. I’m also going to use <a href="http://platformio.org/">Platformio</a> to ease up my build and deployment process. If you don’t have <code class="highlighter-rouge">Platformio</code> installed, the following command should take care of that part for you:</p>
 
-        <h2>
-          <a class="post-link" href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">Device Drivers and Communication Protocol Specification Writing</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 20, 2017</span>
-
-        <h2>
-          <a class="post-link" href="/rust/2017/06/20/Crafting-Code-1.html">Crafting Code - Building Common Interfaces</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jun 17, 2017</span>
-
-        <h2>
-          <a class="post-link" href="/rust/2017/06/17/Enum-and-Match-Systems-in-Rust.html">Enum and Match Systems in Rust</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 14, 2017</span>
-
-        <h2>
-          <a class="post-link" href="/typescript/2017/04/14/My-Thoughts-on-TypeScript.html">My Thoughts on TypeScript</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 12, 2017</span>
-
-        <h2>
-          <a class="post-link" href="/rust/2017/04/12/Rust-for-High-Level-Programming-Language-Developers.html">Rust for High-Level Programming Language Developers</a>
-        </h2>
-      </li>
-    
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
-
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pip install platformio
+</code></pre>
 </div>
+
+<p>Now onto designing our communication protocol specification. What would you like your device to do? Since I’m the one writing this blog post, I have decided to stick</p>
+
+  </div>
+
+  
+</article>
 
       </div>
     </main>
