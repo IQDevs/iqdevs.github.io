@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-08T18:50:32+00:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things are too good to contain in a little box</subtitle><entry><title type="html">Device Drivers and Communication Protocol Specification Writing</title><link href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html" rel="alternate" type="text/html" title="Device Drivers and Communication Protocol Specification Writing" /><published>2017-09-07T05:00:00+00:00</published><updated>2017-09-07T05:00:00+00:00</updated><id>/c/2017/09/07/Device%20Drivers%20and%20Communication%20Protocol%20Specification%20Writing</id><content type="html" xml:base="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">&lt;p&gt;Device drivers and protocol design are two areas where one could get really technical and dive into very complex topics, though this guide doesn’t need to be. We’re going to write a device driver that processes incomming commands and returns responses conforming to a standard specification that we’re going to write first.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-09-08T19:01:32+00:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things are too good to contain in a little box</subtitle><entry><title type="html">Device Drivers and Communication Protocol Specification Writing</title><link href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html" rel="alternate" type="text/html" title="Device Drivers and Communication Protocol Specification Writing" /><published>2017-09-07T05:00:00+00:00</published><updated>2017-09-07T05:00:00+00:00</updated><id>/c/2017/09/07/Device%20Drivers%20and%20Communication%20Protocol%20Specification%20Writing</id><content type="html" xml:base="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">&lt;p&gt;Device drivers and protocol design are two areas where one could get really technical and dive into very complex topics, though this guide doesn’t need to be. We’re going to write a device driver that processes incomming commands and returns responses conforming to a standard specification that we’re going to write first.&lt;/p&gt;
 
 &lt;p&gt;What device are we targetting? We could design a USB device and write a Linux Kernel module, but that’d be too heaftly of a task for a single blog post, so instead, we’re going to stick a device that doesn’t require an OS or even a Kernel. I decided to go Arduino, but everything discussed here works just fine with ESP8266 or any boards that allow you to flash Arduino-compiled code.&lt;/p&gt;
 
@@ -79,11 +79,20 @@
 &lt;p&gt;You should be seeing an endless stream of the “Hello, Device Driver!” string. This is a clear indicator that everything (project setup, build chain, USB connection, and serial communication) is good to go.&lt;/p&gt;
 
 &lt;h2 id=&quot;specification-writing&quot;&gt;Specification Writing&lt;/h2&gt;
-&lt;p&gt;Our communication protocol specification design will consist of two parts: High-Level Design (HLD) and Low-Level Design (LLD).&lt;/p&gt;
+&lt;p&gt;Now onto designing our communication protocol specification. Specification documents are written to outline what needs to be done (HLD - short for High-Level Design) in all cases, &lt;b&gt;and how to be done&lt;/b&gt; (LLD - short for Low-Level Design) in some cases.
+Our specification will cover both the HLD and the LLD sides of the project.&lt;/p&gt;
 
 &lt;h3 id=&quot;hld&quot;&gt;HLD&lt;/h3&gt;
+&lt;p&gt;What would you like your device to do? This is the type of question an HLD can answer. Since I’m the one writing this blog post, I have decided to stick to writing the shortest specification possible. We’re going to allow the control of all digital and analog pins remotely. This can be formly written as follows:&lt;/p&gt;
 
-&lt;p&gt;Now onto designing our communication protocol specification. What would you like your device to do? Since I’m the one writing this blog post, I have decided to stick to writing the shortest specification possible. We’re going to allow the control of all digital and analog pins remotely.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The device driver will allow access to all input and output pins (both analog and digital) on the following Arduino modules:
+* Arduino Uno
+* Arduino Mega
+* .
+* . 
+* etc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Our specification looks like the following:&lt;/p&gt;
 
