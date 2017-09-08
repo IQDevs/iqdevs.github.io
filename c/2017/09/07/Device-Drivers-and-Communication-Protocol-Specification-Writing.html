@@ -181,7 +181,7 @@ Our specification will cover both the HLD and the LLD sides of the project.</p>
 </div>
 
 <ul>
-  <li>Whoever is sending the commands to the board may not be reading the responses right away. It would be extremely useful to allow them to attach an ID to every request that we return as part of the response so they don’t confused as to which is a response to which. We can decide that this field is going to occupy one byte of our input and output stream:</li>
+  <li>Whoever is sending the requests to the board may not be reading the responses right away. It would be extremely useful to allow them to attach an ID to every request that we return as part of the response so they’re not confused as to which is a response to which request. We can decide that this field is going to occupy one byte of our input and output stream:</li>
 </ul>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>Every request sent to the board is expected to contain an identifying byte. This byte is useful in cases when the requesting end is queuing the responses instead of treating them instantly. This identifier must not be more than one byte long, and it won't be varified by the board; the board will simply copy this field from the request object into the response object without verifying its uniqueness.
@@ -189,8 +189,47 @@ Our specification will cover both the HLD and the LLD sides of the project.</p>
 </div>
 
 <ul>
-  <li>To achieve a smooth experience, we need to decide on an upper byte limit for both requests and responses, that way we don’t have to calculate offsets on the fly which will require more processing power. For something as little as an Arduino board, you definitely need to consider solutions that require as little memory and processing power as possible. If you do the math correctly, you’ll need one byte for your <code class="highlighter-rouge">acknolwdgment</code> field, one for the <code class="highlighter-rouge">id</code>, one for the <code class="highlighter-rouge">pin</code>, one for the <code class="highlighter-rouge">type</code> of the pin, one for the <code class="highlighter-rouge">mode</code> (in the case of setting a pin mode), and one for the <code class="highlighter-rouge">value</code> (in the case of setting a pin value). Since <code class="highlighter-rouge">mode</code> and <code class="highlighter-rouge">value</code> can’t coexist, we can safely assume that the maximum size needed for each command is 5 bytes:</li>
+  <li>
+    <p>We need</p>
+  </li>
+  <li>
+    <p>To achieve a smooth experience, we need to decide on an upper byte limit for both requests and responses, that way we don’t have to calculate offsets on the fly which will require more processing power. For something as little as an Arduino board, you definitely need to consider solutions that require as little memory and processing power as possible. If you do the math correctly, you’ll need one byte for your <code class="highlighter-rouge">acknolwdgment</code> field, one for the <code class="highlighter-rouge">id</code>, one for the <code class="highlighter-rouge">operation</code>, one for the <code class="highlighter-rouge">pin</code>, one for the <code class="highlighter-rouge">type</code> of the pin, one for the <code class="highlighter-rouge">mode</code> (in the case of setting a pin mode), and one for the <code class="highlighter-rouge">value</code> (in the case of setting a pin value). Since <code class="highlighter-rouge">mode</code> and <code class="highlighter-rouge">value</code> can’t coexist, we can safely assume that the maximum size needed for each command is six bytes:</p>
+  </li>
 </ul>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">ack</span><span class="p">;</span>     <span class="c1">// Our acknowledgment byte
+</span>  <span class="kt">char</span> <span class="n">id</span><span class="p">;</span>      <span class="c1">// Unique identifier
+</span>  <span class="kt">char</span> <span class="n">op</span><span class="p">;</span>      <span class="c1">// Operation (MODE, READ or WRITE)
+</span>  <span class="kt">char</span> <span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">// These args are different for different operations, so we maintain
+</span>                <span class="c1">// them in a byte array until we find out what the operation
+</span>                <span class="c1">// operation is so we can typecast them into the proper structure
+</span><span class="p">}</span> <span class="n">Request</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">pin</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">pin_type</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">mode</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">ModeRequest</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">pin</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">pin_type</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">WriteRequest</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">pin</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">pin_type</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">ReadRequest</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">id</span><span class="p">;</span>     <span class="c1">// The same unique identifier we recieved in the request
+</span>  <span class="kt">char</span> <span class="n">status</span><span class="p">;</span> <span class="c1">// TRUE (1) or FALSE (0)
+</span>  <span class="kt">char</span> <span class="n">value</span><span class="p">;</span>  <span class="c1">// To be populated when a value if needed
+</span><span class="p">}</span> <span class="n">Response</span><span class="p">;</span>
+</code></pre>
+</div>
 
 <h2 id="driver-implementation">Driver Implementation</h2>
 
