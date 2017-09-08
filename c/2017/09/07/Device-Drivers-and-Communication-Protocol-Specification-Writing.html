@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Device Drivers and Communication Protocol Specification Writing</title>
-  <meta name="description" content="Device drivers and protocol design are two areas wheere one could get really technical and dive into very complex details, though this guide doesn’t need to ...">
+  <meta name="description" content="Device drivers and protocol design are two areas where one could get really technical and dive into very complex topics, though this guide doesn’t need to be...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="/c/2017/09/07/Device-Drivers-and-Communication-Protocol-Specification-Writing.html">
@@ -64,9 +64,9 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Device drivers and protocol design are two areas wheere one could get really technical and dive into very complex details, though this guide doesn’t need to be. We’re going to write a device driver that process incomming commands and send responses conforming to a standard specification that we’re going to write first.</p>
+    <p>Device drivers and protocol design are two areas where one could get really technical and dive into very complex topics, though this guide doesn’t need to be. We’re going to write a device driver that processes incomming commands and returns responses conforming to a standard specification that we’re going to write first.</p>
 
-<p>What device are we targetting? We could design a USB device and write a Linux Kernel module, but that’d be too heaftly of a task, so we’re going to stick a device that doesn’t require an OS or even a Kernel. I decided to go Arduino, but everything discussed here applies to my preferred module, the almighty ESP8266. I’m also going to use <a href="http://platformio.org/">Platformio</a> to ease up my build and deployment process. If you don’t have <code class="highlighter-rouge">Platformio</code> installed, the following command should take care of that part for you:</p>
+<p>What device are we targetting? We could design a USB device and write a Linux Kernel module, but that’d be too heaftly of a task for a single blog post, so instead, we’re going to stick a device that doesn’t require an OS or even a Kernel. I decided to go Arduino, but everything discussed here works just fine with ESP8266 or any boards that allow you to flash Arduino-compiled code. I’m also going to use <a href="http://platformio.org/">Platformio</a> to ease up the build and deployment process. If you don’t have <code class="highlighter-rouge">Platformio</code> installed, the following command should take care of that part for you:</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pip install platformio
 </code></pre>
@@ -75,6 +75,22 @@
 <blockquote>
   <p>The techniques discussed here are by no means Arduino-specific. They are applicable to any device with serial or any type of connection for that matter.</p>
 </blockquote>
+
+<p>Start a <code class="highlighter-rouge">Platformio</code> project as follows:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>mkdir my_device_driver <span class="o">&amp;&amp;</span> <span class="nb">cd </span>my_device_driver <span class="o">&amp;&amp;</span> pip init .
+</code></pre>
+</div>
+
+<p>Add your board to the project:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># If you're adding an Arduino board run the following</span>
+<span class="gp">$ </span>pio init --board XXX
+
+<span class="c"># Or the following if you're adding an ESP8266 board</span>
+<span class="gp">$ </span>pio init --board YYY
+</code></pre>
+</div>
 
 <p>Now onto designing our communication protocol specification. What would you like your device to do? Since I’m the one writing this blog post, I have decided to stick to writing the shortest specification possible. We’re going to allow the control of all digital and analog pins remotely.</p>
 
