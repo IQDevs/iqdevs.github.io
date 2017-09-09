@@ -89,16 +89,21 @@
 
 <p>Add your board to the project:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># If you're adding an Arduino board run the following command</span>
-<span class="c"># This will give you a list of all supported Arduino modules.</span>
-<span class="gp">$ </span>pio boards arduino
+<p>If you’re adding an ESP8266 board to your project, run the following command:</p>
 
-<span class="c"># Find your Arduino module from the list resulting from running the</span>
-<span class="c"># command above, and replace it with the XXX in the following command</span>
-<span class="gp">$ </span>pio init --board XXX
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pio init --board huzzah
+</code></pre>
+</div>
 
-<span class="c"># Or the following if you're adding an ESP8266 board</span>
-<span class="gp">$ </span>pio init --board huzzah
+<p>Or if you’re adding an Arduino board run the following command. This will give you a list of all supported Arduino modules:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pio boards arduino
+</code></pre>
+</div>
+
+<p>Find your Arduino module from the list resulting from running the command above, and replace it with the XXX in the following command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>pio init --board XXX
 </code></pre>
 </div>
 
