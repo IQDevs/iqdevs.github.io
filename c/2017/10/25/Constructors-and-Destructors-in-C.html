@@ -124,7 +124,7 @@
 </span></code></pre>
 </div>
 
-<p>You’ve probably already noticed that <code class="highlighter-rouge">stack</code> and <code class="highlighter-rouge">stack_ptr</code> are left uninitialized, so if you were to blindly use <code class="highlighter-rouge">push</code>, <code class="highlighter-rouge">peek</code>, or <code class="highlighter-rouge">pull</code>, you’re going to run into a segmentation fault as <code class="highlighter-rouge">stack</code> is a <code class="highlighter-rouge">NULL</code> pointer, and <code class="highlighter-rouge">stack_ptr</code> is likely to contain some gibberish that was left behind on the stack. The proper way to use these functions would be to allocate memory for the <code class="highlighter-rouge">stack</code> pointer and <code class="highlighter-rouge">free</code> it when you’re done. An even better way to do this would be to have this task automatically preformed at the time of including this header file. This is done through a library constructor, and it’s done as follows:</p>
+<p>You’ve probably already noticed that <code class="highlighter-rouge">stack</code> and <code class="highlighter-rouge">stack_ptr</code> are left uninitialized, so if you were to blindly use <code class="highlighter-rouge">push</code>, <code class="highlighter-rouge">peek</code>, or <code class="highlighter-rouge">pop</code>, you’re going to run into a segmentation fault as <code class="highlighter-rouge">stack</code> is a <code class="highlighter-rouge">NULL</code> pointer, and <code class="highlighter-rouge">stack_ptr</code> is likely to contain some gibberish that was left behind on the stack. The proper way to use these functions would be to allocate memory for the <code class="highlighter-rouge">stack</code> pointer and <code class="highlighter-rouge">free</code> it when you’re done. An even better way to do this would be to have this task automatically preformed at the time of including this header file. This is done through a library constructor, and it’s done as follows:</p>
 
 <div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="cm">/*  Library Constructor
     @Brief: This function is automatically called when
@@ -163,7 +163,7 @@ Inside Main
 </code></pre>
 </div>
 
-<p>And exit peacefully… Well not really peacefully. At least not in every sense of the word as your program has left some heap-allocated memory un-deallocated. You’re not likely going to see your program crash or anything, but you’ve still introduced a bug to your system that the OS may or may not be able to resolve depending on what OS you happen to be using. The proper way to to about programmatically solve this problem is to use a destructor in your application. A destructor is another function that gets called automatically once you’re done with the library. Read ahead to find out how this is done.</p>
+<p>And exit peacefully… Well not really peacefully. At least not in every sense of the word as your program has left some heap-allocated memory un-deallocated. You’re not likely going to see your program crash or anything, but you’ve still introduced a bug to your system that the OS may or may not be able to resolve depending on what OS you happen to be using. The proper way to go about programmatically solve this problem is to use a destructor in your application. A destructor is another function that gets called automatically once you’re done with the library. Read ahead to find out how this is done.</p>
 
 <h2 id="destructors">Destructors</h2>
 
