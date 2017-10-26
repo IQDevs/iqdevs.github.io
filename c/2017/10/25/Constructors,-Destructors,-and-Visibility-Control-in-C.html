@@ -133,7 +133,7 @@
 <span class="n">__attribute__</span><span class="p">((</span><span class="n">constructor</span><span class="p">))</span> <span class="kt">void</span> <span class="n">start</span><span class="p">()</span> <span class="p">{</span>
    <span class="n">printf</span><span class="p">(</span><span class="s">"Inside Constructor</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
    <span class="n">stack_ptr</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-   <span class="n">stack</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="n">STACK_CAP</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+   <span class="n">stack</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="n">STACK_CAP</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre>
 </div>
@@ -179,6 +179,7 @@ Inside Main
 <span class="n">__attribute__</span><span class="p">((</span><span class="n">destructor</span><span class="p">))</span> <span class="kt">void</span> <span class="n">finish</span><span class="p">()</span> <span class="p">{</span>
    <span class="n">printf</span><span class="p">(</span><span class="s">"Inside Destructor</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
    <span class="n">free</span><span class="p">(</span><span class="n">stack</span><span class="p">);</span>
+   <span class="n">stack</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre>
 </div>
