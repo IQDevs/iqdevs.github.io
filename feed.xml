@@ -1,4 +1,135 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-10-26T01:11:09+00:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things are too good to contain in a little box</subtitle><entry><title type="html">Constructors, Destructors, and Visibility Control in C</title><link href="/c/2017/10/22/Constructors,-Destructors,-and-Visibility-Control-in-C.html" rel="alternate" type="text/html" title="Constructors, Destructors, and Visibility Control in C" /><published>2017-10-22T05:00:00+00:00</published><updated>2017-10-22T05:00:00+00:00</updated><id>/c/2017/10/22/Constructors,%20Destructors,%20and%20Visibility%20Control%20in%20C</id><content type="html" xml:base="/c/2017/10/22/Constructors,-Destructors,-and-Visibility-Control-in-C.html">&lt;p&gt;TBA&lt;/p&gt;</content><author><name>alkass</name></author><summary type="html">TBA</summary></entry><entry><title type="html">Remote Procedure Calls in C</title><link href="/c/2017/10/22/Remote-Procedure-Calls-in-C.html" rel="alternate" type="text/html" title="Remote Procedure Calls in C" /><published>2017-10-22T05:00:00+00:00</published><updated>2017-10-22T05:00:00+00:00</updated><id>/c/2017/10/22/Remote%20Procedure%20Calls%20in%20C</id><content type="html" xml:base="/c/2017/10/22/Remote-Procedure-Calls-in-C.html">&lt;p&gt;I have recently put together a quick Remote Procedure Call (RPC) demo in C and checked it into &lt;a href=&quot;https://github.com/Alkass/cRPC&quot;&gt;my Github account&lt;/a&gt;, then I realized I still have a couple of minutes left on my hands, so I decided to write a walk-through blog post.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-10-26T02:16:04+00:00</updated><id>/</id><title type="html">IQDevs Blog</title><subtitle>Some things are too good to contain in a little box</subtitle><entry><title type="html">Constructors, Destructors, and Visibility Control in C</title><link href="/c/2017/10/22/Constructors,-Destructors,-and-Visibility-Control-in-C.html" rel="alternate" type="text/html" title="Constructors, Destructors, and Visibility Control in C" /><published>2017-10-22T05:00:00+00:00</published><updated>2017-10-22T05:00:00+00:00</updated><id>/c/2017/10/22/Constructors,%20Destructors,%20and%20Visibility%20Control%20in%20C</id><content type="html" xml:base="/c/2017/10/22/Constructors,-Destructors,-and-Visibility-Control-in-C.html">&lt;blockquote&gt;
+  &lt;p&gt;Everything discussed here is a feature provided by the &lt;code class=&quot;highlighter-rouge&quot;&gt;GCC&lt;/code&gt; compiler. If you happen to be using a different compiler, I’m not sure all or any of this would apply given the fact that these features aren’t part of the C language per se.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;When writing programs of considerable size complexity, we tend to modularize our code. That is, we try to think of all different components as objects that can be easily moved around and fit within existing and future code. In C, it’s common practice for developers to divide code into libraries and header files that can be included as needed. When working with someone else’s library, you’d normally rather have a getting-started document that’s as short and as concise as possible.&lt;/p&gt;
+
+&lt;p&gt;Let’s consider an example. You’re working with a team that’s responsible for implementing a stack data structure and is expected to hand you the five essential functions every stack should have: &lt;code class=&quot;highlighter-rouge&quot;&gt;push()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;pop()&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;peek()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;isFull()&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;isEmpty()&lt;/code&gt;. You’re probably already wondering “who’s going to initialize the stack? Do I have to? Will they hand me an initialized instance? Is it stack-allocated or heap-allocated? If it’s heap-allocated, do I have to worry about freeing it myself?” The stream of questions can literally be endless the more complex the library is. Wouldn’t it be better for the library to handle all the heavy lifting of having to instantiate all necessary data objects and do the housekeeping after itself when its job is finished (something of the nature of a constructor that’s called automatically once the library is included and a destructor that’s called when the library is done with)? I have yet to find any objections to this with valid reasoning.&lt;/p&gt;
+
+&lt;h2 id=&quot;constructors&quot;&gt;Constructors&lt;/h2&gt;
+
+&lt;p&gt;Let’s assume we have a header file named ‘stack.h’:&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#ifndef STACK_H
+#define STACK_H
+&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt; // calloc
+#include &amp;lt;stdbool.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#define STACK_CAP 12
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_ptr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_ptr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isFull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_ptr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;STACK_CAP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isFull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_ptr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;peek&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_ptr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;peek&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ref&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack_ptr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;cp&quot;&gt;#endif
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You’ve probably already noticed that &lt;code class=&quot;highlighter-rouge&quot;&gt;stack&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;stack_ptr&lt;/code&gt; are left uninitialized, so if you were to blindly use &lt;code class=&quot;highlighter-rouge&quot;&gt;push&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;peek&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;pull&lt;/code&gt;, you’re going to run into a segmentation fault as &lt;code class=&quot;highlighter-rouge&quot;&gt;stack&lt;/code&gt; is a &lt;code class=&quot;highlighter-rouge&quot;&gt;NULL&lt;/code&gt; pointer, and &lt;code class=&quot;highlighter-rouge&quot;&gt;stack_ptr&lt;/code&gt; is likely to contain some gibberish that was left behind on the stack. The proper way to use these functions would be to allocate memory for the &lt;code class=&quot;highlighter-rouge&quot;&gt;stack&lt;/code&gt; pointer and &lt;code class=&quot;highlighter-rouge&quot;&gt;free&lt;/code&gt; it when you’re done. An even better way to do this would be to have this task automatically preformed at the time of including this header file. This is done through a library constructor, and it’s done as follows:&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*  Library Constructor
+    @Brief: This function is automatically called when
+    the containing header file is included.
+*/&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;__attribute__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Inside Constructor&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;stack_ptr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;STACK_CAP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The function above needs to be located inside your header file and will be automatically called once you’ve included the header file somewhere in your code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In case you didn’t know, &lt;code class=&quot;highlighter-rouge&quot;&gt;#ifndef STACK_H&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;#define STACK_H&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;#endif&lt;/code&gt; are needed to prevent multiple or recursive includes that’ll cause the compiler to run into redefinition issue.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now the following program:&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+#include &quot;header.h&quot;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Inside main&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Will generate the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Inside Constructor
+Inside Main
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And exit peacefully… Well not really peacefully. At least not in every sense of the word as your program has left some heap-allocated memory un-deallocated. You’re not likely going to see your program crash or anything, but you’ve still introduced a bug to your system that the OS may or may not be able to resolve depending on what OS you happen to be using. The proper way to to about programmatically solve this problem is to use a destructor in your application. A destructor is another function that gets called automatically once you’re done with the library. Read ahead to find out how this is done.&lt;/p&gt;
+
+&lt;h2 id=&quot;destructors&quot;&gt;Destructors&lt;/h2&gt;
+
+&lt;p&gt;You’re going to like this part.&lt;/p&gt;
+
+&lt;p&gt;We’ve used &lt;code class=&quot;highlighter-rouge&quot;&gt;__attribute__((constructor))&lt;/code&gt; to introduce a constructor into our code, so you’re probably already thinking a &lt;code class=&quot;highlighter-rouge&quot;&gt;__attribute__((destructor))&lt;/code&gt; is what we’d use to add a destructor, in which case you’d be absolutely right. Here’s our destructor function implementing for our stack library:&lt;/p&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*  Library Destructor
+    @Brief: This function is automatically called when
+    the containing header file is dismissed (normally
+    at the end of the program lifecycle).
+*/&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;__attribute__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;destructor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Inside Destructor&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;free&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now if you execute the same tiny program we’ve written above, you’ll get the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Inside Constructor
+Inside Main
+Inside Destructor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And there we’ve achieved a library implementation that takes care of all necessary memory management for us.&lt;/p&gt;
+
+&lt;h2 id=&quot;visibility-control&quot;&gt;Visibility Control&lt;/h2&gt;
+
+&lt;p&gt;TO BE COMPLETED&lt;/p&gt;</content><author><name>alkass</name></author><summary type="html">Everything discussed here is a feature provided by the GCC compiler. If you happen to be using a different compiler, I’m not sure all or any of this would apply given the fact that these features aren’t part of the C language per se.</summary></entry><entry><title type="html">Remote Procedure Calls in C</title><link href="/c/2017/10/22/Remote-Procedure-Calls-in-C.html" rel="alternate" type="text/html" title="Remote Procedure Calls in C" /><published>2017-10-22T05:00:00+00:00</published><updated>2017-10-22T05:00:00+00:00</updated><id>/c/2017/10/22/Remote%20Procedure%20Calls%20in%20C</id><content type="html" xml:base="/c/2017/10/22/Remote-Procedure-Calls-in-C.html">&lt;p&gt;I have recently put together a quick Remote Procedure Call (RPC) demo in C and checked it into &lt;a href=&quot;https://github.com/Alkass/cRPC&quot;&gt;my Github account&lt;/a&gt;, then I realized I still have a couple of minutes left on my hands, so I decided to write a walk-through blog post.&lt;/p&gt;
 
 &lt;p&gt;Remote Procedure Calls, if you’re not familiar with them, are library implementations that allow you to remotely host some code (normally in the form of classes and functions) and invoke those classes and functions as needed.&lt;/p&gt;
 
