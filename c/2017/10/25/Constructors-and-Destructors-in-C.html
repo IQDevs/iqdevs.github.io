@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Constructors, Destructors, and Visibility Control in C</title>
+  <title>Constructors and Destructors in C</title>
   <meta name="description" content="Everything discussed here is a feature provided by the GCC compiler. If you happen to be using a different compiler, I’m not sure all or any of this would ap...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="/c/2017/10/25/Constructors,-Destructors,-and-Visibility-Control-in-C.html">
+  <link rel="canonical" href="/c/2017/10/25/Constructors-and-Destructors-in-C.html">
   <link rel="alternate" type="application/rss+xml" title="IQDevs Blog" href="/feed.xml">
   
   
@@ -59,7 +59,7 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Constructors, Destructors, and Visibility Control in C</h1>
+    <h1 class="post-title" itemprop="name headline">Constructors and Destructors in C</h1>
     <p class="post-meta"><time datetime="2017-10-25T05:00:00+00:00" itemprop="datePublished">Oct 25, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">alkass</span></span></p>
   </header>
 
@@ -85,8 +85,8 @@
 </span>
 <span class="cp">#define STACK_CAP 12
 </span>
-<span class="k">static</span> <span class="kt">int</span><span class="o">*</span> <span class="n">stack</span><span class="p">;</span>
-<span class="k">static</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">stack_ptr</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">stack</span><span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">stack_ptr</span><span class="p">;</span>
 
 <span class="n">bool</span> <span class="nf">isEmpty</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="n">stack_ptr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
@@ -193,10 +193,6 @@ Inside Destructor
 </div>
 
 <p>And there we’ve achieved a library implementation that takes care of all necessary memory management for us.</p>
-
-<h2 id="visibility-control">Visibility Control</h2>
-
-<p>TO BE COMPLETED</p>
 
   </div>
 
