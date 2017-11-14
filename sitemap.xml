@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>/Generic-Types-in-Strongly-Typed-Languages/</loc>
-<lastmod>2017-04-11T05:00:00+00:00</lastmod>
-</url>
-<url>
 <loc>/Rust-for-High-Level-Programming-Language-Developers/</loc>
 <lastmod>2017-04-12T05:00:00+00:00</lastmod>
 </url>
@@ -27,6 +23,10 @@
 <url>
 <loc>/Constructors-and-Destructors-in-C/</loc>
 <lastmod>2017-10-25T05:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>/Generic-Types-in-Strongly-Typed-Languages/</loc>
+<lastmod>2017-11-14T05:00:00+00:00</lastmod>
 </url>
 <url>
 <loc>/404/</loc>
