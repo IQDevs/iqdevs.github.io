@@ -9,9 +9,11 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="C++ is no small language… But there’s a reason why large systems tend to prefer C over C++.
+    <meta name="description" content="Before C++ was called C++, it was called “C with Classes” for reasons that will be obvious to anyone familiar with both C and C++. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.
+
 " />
-    <meta property="og:description" content="C++ is no small language… But there’s a reason why large systems tend to prefer C over C++.
+    <meta property="og:description" content="Before C++ was called C++, it was called “C with Classes” for reasons that will be obvious to anyone familiar with both C and C++. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.
+
 " />
     
     <meta name="author" content="IQDevs" />
@@ -40,7 +42,7 @@
         <div class="post-heading">
             <h1>Object Oriented Programming in C</h1>
             <span class="meta">Posted by <a href="https://github.com/alkass"> Fadi Hanna Al-Kass
-            </a> on March 14, 2017
+            </a> on March 14, 2018
             </span>
         </div>
 
@@ -54,7 +56,52 @@
  </div>
 
   <div class="entry">
-    <p>C++ is no small language… But there’s a reason why large systems tend to prefer C over C++.</p>
+    <p>Before C++ was called C++, it was called “<a href="http://www.cplusplus.com/info/history/">C with Classes</a>” for reasons that will be obvious to anyone familiar with both C and C++. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.</p>
+
+<p>What I’m here to discuss today, however, are a few ways to have some of the features and characteristics of C++ in C, and we shall begin with the OOP model. After you will have read this blog post, you will be able to mimic ………..</p>
+
+<p>Structs in C take the most basic form of an objects. They can contain a group of object-related characteristics together. For instance, a newborn baby’s object may contain the following fields of data:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="n">date_of_birth</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span> <span class="c1">// format: MIN:HR-MM:DD:YYYY
+</span>  <span class="kt">float</span> <span class="n">weight</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">blood_type</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">Baby</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>I write <code class="highlighter-rouge">typedef struct {...} Baby;</code> instead of <code class="highlighter-rouge">struct Baby {...};</code> so I can use <code class="highlighter-rouge">Baby baby;</code> declare a <code class="highlighter-rouge">Baby</code> object instead of <code class="highlighter-rouge">struct Baby baby;</code>. I find the first cleaner than the latter.</p>
+</blockquote>
+
+<p>You might be used to implementing a toString function that takes stringifies an object for you, e.g.:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">toString</span><span class="p">(</span><span class="n">Baby</span><span class="o">*</span> <span class="n">baby</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Baby</span><span class="p">));</span>
+  <span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">"{ %s, %s, %2lf, %s }"</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">date_of_birth</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">weight</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">blood_type</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>And now, to stringify our <code class="highlighter-rouge">Baby</code> object, we’d need the do to the following:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;  // needed for printf
+#include &lt;stdlib.h&gt; // needed for sprintf
+</span>
+<span class="kt">char</span><span class="o">*</span> <span class="nf">toString</span><span class="p">(</span><span class="n">Baby</span><span class="o">*</span> <span class="n">baby</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Baby</span><span class="p">));</span>
+  <span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">"{ %s, %s, %.1lf, %s }"</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">date_of_birth</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">weight</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">blood_type</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">Baby</span> <span class="n">baby</span> <span class="o">=</span> <span class="p">{</span><span class="s">"John Smith"</span><span class="p">,</span> <span class="s">"47:12-01:12:2017"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"O+"</span><span class="p">};</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">toString</span><span class="p">(</span><span class="o">&amp;</span><span class="n">baby</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
   </div>
 
