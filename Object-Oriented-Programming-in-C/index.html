@@ -105,7 +105,21 @@
 
 <p>A problem arises when your <code class="highlighter-rouge">Baby</code> object is part of a system (say, a Hospital) where <code class="highlighter-rouge">Doctor</code> and <code class="highlighter-rouge">Nurse</code> objects not only exist, but also want to have a stringify mechanism implemented. You’d normally end up writing a seperate <code class="highlighter-rouge">toString</code> function for each object, e.g.: <code class="highlighter-rouge">babyToString</code>, <code class="highlighter-rouge">doctorToString</code>, and <code class="highlighter-rouge">nurseToString</code>.</p>
 
-<p>Another option that’s also available is a generic function; one that takes a generic object of any type and finds a way to deal with it. The bost basic form of a generic object in <code class="highlighter-rouge">C</code> is a <code class="highlighter-rouge">void*</code> object. Functions that take <code class="highlighter-rouge">void*</code> as a parameter can essentially recieve an object of any type. Things aren’t that clean in <code class="highlighter-rouge">C</code> though.</p>
+<p>Another option that’s also available is a generic <code class="highlighter-rouge">toString</code> function; one that takes a generic object of any type and finds a way to deal with it. The most basic form of a generic object in <code class="highlighter-rouge">C</code> is a <code class="highlighter-rouge">void*</code> object. Functions that take <code class="highlighter-rouge">void*</code> as a parameter can essentially recieve an object of any type. What you’d then do is pass a second parameter whose job is to help the <code class="highlighter-rouge">toString</code> function identify the <code class="highlighter-rouge">void*</code> object to the best of its ability. Your <code class="highlighter-rouge">toString</code> function would look something like this:</p>
+
+<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="kt">char</span><span class="o">*</span> <span class="nf">toString</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">obj</span><span class="p">,</span> <span class="kt">int</span> <span class="n">obj_type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">obj_type</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nl">default:</span>
+            <span class="k">return</span> <span class="s">"Unable to identify object"</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">BABY_OBJECT</span><span class="p">:</span>
+            <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Baby</span><span class="p">));</span>
+            <span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">"{ %s, %s, %2lf, %s }"</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">date_of_birth</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">weight</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">blood_type</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">str</span><span class="p">;</span>
+        <span class="c1">// More object checks can be added here
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
 
   </div>
 
