@@ -72,7 +72,7 @@
 </div>
 
 <blockquote>
-  <p>I write <code class="highlighter-rouge">typedef struct {...} Baby;</code> instead of <code class="highlighter-rouge">struct Baby {...};</code> so I can use <code class="highlighter-rouge">Baby baby;</code> declare a <code class="highlighter-rouge">Baby</code> object instead of <code class="highlighter-rouge">struct Baby baby;</code>. I find the first cleaner than the latter.</p>
+  <p>I write <code class="highlighter-rouge">typedef struct {...} Baby;</code> instead of <code class="highlighter-rouge">struct Baby {...};</code> so I can use <code class="highlighter-rouge">Baby baby;</code> to declare a <code class="highlighter-rouge">Baby</code> object instead of <code class="highlighter-rouge">struct Baby baby;</code>. I find the first form cleaner than the latter.</p>
 </blockquote>
 
 <p>You might be used to implementing a toString function that takes stringifies an object for you, e.g.:</p>
@@ -102,6 +102,10 @@
 <span class="p">}</span>
 </code></pre>
 </div>
+
+<p>A problem arises when your <code class="highlighter-rouge">Baby</code> object is part of a system (say, a Hospital) where <code class="highlighter-rouge">Doctor</code> and <code class="highlighter-rouge">Nurse</code> objects not only exist, but also want to have a stringify mechanism implemented. You’d normally end up writing a seperate <code class="highlighter-rouge">toString</code> function for each object, e.g.: <code class="highlighter-rouge">babyToString</code>, <code class="highlighter-rouge">doctorToString</code>, and <code class="highlighter-rouge">nurseToString</code>.</p>
+
+<p>Another option that’s also available is a generic function; one that takes a generic object of any type and finds a way to deal with it. The bost basic form of a generic object in <code class="highlighter-rouge">C</code> is a <code class="highlighter-rouge">void*</code> object. Functions that take <code class="highlighter-rouge">void*</code> as a parameter can essentially recieve an object of any type. Things aren’t that clean in <code class="highlighter-rouge">C</code> though.</p>
 
   </div>
 
