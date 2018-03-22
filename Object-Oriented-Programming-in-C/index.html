@@ -9,10 +9,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="Before C++ was called C++, it was called “C with Classes” for reasons that will be obvious to anyone familiar with both C and C++. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.
+    <meta name="description" content="Before C++ was officially called C++, it was called “C with Classes” for reasons obvious to anyone who has dealt with both languages. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.
 
 " />
-    <meta property="og:description" content="Before C++ was called C++, it was called “C with Classes” for reasons that will be obvious to anyone familiar with both C and C++. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.
+    <meta property="og:description" content="Before C++ was officially called C++, it was called “C with Classes” for reasons obvious to anyone who has dealt with both languages. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.
 
 " />
     
@@ -56,7 +56,7 @@
  </div>
 
   <div class="entry">
-    <p>Before C++ was called C++, it was called “<a href="http://www.cplusplus.com/info/history/">C with Classes</a>” for reasons that will be obvious to anyone familiar with both C and C++. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.</p>
+    <p>Before C++ was officially called C++, it was called “<a href="http://www.cplusplus.com/info/history/">C with Classes</a>” for reasons obvious to anyone who has dealt with both languages. Yet, C still not only widely used but is also the preferred language to many. Why that is the case is not what I’m here to address today. That might be the topic to another blog post.</p>
 
 <p>What I’m here to discuss today, however, are a few ways to have some of the features and characteristics of C++ in C, and we shall begin with the OOP model. After you will have read this blog post, you will be able to mimic ………..</p>
 
@@ -114,14 +114,12 @@
 <span class="p">}</span> <span class="n">ObjectType</span><span class="p">;</span>
 
 <span class="kt">char</span><span class="o">*</span> <span class="nf">toString</span><span class="p">(</span><span class="n">Baby</span><span class="o">*</span> <span class="n">baby</span><span class="p">,</span> <span class="n">ObjectType</span> <span class="n">obj_type</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">;</span>
-  <span class="k">switch</span> <span class="p">(</span><span class="n">obj_type</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span> <span class="c1">// Allows up to 512 characters/bytes
+</span>  <span class="k">switch</span> <span class="p">(</span><span class="n">obj_type</span><span class="p">)</span> <span class="p">{</span>
     <span class="nl">default:</span>
-      <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="s">"Unable to identify object"</span><span class="p">));</span>
       <span class="n">strcpy</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">"Unable to identify object"</span><span class="p">);</span>
       <span class="k">break</span><span class="p">;</span>
     <span class="k">case</span> <span class="n">BABY</span><span class="p">:</span>
-      <span class="n">str</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">calloc</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Baby</span><span class="p">));</span>
       <span class="n">sprintf</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">"{ %s, %s, %.1lf, %s }"</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">date_of_birth</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">weight</span><span class="p">,</span> <span class="n">baby</span><span class="o">-&gt;</span><span class="n">blood_type</span><span class="p">);</span>
       <span class="k">break</span><span class="p">;</span>
     <span class="c1">// More cases can be added here
