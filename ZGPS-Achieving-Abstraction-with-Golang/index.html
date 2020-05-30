@@ -134,10 +134,10 @@
 
 <p>A lot of these functions will have identical internal implementations. For instance,</p>
 <ul>
-  <li>SetDeviceConnection, SetLogger and SetUnit are a common one-liner across all protocol implementations.</li>
-  <li>Read and Write will be identical across all protocols given Read is flexible with its ReadParameters and Write blindlessly transmits a given slice of bites. No device-specific intelligence required.</li>
-  <li>StoreRecord treats is a device-agnostic microservice-consuming function that doesn’t need to be reimplemented for every protocol.</li>
-  <li>Disconnects performs some Record-related actions (device-agnostic, remember?) and closes the TCP connection generically.</li>
+  <li><code class="highlighter-rouge">SetDeviceConnection</code>, <code class="highlighter-rouge">SetLogger</code> and <code class="highlighter-rouge">SetUnit</code> are a common one-liner across all protocol implementations.</li>
+  <li><code class="highlighter-rouge">Read</code> and <code class="highlighter-rouge">Write</code> will be identical across all protocols given Read is flexible with its ReadParameters and Write blindlessly transmits a given slice of bites. No device-specific intelligence required.</li>
+  <li><code class="highlighter-rouge">StoreRecord</code> treats is a device-agnostic microservice-consuming function that doesn’t need to be reimplemented for every protocol.</li>
+  <li><code class="highlighter-rouge">Disconnect</code> performs some Record-related actions (device-agnostic, remember?) and closes the TCP connection generically.</li>
 </ul>
 
 <p>The way around the issue is to have a form of abstraction that allows protocols to adopt at will and override when needed. Problem is Go isn’t an OOP language (that’s not to say OOP can’t be employed in the language), and so class abstraction isn’t a first-class construct in the language. What we do here is we create a <code class="highlighter-rouge">DeviceProtocolHeader</code> with our common functions defined and implemented, and aggregate the object in every protocol object we create:</p>
