@@ -140,7 +140,7 @@
   <li><code class="highlighter-rouge">Disconnect</code> performs some Record-related actions (device-agnostic, remember?) and closes the TCP connection generically.</li>
 </ul>
 
-<p>The way around the issue is to have a form of abstraction that allows protocols to adopt at will and override when needed. Problem is Go isn’t an OOP language (that’s not to say OOP can’t be employed in the language), and so class abstraction isn’t a first-class construct in the language. What we do here is we create a <code class="highlighter-rouge">DeviceProtocolHeader</code> with our common functions defined and implemented, and aggregate the object in every protocol object we create:</p>
+<p>The way around the issue is to have a form of abstraction that allows protocols to adopt at will and override when needed. Problem is Go isn’t an OOP language (that’s not to say OOP can’t be employed in the language), and so class abstraction isn’t a first-class construct of the language. What we do here is we create a <code class="highlighter-rouge">DeviceProtocolHeader</code> with our common functions defined and implemented, and aggregate the object in every protocol object we create:</p>
 
 <div class="language-go highlighter-rouge"><pre class="highlight"><code><span class="x">
 
