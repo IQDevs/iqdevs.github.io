@@ -9,10 +9,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="One of the early design challenges we faced when designing the DSP (Device Service Provider) project is coming up with a plug-and-play architecture. DSP’s main responsibility is to read data from a specific tracking device, process and store the data, or send commands and process responses. But then different devices come with different protocols, though they share common traits like they all (all the ones we now support at least) are TCP based.
+    <meta name="description" content="One of the early design challenges we faced when designing the DSP (Device Service Provider) project is coming up with a plug-and-play architecture. DSP’s main responsibility is to read data from a specific tracking device, process and store the data, or send commands and process responses. But then different devices come with different protocols, though they share common traits, like they all (all the ones we now support at least) are TCP based.
 
 " />
-    <meta property="og:description" content="One of the early design challenges we faced when designing the DSP (Device Service Provider) project is coming up with a plug-and-play architecture. DSP’s main responsibility is to read data from a specific tracking device, process and store the data, or send commands and process responses. But then different devices come with different protocols, though they share common traits like they all (all the ones we now support at least) are TCP based.
+    <meta property="og:description" content="One of the early design challenges we faced when designing the DSP (Device Service Provider) project is coming up with a plug-and-play architecture. DSP’s main responsibility is to read data from a specific tracking device, process and store the data, or send commands and process responses. But then different devices come with different protocols, though they share common traits, like they all (all the ones we now support at least) are TCP based.
 
 " />
     
@@ -56,7 +56,7 @@
  </div>
 
   <div class="entry">
-    <p>One of the early design challenges we faced when designing the DSP (Device Service Provider) project is coming up with a plug-and-play architecture. DSP’s main responsibility is to read data from a specific tracking device, process and store the data, or send commands and process responses. But then different devices come with different protocols, though they share common traits like they all (all the ones we now support at least) are TCP based.</p>
+    <p>One of the early design challenges we faced when designing the DSP (Device Service Provider) project is coming up with a plug-and-play architecture. DSP’s main responsibility is to read data from a specific tracking device, process and store the data, or send commands and process responses. But then different devices come with different protocols, though they share common traits, like they all (all the ones we now support at least) are TCP based.</p>
 
 <p>Devices, when connected to DSP, are expected to be recognized so they’re handed to the proper protocol handler.
 Our silver bullet here is abstraction, but then we’re using Go, and Go doesn’t have native support for abstractions. So how do we solve this?</p>
@@ -143,7 +143,7 @@ Our silver bullet here is abstraction, but then we’re using Go, and Go doesn�
   <li>Disconnects performs some Record-related actions (device-agnostic, remember?) and closes the TCP connection generically.</li>
 </ul>
 
-<p>The way around the issue is to have a form of abstraction that allows protocols to adopt at will and override when needed. Problem is Go isn’t an OOP language (that’s not to say OOP can’t be employed in the language), and so class abstraction isn’t a first-class construct in the language. What we do here is we create a DeviceProtocolHeader with our common functions defined and implemented, and aggregate the object in every protocol object we create:</p>
+<p>The way around the issue is to have a form of abstraction that allows protocols to adopt at will and override when needed. Problem is Go isn’t an OOP language (that’s not to say OOP can’t be employed in the language), and so class abstraction isn’t a first-class construct in the language. What we do here is we create a <code class="highlighter-rouge">DeviceProtocolHeader</code> with our common functions defined and implemented, and aggregate the object in every protocol object we create:</p>
 
 <div class="language-go highlighter-rouge"><pre class="highlight"><code><span class="x">
 
