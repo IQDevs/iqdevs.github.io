@@ -136,7 +136,7 @@
 <ul>
   <li><code class="highlighter-rouge">SetDeviceConnection</code>, <code class="highlighter-rouge">SetLogger</code> and <code class="highlighter-rouge">SetUnit</code> are a common one-liner across all protocol implementations.</li>
   <li><code class="highlighter-rouge">Read</code> and <code class="highlighter-rouge">Write</code> will be identical across all protocols given Read is flexible with its <code class="highlighter-rouge">ReadParameters</code> and Write blindlessly transmits a given slice of bites. No device-specific intelligence required.</li>
-  <li><code class="highlighter-rouge">StoreRecord</code> treats is a device-agnostic microservice-consuming function that doesn’t need to be reimplemented for every protocol.</li>
+  <li><code class="highlighter-rouge">StoreRecord</code> is a device-agnostic microservice-consuming function that doesn’t need to be reimplemented for every protocol.</li>
   <li><code class="highlighter-rouge">Disconnect</code> performs some Record-related actions (device-agnostic, remember?) and closes the TCP connection generically.</li>
 </ul>
 
