@@ -10,10 +10,8 @@
 
     
     <meta name="description" content="You’ve probably worked with enums before, but if you haven’t, they’re basically a way to have a selection out of a number of different options. A Person struct could contain a gender field that points to an enum of three options (Male, Female, and Undisclosed), i.e.:
-
 " />
     <meta property="og:description" content="You’ve probably worked with enums before, but if you haven’t, they’re basically a way to have a selection out of a number of different options. A Person struct could contain a gender field that points to an enum of three options (Male, Female, and Undisclosed), i.e.:
-
 " />
     
     <meta name="author" content="IQDevs" />
@@ -56,9 +54,9 @@
  </div>
 
   <div class="entry">
-    <p>You’ve probably worked with <code class="highlighter-rouge">enums</code> before, but if you haven’t, they’re basically a way to have a selection out of a number of different options. A <code class="highlighter-rouge">Person</code> struct could contain a <code class="highlighter-rouge">gender</code> field that points to an enum of three options (<code class="highlighter-rouge">Male</code>, <code class="highlighter-rouge">Female</code>, and <code class="highlighter-rouge">Undisclosed</code>), i.e.:</p>
+    <p>You’ve probably worked with <code class="language-plaintext highlighter-rouge">enums</code> before, but if you haven’t, they’re basically a way to have a selection out of a number of different options. A <code class="language-plaintext highlighter-rouge">Person</code> struct could contain a <code class="language-plaintext highlighter-rouge">gender</code> field that points to an enum of three options (<code class="language-plaintext highlighter-rouge">Male</code>, <code class="language-plaintext highlighter-rouge">Female</code>, and <code class="language-plaintext highlighter-rouge">Undisclosed</code>), i.e.:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">PersonGender</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">PersonGender</span> <span class="p">{</span>
     <span class="n">MALE</span><span class="p">,</span>
     <span class="n">FEMALE</span><span class="p">,</span>
     <span class="n">UNDISCLOSED</span><span class="p">,</span>
@@ -77,12 +75,11 @@
       <span class="n">gender</span><span class="p">:</span> <span class="nn">PersonGender</span><span class="p">::</span><span class="n">MALE</span><span class="p">,</span>
     <span class="p">};</span>
   <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Now, what if a person so chooses to identify as something else? In that case, you could add a 4th option (<code class="highlighter-rouge">Other</code>) and attach a value of type <code class="highlighter-rouge">String</code> to it. Here’s what your end result would look like:</p>
+<p>Now, what if a person so chooses to identify as something else? In that case, you could add a 4th option (<code class="language-plaintext highlighter-rouge">Other</code>) and attach a value of type <code class="language-plaintext highlighter-rouge">String</code> to it. Here’s what your end result would look like:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">PersonGender</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">PersonGender</span> <span class="p">{</span>
     <span class="n">MALE</span><span class="p">,</span>
     <span class="n">FEMALE</span><span class="p">,</span>
     <span class="n">UNDISCLOSED</span><span class="p">,</span>
@@ -102,12 +99,11 @@
       <span class="n">gender</span><span class="p">:</span> <span class="nn">PersonGender</span><span class="p">::</span><span class="nf">OTHER</span><span class="p">(</span><span class="s">"Agender"</span><span class="nf">.to_string</span><span class="p">()),</span>
     <span class="p">};</span>
   <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Of course <code class="highlighter-rouge">enums</code> don’t have to be part of a struct, and <code class="highlighter-rouge">enum</code> values don’t have to be primitives either. An <code class="highlighter-rouge">enum</code> value can point to a <code class="highlighter-rouge">struct</code> or even another <code class="highlighter-rouge">enum</code> and so on. For instance, you can write a function that returns a status that’s either <code class="highlighter-rouge">PASS</code> or <code class="highlighter-rouge">FAILURE</code>. <code class="highlighter-rouge">PASS</code> can include a string while <code class="highlighter-rouge">FAILURE</code> can contain more information about the severity of the failure. This functionality can be achieved as so:</p>
+<p>Of course <code class="language-plaintext highlighter-rouge">enums</code> don’t have to be part of a struct, and <code class="language-plaintext highlighter-rouge">enum</code> values don’t have to be primitives either. An <code class="language-plaintext highlighter-rouge">enum</code> value can point to a <code class="language-plaintext highlighter-rouge">struct</code> or even another <code class="language-plaintext highlighter-rouge">enum</code> and so on. For instance, you can write a function that returns a status that’s either <code class="language-plaintext highlighter-rouge">PASS</code> or <code class="language-plaintext highlighter-rouge">FAILURE</code>. <code class="language-plaintext highlighter-rouge">PASS</code> can include a string while <code class="language-plaintext highlighter-rouge">FAILURE</code> can contain more information about the severity of the failure. This functionality can be achieved as so:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">SeverityStatus</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">enum</span> <span class="n">SeverityStatus</span> <span class="p">{</span>
     <span class="nf">BENIGN</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span>
     <span class="nf">FATAL</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span>
   <span class="p">}</span>
@@ -124,12 +120,11 @@
     <span class="c">// While a failure would be indicated as follows:</span>
     <span class="k">return</span> <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">FAILURE</span><span class="p">(</span><span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">FATAL</span><span class="p">(</span><span class="s">"Continuing beyond this point will cause more damage to the hardware"</span><span class="nf">.to_string</span><span class="p">()));</span>
   <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Now onto <code class="highlighter-rouge">match</code>. One of the things I love the most about <code class="highlighter-rouge">match</code> is its ability to unstructure objects. Let’s take a second look at our last code snippet and see how we can possibly handle the response coming back to us from <code class="highlighter-rouge">compute_results()</code>. For this, I’d definitely use a set of <code class="highlighter-rouge">match</code> statements, e.g.:</p>
+<p>Now onto <code class="language-plaintext highlighter-rouge">match</code>. One of the things I love the most about <code class="language-plaintext highlighter-rouge">match</code> is its ability to unstructure objects. Let’s take a second look at our last code snippet and see how we can possibly handle the response coming back to us from <code class="language-plaintext highlighter-rouge">compute_results()</code>. For this, I’d definitely use a set of <code class="language-plaintext highlighter-rouge">match</code> statements, e.g.:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">compute_results</span><span class="p">();</span>
     <span class="k">match</span> <span class="n">res</span> <span class="p">{</span>
       <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">PASS</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
@@ -151,14 +146,13 @@
       <span class="p">}</span>
     <span class="p">};</span>
   <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Now, if you happen to add more options to any of the two <code class="highlighter-rouge">enums</code> (say, a <code class="highlighter-rouge">WARN</code> option to <code class="highlighter-rouge">FunctionStatus</code> or <code class="highlighter-rouge">UNCATEGORIZED</code> to <code class="highlighter-rouge">SeverityStatus</code>), the compiler will refuse to compile your code until all possible cases are handled. This is definitely a plus as it forces you to think about all the paths your code could take.</p>
+<p>Now, if you happen to add more options to any of the two <code class="language-plaintext highlighter-rouge">enums</code> (say, a <code class="language-plaintext highlighter-rouge">WARN</code> option to <code class="language-plaintext highlighter-rouge">FunctionStatus</code> or <code class="language-plaintext highlighter-rouge">UNCATEGORIZED</code> to <code class="language-plaintext highlighter-rouge">SeverityStatus</code>), the compiler will refuse to compile your code until all possible cases are handled. This is definitely a plus as it forces you to think about all the paths your code could take.</p>
 
-<p>However, there will be times when you really only want to handle specific cases and not the rest. For instance, we may only be interested in handling the case of failure of <code class="highlighter-rouge">compute_results()</code> and ignore all passes. For that you could use the <code class="highlighter-rouge">_</code> case. <code class="highlighter-rouge">_</code> in the case of a <code class="highlighter-rouge">match</code> statement or expression means “everything else”. So, to write our <code class="highlighter-rouge">FunctionStatus</code> handling functionality in a way when only failures are handled, we could do the following:</p>
+<p>However, there will be times when you really only want to handle specific cases and not the rest. For instance, we may only be interested in handling the case of failure of <code class="language-plaintext highlighter-rouge">compute_results()</code> and ignore all passes. For that you could use the <code class="language-plaintext highlighter-rouge">_</code> case. <code class="language-plaintext highlighter-rouge">_</code> in the case of a <code class="language-plaintext highlighter-rouge">match</code> statement or expression means “everything else”. So, to write our <code class="language-plaintext highlighter-rouge">FunctionStatus</code> handling functionality in a way when only failures are handled, we could do the following:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">compute_results</span><span class="p">();</span>
     <span class="k">match</span> <span class="n">res</span> <span class="p">{</span>
       <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">FAILURE</span><span class="p">(</span><span class="n">severity</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
@@ -171,19 +165,18 @@
           <span class="p">}</span>
         <span class="p">};</span>
       <span class="p">}</span>
-      <span class="n">_</span> <span class="k">=&gt;</span> <span class="p">{</span>
+      <span class="mi">_</span> <span class="k">=&gt;</span> <span class="p">{</span>
         <span class="c">// Here goes the handling of "everything else", or it can be left out completely</span>
       <span class="p">}</span>
     <span class="p">};</span>
   <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>The same thing can be applied to <code class="highlighter-rouge">SeverityStatus</code>. If you want to ignore benign failures, you can replace that specific case with <code class="highlighter-rouge">_</code>.</p>
+<p>The same thing can be applied to <code class="language-plaintext highlighter-rouge">SeverityStatus</code>. If you want to ignore benign failures, you can replace that specific case with <code class="language-plaintext highlighter-rouge">_</code>.</p>
 
-<p>The only drawback to using <code class="highlighter-rouge">_</code> is that “everything else” will include any options you include in future instances, so I’d personally strongly advocate against the use of <code class="highlighter-rouge">_</code>. If you want to leave some cases unhandled, you could still include them and let them point to an empty block of code, e.g.:</p>
+<p>The only drawback to using <code class="language-plaintext highlighter-rouge">_</code> is that “everything else” will include any options you include in future instances, so I’d personally strongly advocate against the use of <code class="language-plaintext highlighter-rouge">_</code>. If you want to leave some cases unhandled, you could still include them and let them point to an empty block of code, e.g.:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">compute_results</span><span class="p">();</span>
     <span class="k">match</span> <span class="n">res</span> <span class="p">{</span>
       <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">FAILURE</span><span class="p">(</span><span class="n">severity</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
@@ -191,26 +184,25 @@
           <span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">FATAL</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
             <span class="nd">println!</span><span class="p">(</span><span class="s">"FATAL: {}"</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
           <span class="p">}</span>
-          <span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">BENIGN</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
+          <span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">BENIGN</span><span class="p">(</span><span class="mi">_</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
             <span class="c">// Leaving this case unhandled</span>
             <span class="c">// NOTE: you can't print _. If you change your mind and decide to</span>
             <span class="c">// actually handle this case, replace `_` with a valid variable name.</span>
           <span class="p">}</span>
         <span class="p">};</span>
       <span class="p">}</span>
-      <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">PASS</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
+      <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">PASS</span><span class="p">(</span><span class="mi">_</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
         <span class="c">// Leaving this case unhandled</span>
       <span class="p">}</span>
     <span class="p">};</span>
   <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>One last thing I wanted to touch on before I wrap up with this post. When using <code class="highlighter-rouge">match</code> to unstructure objects, you’ll come across projects with multiple fields, or even worse, nested object structures. Our <code class="highlighter-rouge">Person</code> structure can be used as an example here. How would we match this object? following’s how.</p>
+<p>One last thing I wanted to touch on before I wrap up with this post. When using <code class="language-plaintext highlighter-rouge">match</code> to unstructure objects, you’ll come across projects with multiple fields, or even worse, nested object structures. Our <code class="language-plaintext highlighter-rouge">Person</code> structure can be used as an example here. How would we match this object? following’s how.</p>
 
 <p>Say you’re interested in only unstructuring the gender and the age of a person object. You’d do this as follows:</p>
 
-<div class="language-rust highlighter-rouge"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">Person</span> <span class="p">{</span>
       <span class="n">name</span><span class="p">:</span> <span class="s">"Fadi Hanna Al-Kass"</span><span class="nf">.to_string</span><span class="p">(),</span>
       <span class="n">age</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
@@ -218,7 +210,7 @@
     <span class="p">};</span>
 
     <span class="k">match</span> <span class="n">person</span> <span class="p">{</span>
-      <span class="n">Person</span> <span class="p">{</span> <span class="n">age</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="err">..</span> <span class="p">}</span> <span class="k">=&gt;</span> <span class="p">{</span>
+      <span class="n">Person</span> <span class="p">{</span> <span class="n">age</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="o">..</span> <span class="p">}</span> <span class="k">=&gt;</span> <span class="p">{</span>
         <span class="nd">println!</span><span class="p">(</span><span class="s">"age: {}"</span><span class="p">,</span> <span class="n">age</span><span class="p">);</span>
         <span class="k">match</span> <span class="n">gender</span> <span class="p">{</span>
           <span class="nn">PersonGender</span><span class="p">::</span><span class="n">MALE</span> <span class="k">=&gt;</span> <span class="p">{</span>
@@ -237,8 +229,7 @@
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>That’s all I have for now. Don’t hesitate to hit me up if you have questions.</p>
 

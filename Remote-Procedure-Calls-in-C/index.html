@@ -10,10 +10,8 @@
 
     
     <meta name="description" content="I have recently put together a quick Remote Procedure Call (RPC) demo in C and checked it into my Github account, then I realized I still have a couple of minutes left on my hands, so I decided to write a walk-through blog post.
-
 " />
     <meta property="og:description" content="I have recently put together a quick Remote Procedure Call (RPC) demo in C and checked it into my Github account, then I realized I still have a couple of minutes left on my hands, so I decided to write a walk-through blog post.
-
 " />
     
     <meta name="author" content="IQDevs" />
@@ -70,11 +68,11 @@
 
 <p>Say you’re building a remote controlled calculator with the most four basic operations (addition, subtraction, multiplication, and division). Now to be honest, I don’t know why you’d ever want to build this calculator. That’d be stupid. But for the sake of clarity, I couldn’t have thought of an easier example.</p>
 
-<p>To properly send a request to your server, you’ll need to have an agreement on a request standard. Our request standard can be implemented as a <code class="highlighter-rouge">C</code> <code class="highlighter-rouge">struct</code> with a pre-determined number of bytes. All requests sent to the server must be fit within this number of byte count so the server will always know how many bytes to read at a time that make up a single request.</p>
+<p>To properly send a request to your server, you’ll need to have an agreement on a request standard. Our request standard can be implemented as a <code class="language-plaintext highlighter-rouge">C</code> <code class="language-plaintext highlighter-rouge">struct</code> with a pre-determined number of bytes. All requests sent to the server must be fit within this number of byte count so the server will always know how many bytes to read at a time that make up a single request.</p>
 
-<p>Before we implement our <code class="highlighter-rouge">Request</code> <code class="highlighter-rouge">struct</code>, let’s first decide what fields we need to include.</p>
+<p>Before we implement our <code class="language-plaintext highlighter-rouge">Request</code> <code class="language-plaintext highlighter-rouge">struct</code>, let’s first decide what fields we need to include.</p>
 
-<p>What we could do is always start with a conventional acknowledgment byte that helps both the server and the client decide whether the number of bytes read make up a valid request/response to be processed. This is extremely useful when debugging cases when one side of your project starts to misbehave, then you could do some debugging and make sure outgoing requests or incoming responses are valid by checking against the acknowledgment byte. We shall call this field <code class="highlighter-rouge">ack</code> for ease of writing.</p>
+<p>What we could do is always start with a conventional acknowledgment byte that helps both the server and the client decide whether the number of bytes read make up a valid request/response to be processed. This is extremely useful when debugging cases when one side of your project starts to misbehave, then you could do some debugging and make sure outgoing requests or incoming responses are valid by checking against the acknowledgment byte. We shall call this field <code class="language-plaintext highlighter-rouge">ack</code> for ease of writing.</p>
 
 <p>Another useful field we could include is a request identifier. Identifiers are useful in cases when the client isn’t reading the responses right away and may have difficulty telling the responses apart. What we could do here is include the identifier as part of the response we send back as a server.</p>
 
@@ -84,65 +82,59 @@
 
 <p>Sounds about it!</p>
 
-<p>Now, 1 field for <code class="highlighter-rouge">ack</code>, 1 for <code class="highlighter-rouge">id</code>, 1 for <code class="highlighter-rouge">op</code> and 2 for <code class="highlighter-rouge">params</code> add up to 5 bytes. Every time the server attempts to read a request, it’ll read exactly 5 bytes.</p>
+<p>Now, 1 field for <code class="language-plaintext highlighter-rouge">ack</code>, 1 for <code class="language-plaintext highlighter-rouge">id</code>, 1 for <code class="language-plaintext highlighter-rouge">op</code> and 2 for <code class="language-plaintext highlighter-rouge">params</code> add up to 5 bytes. Every time the server attempts to read a request, it’ll read exactly 5 bytes.</p>
 
-<p>Our <code class="highlighter-rouge">strcut</code> will look like so:</p>
+<p>Our <code class="language-plaintext highlighter-rouge">strcut</code> will look like so:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
   <span class="kt">char</span> <span class="n">ack</span><span class="p">;</span>
   <span class="kt">char</span> <span class="n">id</span><span class="p">;</span>
   <span class="kt">char</span> <span class="n">op</span><span class="p">;</span>
   <span class="kt">char</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 <span class="p">}</span> <span class="n">Request</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Characters in <code class="highlighter-rouge">C</code> are 1 byte (8-bit) integers. because <code class="highlighter-rouge">byte</code> isn’t a valid data type in <code class="highlighter-rouge">C</code>, we can type-define it as follows:</p>
+<p>Characters in <code class="language-plaintext highlighter-rouge">C</code> are 1 byte (8-bit) integers. because <code class="language-plaintext highlighter-rouge">byte</code> isn’t a valid data type in <code class="language-plaintext highlighter-rouge">C</code>, we can type-define it as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">typedef</span> <span class="kt">char</span> <span class="n">byte</span><span class="p">;</span>
-</code></pre>
-</div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="kt">char</span> <span class="n">byte</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>and use it as so:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
   <span class="n">byte</span> <span class="n">ack</span><span class="p">;</span>
   <span class="n">byte</span> <span class="n">id</span><span class="p">;</span>
   <span class="n">byte</span> <span class="n">op</span><span class="p">;</span>
   <span class="n">byte</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 <span class="p">}</span> <span class="n">Request</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Our acknowledgment byte is consensual between the server and the client. We’ll make it 10 and set it as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="cp">#define ACK 0xA
-</span></code></pre>
-</div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define ACK 0xA
+</span></code></pre></div></div>
 
-<p>Our operations can be part of an <code class="highlighter-rouge">OpType</code> <code class="highlighter-rouge">enum</code> as follows:</p>
+<p>Our operations can be part of an <code class="language-plaintext highlighter-rouge">OpType</code> <code class="language-plaintext highlighter-rouge">enum</code> as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span>
   <span class="n">ADD</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
   <span class="n">SUB</span><span class="p">,</span>
   <span class="n">MUL</span><span class="p">,</span>
   <span class="n">DIV</span>
 <span class="p">}</span> <span class="n">OpType</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Which allows us to replace the <code class="highlighter-rouge">byte</code> type in our <code class="highlighter-rouge">Request</code> <code class="highlighter-rouge">struct</code> with <code class="highlighter-rouge">OpType</code>, except we’ll run into a problem that is <code class="highlighter-rouge">enums</code> in <code class="highlighter-rouge">C</code> are of type integer (4-bytes long), but this issue can be overcome by enabling the <code class="highlighter-rouge">-fshort-enums</code> <code class="highlighter-rouge">GCC</code> switch that reduces the size of enums to 1 byte. Now we can re-write our <code class="highlighter-rouge">Request</code> <code class="highlighter-rouge">struct</code> as follows:</p>
+<p>Which allows us to replace the <code class="language-plaintext highlighter-rouge">byte</code> type in our <code class="language-plaintext highlighter-rouge">Request</code> <code class="language-plaintext highlighter-rouge">struct</code> with <code class="language-plaintext highlighter-rouge">OpType</code>, except we’ll run into a problem that is <code class="language-plaintext highlighter-rouge">enums</code> in <code class="language-plaintext highlighter-rouge">C</code> are of type integer (4-bytes long), but this issue can be overcome by enabling the <code class="language-plaintext highlighter-rouge">-fshort-enums</code> <code class="language-plaintext highlighter-rouge">GCC</code> switch that reduces the size of enums to 1 byte. Now we can re-write our <code class="language-plaintext highlighter-rouge">Request</code> <code class="language-plaintext highlighter-rouge">struct</code> as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
   <span class="n">byte</span> <span class="n">ack</span><span class="p">;</span>
   <span class="n">byte</span> <span class="n">id</span><span class="p">;</span>
   <span class="n">OpType</span> <span class="n">op</span><span class="p">;</span>
   <span class="n">byte</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 <span class="p">}</span> <span class="n">Request</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Now let’s define our <code class="highlighter-rouge">Response</code> <code class="highlighter-rouge">struct</code>.</p>
+<p>Now let’s define our <code class="language-plaintext highlighter-rouge">Response</code> <code class="language-plaintext highlighter-rouge">struct</code>.</p>
 
 <p>We’ll need a starting acknowledgment byte, so that’s one.</p>
 
@@ -152,56 +144,51 @@
 
 <p>If the request is handled successfully, we’ll need to return some data to the user. We’ll need a data field to contain the result.</p>
 
-<p>That adds up to four bytes. Here’s what our <code class="highlighter-rouge">Response</code> object will look like:</p>
+<p>That adds up to four bytes. Here’s what our <code class="language-plaintext highlighter-rouge">Response</code> object will look like:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
   <span class="n">byte</span> <span class="n">ack</span><span class="p">;</span>
   <span class="n">byte</span> <span class="n">id</span><span class="p">;</span>
   <span class="n">byte</span> <span class="n">status</span><span class="p">;</span>
   <span class="n">byte</span> <span class="n">data</span><span class="p">;</span>
 <span class="p">}</span> <span class="n">Response</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Now assume you have a server up and running waiting to process some requests. You’d declare a <code class="highlighter-rouge">Request</code> object and <code class="highlighter-rouge">Response</code> object as follows:</p>
+<p>Now assume you have a server up and running waiting to process some requests. You’d declare a <code class="language-plaintext highlighter-rouge">Request</code> object and <code class="language-plaintext highlighter-rouge">Response</code> object as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="n">Request</span> <span class="n">req</span>  <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Request</span> <span class="n">req</span>  <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
 <span class="n">Response</span> <span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <blockquote>
-  <p>The <code class="highlighter-rouge"><span class="p">{</span><span class="err">0</span><span class="p">}</span></code> is syntactic sugar that tells the compiler to set all values within the structure to zero.</p>
+  <p>The <code class="language-plaintext highlighter-rouge">{0}</code> is syntactic sugar that tells the compiler to set all values within the structure to zero.</p>
 </blockquote>
 
 <p>You’d then be reading the request as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="n">read</span><span class="p">(</span><span class="n">comm_fd</span><span class="p">,</span> <span class="p">(</span><span class="n">byte</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">req</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Request</span><span class="p">));</span>
-</code></pre>
-</div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">read</span><span class="p">(</span><span class="n">comm_fd</span><span class="p">,</span> <span class="p">(</span><span class="n">byte</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">req</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Request</span><span class="p">));</span>
+</code></pre></div></div>
 
 <blockquote>
-  <p>The <code class="highlighter-rouge">(byte*)&amp;req</code> typecasts our <code class="highlighter-rouge">Request</code> struct into a byte pointer.</p>
+  <p>The <code class="language-plaintext highlighter-rouge">(byte*)&amp;req</code> typecasts our <code class="language-plaintext highlighter-rouge">Request</code> struct into a byte pointer.</p>
 </blockquote>
 
-<p>After a so number of bytes (5 in our case) has been read and converted to a <code class="highlighter-rouge">Request</code> object, we can go ahead and verify that the request is valid by checking against our consensual acknowledgment byte as follows:</p>
+<p>After a so number of bytes (5 in our case) has been read and converted to a <code class="language-plaintext highlighter-rouge">Request</code> object, we can go ahead and verify that the request is valid by checking against our consensual acknowledgment byte as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">ack</span> <span class="o">==</span> <span class="n">ACK</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Request is successful. Move forward
-</span><span class="p">}</span>
-</code></pre>
-</div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="n">ack</span> <span class="o">==</span> <span class="n">ACK</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Request is successful. Move forward</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-<p>The first thing we could do is prepare the <code class="highlighter-rouge">ack</code> and <code class="highlighter-rouge">id</code> fields in our Response object as follows:</p>
+<p>The first thing we could do is prepare the <code class="language-plaintext highlighter-rouge">ack</code> and <code class="language-plaintext highlighter-rouge">id</code> fields in our Response object as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="n">res</span><span class="p">.</span><span class="n">ack</span> <span class="o">=</span> <span class="n">req</span><span class="p">.</span><span class="n">ack</span><span class="p">;</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span><span class="p">.</span><span class="n">ack</span> <span class="o">=</span> <span class="n">req</span><span class="p">.</span><span class="n">ack</span><span class="p">;</span>
 <span class="n">res</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">req</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Then call a <code class="highlighter-rouge">handleRequest</code> function that’s responsible for handling the request and handing back the data. This function (and its callees) are implemented as follows:</p>
+<p>Then call a <code class="language-plaintext highlighter-rouge">handleRequest</code> function that’s responsible for handling the request and handing back the data. This function (and its callees) are implemented as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">handleAdd</span><span class="p">(</span><span class="k">const</span> <span class="n">Request</span><span class="o">*</span> <span class="n">req</span><span class="p">,</span> <span class="n">Response</span><span class="o">*</span> <span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">handleAdd</span><span class="p">(</span><span class="k">const</span> <span class="n">Request</span><span class="o">*</span> <span class="n">req</span><span class="p">,</span> <span class="n">Response</span><span class="o">*</span> <span class="n">res</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">printf</span><span class="p">(</span><span class="s">"res-&gt;data = %d + %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">req</span><span class="o">-&gt;</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">req</span><span class="o">-&gt;</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
   <span class="n">res</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">req</span><span class="o">-&gt;</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">req</span><span class="o">-&gt;</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
@@ -239,25 +226,22 @@
       <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>And can be called as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">handleRequest</span><span class="p">(</span><span class="o">&amp;</span><span class="n">req</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">res</span><span class="p">))</span> <span class="p">{</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">handleRequest</span><span class="p">(</span><span class="o">&amp;</span><span class="n">req</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">res</span><span class="p">))</span> <span class="p">{</span>
   <span class="n">res</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="k">else</span> <span class="p">{</span>
   <span class="n">res</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The response can be sent to the client as follows:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="n">write</span><span class="p">(</span><span class="n">comm_fd</span><span class="p">,</span> <span class="p">(</span><span class="n">byte</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">res</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Response</span><span class="p">));</span>
-</code></pre>
-</div>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">write</span><span class="p">(</span><span class="n">comm_fd</span><span class="p">,</span> <span class="p">(</span><span class="n">byte</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">res</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Response</span><span class="p">));</span>
+</code></pre></div></div>
 
 <p>And there we have a fully functional RPC server implementation capable of performing just about anything when expanded.</p>
 

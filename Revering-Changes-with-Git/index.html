@@ -10,10 +10,8 @@
 
     
     <meta name="description" content="Reverting Local Changes
-
 " />
     <meta property="og:description" content="Reverting Local Changes
-
 " />
     
     <meta name="author" content="IQDevs" />
@@ -58,28 +56,24 @@
   <div class="entry">
     <h1 id="reverting-local-changes">Reverting Local Changes</h1>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>  git checkout -- &lt;file name&gt;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git checkout <span class="nt">--</span> &lt;file name&gt;
+</code></pre></div></div>
 
 <h1 id="revering-added-changes">Revering Added Changes</h1>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>  git reset --hard
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git reset <span class="nt">--hard</span>
+</code></pre></div></div>
 
 <h1 id="reverting-changes-from-a-local-commit">Reverting Changes from a Local Commit</h1>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>  git reset --hard HEAD~1
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git reset <span class="nt">--hard</span> HEAD~1
+</code></pre></div></div>
 
 <h1 id="reverting-pushed-changes">Reverting Pushed Changes</h1>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>  git reset --hard HEAD~1
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git reset <span class="nt">--hard</span> HEAD~1
   git push origin +master
-</code></pre>
-</div>
+</code></pre></div></div>
 
   </div>
 

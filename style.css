@@ -84,6 +84,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1em 0 15px;
   padding: 0;
 }
+
 @media screen and (max-width: 640px) {
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.4;
@@ -94,6 +95,7 @@ h1 {
   font-size: 30px;
   color: #111111;
 }
+
 h1 a {
   color: inherit;
 }
@@ -122,6 +124,7 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+
 a:hover, a:active {
   color: black;
 }
@@ -199,6 +202,7 @@ img {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
 }
+
 @media screen and (max-width: 640px) {
   .masthead {
     text-align: center;
@@ -211,6 +215,7 @@ img {
   height: 70px;
   margin-right: 15px;
 }
+
 @media screen and (max-width: 640px) {
   .site-avatar {
     float: none;
@@ -218,6 +223,7 @@ img {
     margin: 0 auto;
   }
 }
+
 .site-avatar img {
   border-radius: 5px;
 }
@@ -225,6 +231,7 @@ img {
 .site-info {
   float: left;
 }
+
 @media screen and (max-width: 640px) {
   .site-info {
     float: none;
@@ -248,6 +255,7 @@ img {
   color: #fff;
   font-size: 16px;
 }
+
 @media screen and (max-width: 640px) {
   .site-description {
     margin: 3px 0;
@@ -260,6 +268,7 @@ nav {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
 }
+
 @media screen and (max-width: 640px) {
   nav {
     float: none;
@@ -268,6 +277,7 @@ nav {
     font-size: 16px;
   }
 }
+
 nav a {
   margin-left: 20px;
   color: #fff;
@@ -275,9 +285,11 @@ nav a {
   font-weight: 300;
   letter-spacing: 1px;
 }
+
 nav a:hover, nav a:active {
   color: #333333;
 }
+
 @media screen and (max-width: 640px) {
   nav a {
     margin: 0 10px;
@@ -303,9 +315,11 @@ nav a:hover, nav a:active {
   font-size: 22px;
   font-style: italic;
 }
+
 .post .comments {
   margin-top: 10px;
 }
+
 .post .read-more {
   text-transform: uppercase;
   font-size: 15px;
@@ -629,6 +643,7 @@ pre > code {
   text-decoration: none;
   cursor: pointer;
 }
+
 .site-name a:hover {
   color: #333333;
 }
@@ -638,6 +653,7 @@ nav a {
   text-decoration: none;
   cursor: pointer;
 }
+
 nav a:hover {
   color: #b3b3b3;
 }
@@ -645,6 +661,7 @@ nav a:hover {
 .post a {
   color: #111111;
 }
+
 .post a:hover {
   color: black;
 }
@@ -652,6 +669,7 @@ nav a:hover {
 .post-heading a {
   color: #666;
 }
+
 .post-heading a:hover {
   color: #333333;
 }
@@ -729,6 +747,7 @@ button.button-primary:focus {
     padding: 150px 0;
   }
 }
+
 /*
     *empty spaces
 */
@@ -752,6 +771,7 @@ button.button-primary:focus {
   color: black;
   cursor: pointer;
 }
+
 .svg-icon a:hover {
   color: black;
 }
@@ -904,3 +924,5 @@ button.button-primary:focus {
   opacity: 1;
   pointer-events: auto;
 }
+
+/*# sourceMappingURL=style.css.map */
