@@ -143,7 +143,6 @@
 <p>The way around the issue is to have a form of abstraction that allows protocols to adopt at will and override when needed. Problem is Go isn’t an OOP language (that’s not to say OOP can’t be employed in the language), and so class abstraction isn’t a first-class construct of the language. What we do here is we create a <code class="highlighter-rouge">DeviceProtocolHeader</code> with our common functions defined and implemented, and aggregate the object in every protocol object we create:</p>
 
 <div class="language-go highlighter-rouge"><pre class="highlight"><code><span class="x">
-
 </span><span class="c">// DeviceProtocolHeader has a set of abstract functions that device protocols tend to have</span><span class="x">
 </span><span class="c">// in common. Instead of having to re-implement the same errorprocedures for every</span><span class="x">
 </span><span class="c">// Protocol implementation, it is recommended to include this header and have</span><span class="x">
@@ -251,7 +250,6 @@
 </span><span class="k">func</span><span class="x"> </span><span class="p">(</span><span class="n">proto</span><span class="x"> </span><span class="o">*</span><span class="n">ZGPS</span><span class="p">)</span><span class="x"> </span><span class="n">GetIMEI</span><span class="p">()</span><span class="x"> </span><span class="p">(</span><span class="kt">int64</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
     </span><span class="c">// TODO: Here goes our proprietary IMEI retrieval implementation</span><span class="x">
 </span><span class="p">}</span><span class="x">
-
 
 </span><span class="c">// Acknowledge ...</span><span class="x">
 </span><span class="k">func</span><span class="x"> </span><span class="p">(</span><span class="n">proto</span><span class="x"> </span><span class="o">*</span><span class="n">ZGPS</span><span class="p">)</span><span class="x"> </span><span class="n">Acknowledge</span><span class="p">()</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
