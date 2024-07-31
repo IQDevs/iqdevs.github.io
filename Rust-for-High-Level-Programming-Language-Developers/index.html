@@ -71,7 +71,7 @@
 
 <p>Here’s how you’d write this in Rust:</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Our pseudo-JSON object skeleton</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Our pseudo-JSON object skeleton</span>
 <span class="k">struct</span> <span class="n">Person</span> <span class="p">{</span>
   <span class="n">full_name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
   <span class="n">date_of_birth</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
@@ -111,9 +111,9 @@
 <span class="p">}</span>
 
 <span class="k">struct</span> <span class="n">DateOfBirth</span> <span class="p">{</span>
-    <span class="n">day</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>  <span class="c">// 8-bit integer variable</span>
+    <span class="n">day</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>  <span class="c1">// 8-bit integer variable</span>
     <span class="n">month</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>
-    <span class="n">year</span><span class="p">:</span> <span class="nb">i16</span> <span class="c">// 16-bit integer variable</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">i16</span> <span class="c1">// 16-bit integer variable</span>
 <span class="p">}</span>
 
 <span class="k">enum</span> <span class="n">Gender</span> <span class="p">{</span>
@@ -146,9 +146,9 @@
 
 <p>Our pseudo-JSON object is now looking much cleaner and even easier to utilize. Speaking of utilization, how do we reference our fields? Well, you’ve probably guessed it already. Yes, it’s the dot operator. If you’re interested in, say, printing the full name of your Person object, here’s how you’d do that:</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// The following line of code goes inside your main function right after</span>
-<span class="c">// your person object has been instantiated, or really anywhere after the</span>
-<span class="c">// object has been declared.</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The following line of code goes inside your main function right after</span>
+<span class="c1">// your person object has been instantiated, or really anywhere after the</span>
+<span class="c1">// object has been declared.</span>
 
 <span class="nd">println!</span><span class="p">(</span><span class="s">"{} {}"</span><span class="p">,</span> <span class="n">person</span><span class="py">.full_name.first_name</span><span class="p">,</span> <span class="n">person</span><span class="py">.full_name.last_name</span><span class="p">);</span>
 </code></pre></div></div>
@@ -194,9 +194,9 @@ Well, so Rust has two ways of printing out stuff (there might be even more ways 
 
 <span class="nd">#[derive(Debug)]</span>
 <span class="k">struct</span> <span class="n">DateOfBirth</span> <span class="p">{</span>
-    <span class="n">day</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>  <span class="c">// 8-bit integer variable</span>
+    <span class="n">day</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>  <span class="c1">// 8-bit integer variable</span>
     <span class="n">month</span><span class="p">:</span> <span class="nb">i8</span><span class="p">,</span>
-    <span class="n">year</span><span class="p">:</span> <span class="nb">i16</span> <span class="c">// 16-bit integer variable</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">i16</span> <span class="c1">// 16-bit integer variable</span>
 <span class="p">}</span>
 
 <span class="nd">#[derive(Debug)]</span>
@@ -241,13 +241,13 @@ Well, so Rust has two ways of printing out stuff (there might be even more ways 
 Say you have a <code class="language-plaintext highlighter-rouge">Person</code> <code class="language-plaintext highlighter-rouge">class</code> with a constructor that takes a <code class="language-plaintext highlighter-rouge">first_name</code> and a <code class="language-plaintext highlighter-rouge">last_name</code> and provides two separate getter functions that give you these two string values whenever you need them. You’d write your class something as follows:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">):</span>
-    <span class="bp">self</span><span class="p">.</span><span class="n">firstName</span> <span class="o">=</span> <span class="n">firstName</span>
-    <span class="bp">self</span><span class="p">.</span><span class="n">lastName</span> <span class="o">=</span> <span class="n">lastName</span>
-  <span class="k">def</span> <span class="nf">getFirstName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">firstName</span>
-  <span class="k">def</span> <span class="nf">getLastName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">lastName</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">firstName</span><span class="p">,</span> <span class="n">lastName</span><span class="p">):</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">firstName</span> <span class="o">=</span> <span class="n">firstName</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">lastName</span> <span class="o">=</span> <span class="n">lastName</span>
+  <span class="k">def</span> <span class="nf">getFirstName</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">firstName</span>
+  <span class="k">def</span> <span class="nf">getLastName</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">lastName</span>
 </code></pre></div></div>
 
 <p>Notice how we have our fields and functions mixed together inside a single class. Rust separates the two. You’d have your fields defined inside a <code class="language-plaintext highlighter-rouge">struct</code> and an <code class="language-plaintext highlighter-rouge">impl</code> containing all relevant functions. So, when interpreted, our Python class would look in Rust as follows:</p>
@@ -310,8 +310,8 @@ Say you have a <code class="language-plaintext highlighter-rouge">Person</code> 
 
 <p>Now let’s add a <code class="language-plaintext highlighter-rouge">Drop</code> <code class="language-plaintext highlighter-rouge">trait</code> to our object and see when <code class="language-plaintext highlighter-rouge">Drop</code> is invoked:</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">impl</span> <span class="n">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
-  <span class="k">fn</span> <span class="k">drop</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">impl</span> <span class="nb">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
+  <span class="k">fn</span> <span class="nf">drop</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -324,8 +324,8 @@ Say you have a <code class="language-plaintext highlighter-rouge">Person</code> 
   <span class="n">message</span><span class="p">:</span> <span class="nb">String</span>
 <span class="p">}</span>
 
-<span class="k">impl</span> <span class="n">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
-  <span class="k">fn</span> <span class="k">drop</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">impl</span> <span class="nb">Drop</span> <span class="k">for</span> <span class="n">Response</span> <span class="p">{</span>
+  <span class="k">fn</span> <span class="nf">drop</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"I ran out of scope. I'm about to be destroyed"</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -347,30 +347,30 @@ Say you have a <code class="language-plaintext highlighter-rouge">Person</code> 
 If you’ve ever done any scientific computation in Python, chances are you’ve overloaded some of the arithmetic operations (<code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">*</code>, <code class="language-plaintext highlighter-rouge">/</code>, <code class="language-plaintext highlighter-rouge">%</code>, etc). A vector class with <code class="language-plaintext highlighter-rouge">+</code> overloaded would look something like the following:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Vector</span><span class="p">:</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="bp">self</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
-    <span class="bp">self</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
-  <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">otherVector</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">Vector</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">otherVector</span><span class="p">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">b</span> <span class="o">+</span> <span class="n">otherVector</span><span class="p">.</span><span class="n">b</span><span class="p">)</span>
-  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s">"Vector(%s, %s)"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">b</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+  <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">otherVector</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nc">Vector</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">otherVector</span><span class="p">.</span><span class="n">a</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">b</span> <span class="o">+</span> <span class="n">otherVector</span><span class="p">.</span><span class="n">b</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sh">"</span><span class="s">Vector(%s, %s)</span><span class="sh">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">a</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">b</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>And if you were to add two <code class="language-plaintext highlighter-rouge">Vector</code> objects together, you’d so something like the following:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">v1</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">v2</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">v1</span> <span class="o">=</span> <span class="nc">Vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="nc">Vector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span>
 </code></pre></div></div>
 
 <p>And print the result as follows:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">v3</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="n">v3</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>This will print the following:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Vector</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Vector</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Hmm.. Let’s see how we could go about implementing this in Rust. First, we’d need to somehow find a way to add objects (i.e., overload the <code class="language-plaintext highlighter-rouge">+</code> operator). Second, we’d need to be able to give our object to <code class="language-plaintext highlighter-rouge">println</code> and see it print something like <code class="language-plaintext highlighter-rouge">Vector(#, #)</code>. Lucky for us, both of these features are available as <code class="language-plaintext highlighter-rouge">trait</code>s we can implement. Let’s chase them one at a time. We’ll start with the <code class="language-plaintext highlighter-rouge">Add</code> <code class="language-plaintext highlighter-rouge">trait</code>.</p>
@@ -419,9 +419,9 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 
 <p>But we can’t print quite yet. Let’s implement this:</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="nb">Result</span><span class="p">};</span>
 <span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
-  <span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
+  <span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Result</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -464,9 +464,9 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="nb">Result</span><span class="p">};</span>
 <span class="k">impl</span> <span class="n">Debug</span> <span class="k">for</span> <span class="n">Vector</span> <span class="p">{</span>
-  <span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span> <span class="p">{</span>
+  <span class="k">fn</span> <span class="nf">fmt</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Formatter</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Result</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nd">write!</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">"Vector({}, {})"</span><span class="p">,</span> <span class="k">self</span><span class="py">.a</span><span class="p">,</span> <span class="k">self</span><span class="py">.b</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -483,12 +483,12 @@ If you’ve ever done any scientific computation in Python, chances are you’ve
 
 <p>So, simply replace:</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Debug</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="nb">Result</span><span class="p">};</span>
 </code></pre></div></div>
 
 <p>With:</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Display</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="n">Result</span><span class="p">};</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fmt</span><span class="p">::{</span><span class="n">Display</span><span class="p">,</span> <span class="n">Formatter</span><span class="p">,</span> <span class="nb">Result</span><span class="p">};</span>
 </code></pre></div></div>
 
 <p>And:</p>
@@ -600,14 +600,14 @@ Say you want to use <code class="language-plaintext highlighter-rouge">i32</code
 <p>What if you want to pass the string to the function instead of hard-coding a specific value? Then, you’d write it like this:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">greeting</span> <span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c">// TODO: Implement me</span>
+    <span class="c1">// TODO: Implement me</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <p>Multiple function arguments? Sure! Here’s how:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">greeting</span> <span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c">// TODO: Implement me</span>
+    <span class="c1">// TODO: Implement me</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -660,16 +660,16 @@ Say you want to use <code class="language-plaintext highlighter-rouge">i32</code
 <p>If you’re coming from a solid background in languages like C and C++, chances are you’ve worked with function pointers a lot. You’ve probably even worked with function pointers in languages like JavaScript and Python without ever coming across the name.
 At its core, a function pointer is a variable holding access to a specific memory location representing the beginning of the function. In JavaScript, if you were to have the following:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">callee</span> <span class="p">()</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">callee</span> <span class="p">()</span> <span class="p">{</span>
   <span class="c1">// TODO: Implement me</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">caller</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nf">caller</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// TODO: Implement a task</span>
-  <span class="nx">callback</span><span class="p">();</span>
+  <span class="nf">callback</span><span class="p">();</span>
 <span class="p">}</span>
 
-<span class="nx">caller</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
+<span class="nf">caller</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>It can be said that “<code class="language-plaintext highlighter-rouge">caller</code> is a function that takes an argument of type function pointer (which in this case is our <code class="language-plaintext highlighter-rouge">callee</code> function)”.</p>
@@ -687,7 +687,7 @@ At its core, a function pointer is a variable holding access to a specific memor
 <p>Here we’re telling the compiler to expect our function pointer to have no arguments and return an 8-bit integer. Let’s now define a function according to these specifications:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">ls</span> <span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">i8</span> <span class="p">{</span>
-	<span class="c">// TODO: Implement me</span>
+	<span class="c1">// TODO: Implement me</span>
 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -700,7 +700,7 @@ At its core, a function pointer is a variable holding access to a specific memor
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">CommandInterface</span> <span class="p">{</span>
 	<span class="nb">str</span><span class="p">:</span> <span class="s">"ls"</span><span class="nf">.to_string</span><span class="p">(),</span>
-	<span class="n">exec</span><span class="p">:</span> <span class="n">ls</span> <span class="c">// points to the ls function declared above</span>
+	<span class="n">exec</span><span class="p">:</span> <span class="n">ls</span> <span class="c1">// points to the ls function declared above</span>
 <span class="p">};</span>
 
 <span class="p">(</span><span class="n">cmd</span><span class="py">.exec</span><span class="p">)();</span>
@@ -744,10 +744,10 @@ At its core, a function pointer is a variable holding access to a specific memor
 
 <p>The following JavaScript code:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if </span><span class="p">(</span><span class="nx">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
 	<span class="c1">// TODO: Implement me</span>
 <span class="p">}</span>
-<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 	<span class="c1">// TODO: Implement me</span>
 <span class="p">}</span>
 <span class="k">else</span> <span class="p">{</span>
@@ -758,13 +758,13 @@ At its core, a function pointer is a variable holding access to a specific memor
 <p>is written in Rust as follows:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">||</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
-	<span class="c">// TODO: Implement me</span>
+	<span class="c1">// TODO: Implement me</span>
 <span class="p">}</span>
 <span class="k">else</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-	<span class="c">// TODO: Implement me</span>
+	<span class="c1">// TODO: Implement me</span>
 <span class="p">}</span>
 <span class="k">else</span> <span class="p">{</span>
-	<span class="c">// TODO: Implement me</span>
+	<span class="c1">// TODO: Implement me</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -785,21 +785,21 @@ At its core, a function pointer is a variable holding access to a specific memor
 <h4 id="matching-aka-pseudo-switch-case-statements">Matching (aka pseudo-Switch-Case Statements)</h4>
 <p>Matching is your typical <code class="language-plaintext highlighter-rouge">switch</code> case code block plus the ability to return something. If you were to compare integer <code class="language-plaintext highlighter-rouge">x</code> against a number of different values, using classical <code class="language-plaintext highlighter-rouge">if - else -- else if</code> gets pretty tedious really quickly, so developers tend to resort to <code class="language-plaintext highlighter-rouge">switch</code> case statements. Referring back to our <code class="language-plaintext highlighter-rouge">x</code> example, the following JavaScript compares <code class="language-plaintext highlighter-rouge">x</code> against 5 different values (cases):</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch </span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is 1</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is 1</span><span class="dl">'</span><span class="p">);</span>
     <span class="k">break</span><span class="p">;</span>
   <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is 2</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is 2</span><span class="dl">'</span><span class="p">);</span>
     <span class="k">break</span><span class="p">;</span>
   <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is 3</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is 3</span><span class="dl">'</span><span class="p">);</span>
     <span class="k">break</span><span class="p">;</span>
   <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is 4</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is 4</span><span class="dl">'</span><span class="p">);</span>
     <span class="k">break</span><span class="p">;</span>
   <span class="nl">default</span><span class="p">:</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is something else</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x is something else</span><span class="dl">'</span><span class="p">);</span>
     <span class="k">break</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -812,7 +812,7 @@ At its core, a function pointer is a variable holding access to a specific memor
     <span class="mi">3</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"x is 3"</span><span class="p">),</span>
     <span class="mi">4</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"x is 4"</span><span class="p">),</span>
     <span class="mi">5</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"x is 5"</span><span class="p">),</span>
-    <span class="mi">_</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"x is something else"</span><span class="p">)</span>
+    <span class="n">_</span> <span class="k">=&gt;</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"x is something else"</span><span class="p">)</span>
   <span class="p">};</span>
 </code></pre></div></div>
 
@@ -828,7 +828,7 @@ At its core, a function pointer is a variable holding access to a specific memor
     <span class="mi">3</span> <span class="k">=&gt;</span> <span class="s">"x is 3"</span><span class="p">,</span>
     <span class="mi">4</span> <span class="k">=&gt;</span> <span class="s">"x is 4"</span><span class="p">,</span>
     <span class="mi">5</span> <span class="k">=&gt;</span> <span class="s">"x is 5"</span><span class="p">,</span>
-    <span class="mi">_</span> <span class="k">=&gt;</span> <span class="s">"x is something else"</span>
+    <span class="n">_</span> <span class="k">=&gt;</span> <span class="s">"x is something else"</span>
   <span class="p">};</span>
   <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
 </code></pre></div></div>
@@ -842,20 +842,20 @@ At its core, a function pointer is a variable holding access to a specific memor
 
 <p>The <code class="language-plaintext highlighter-rouge">for</code> loop is used when you’ve already decided the number of times you’d like to iterate. For example, the following will loop 9 times and print the values <code class="language-plaintext highlighter-rouge">0</code> through <code class="language-plaintext highlighter-rouge">9</code>:</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">10</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">10</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <p>This interprets to the following Python code:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"%d"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">%d</span><span class="sh">"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>You can also iterate over a list using a <code class="language-plaintext highlighter-rouge">for</code> loop as follows:</p>
 
-<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="o">&amp;</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="p">{</span>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="o">&amp;</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -863,13 +863,13 @@ At its core, a function pointer is a variable holding access to a specific memor
 <p>This is equivalent to the following Python code:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"%d"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">%d</span><span class="sh">"</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">for</code> loops can also preform some sophisticated tasks. For instance, if you have the string <code class="language-plaintext highlighter-rouge">"hello\nworld\nmy\nname\nis\nFadi"</code> and you want it up split it up using the linefeed (<code class="language-plaintext highlighter-rouge">\n</code>) delimiter, you can use the <code class="language-plaintext highlighter-rouge">lines()</code> function. This function returns an enumerator containing both the substring and the line number. So something like the following:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">my_str_tokens</span> <span class="o">=</span> <span class="s">"hello</span><span class="se">\n</span><span class="s">world</span><span class="se">\n</span><span class="s">my</span><span class="se">\n</span><span class="s">name</span><span class="se">\n</span><span class="s">is</span><span class="se">\n</span><span class="s">Fadi"</span><span class="nf">.lines</span><span class="p">();</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">line_no</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span> <span class="n">in</span> <span class="n">my_str_tokens</span><span class="nf">.enumerate</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">line_no</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span> <span class="k">in</span> <span class="n">my_str_tokens</span><span class="nf">.enumerate</span><span class="p">()</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"{}: {}"</span><span class="p">,</span> <span class="n">line_no</span><span class="p">,</span> <span class="n">term</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -886,15 +886,15 @@ At its core, a function pointer is a variable holding access to a specific memor
 
 <p>The above example is equivalent to the following Python code:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myStrTokens</span> <span class="o">=</span> <span class="s">"hello</span><span class="se">\n</span><span class="s">world</span><span class="se">\n</span><span class="s">my</span><span class="se">\n</span><span class="s">name</span><span class="se">\n</span><span class="s">is</span><span class="se">\n</span><span class="s">Fadi"</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">myStrTokens</span><span class="p">)):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"%d: %s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">myStrTokens</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myStrTokens</span> <span class="o">=</span> <span class="sh">"</span><span class="s">hello</span><span class="se">\n</span><span class="s">world</span><span class="se">\n</span><span class="s">my</span><span class="se">\n</span><span class="s">name</span><span class="se">\n</span><span class="s">is</span><span class="se">\n</span><span class="s">Fadi</span><span class="sh">"</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">myStrTokens</span><span class="p">)):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">%d: %s</span><span class="sh">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">myStrTokens</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 </code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">while</code> loop is used when you’re not sure how many times you need to loop. It works the exact same way a <code class="language-plaintext highlighter-rouge">while</code> loop works in languages like C, C++, C#, Java, JavaScript, and Python. Here’s a JavaScript example:</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">bool</span> <span class="nx">status</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="k">while</span> <span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">while </span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// add some case that can set `status` to false</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -903,7 +903,7 @@ At its core, a function pointer is a variable holding access to a specific memor
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">status</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 <span class="k">while</span> <span class="n">status</span> <span class="p">{</span>
-  <span class="c">// add some case that can set `status` to false</span>
+  <span class="c1">// add some case that can set `status` to false</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -912,14 +912,14 @@ At its core, a function pointer is a variable holding access to a specific memor
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">status</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 
 <span class="k">while</span> <span class="k">true</span> <span class="p">{</span>
-  <span class="c">// add some case that can set `status` to false</span>
+  <span class="c1">// add some case that can set `status` to false</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <p>When you could actually have this:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">loop</span> <span class="p">{</span>
-  <span class="c">// add some case that can break out of the loop</span>
+  <span class="c1">// add some case that can break out of the loop</span>
 <span class="p">}</span>
 </code></pre></div></div>
 

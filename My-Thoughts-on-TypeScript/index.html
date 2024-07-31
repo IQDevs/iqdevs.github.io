@@ -62,14 +62,14 @@
 
 <p>You might ask: why would anyone spend their time and energy writing:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">add</span> <span class="p">(</span><span class="nx">a</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">number</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">add</span> <span class="p">(</span><span class="nx">a</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
 	<span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <p>Instead of:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">add</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">add</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
 	<span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -93,7 +93,7 @@
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">;</span>
-<span class="nx">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+<span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>In javascript, the aforementioned code will act like nothing is wrong and would just return <code class="language-plaintext highlighter-rouge">"1string"</code>, i.e. It will fail silently, not even a runtime error will be produced. Which is the last thing you would want.</p>
@@ -111,17 +111,17 @@
 <p>Have a look at this code for instance:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kd">function</span> <span class="nx">getAuthorLines</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^author: </span><span class="se">(</span><span class="sr">.*</span><span class="se">)</span><span class="sr">$/gmi</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nf">getAuthorLines</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">text</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sr">/^author: </span><span class="se">(</span><span class="sr">.*</span><span class="se">)</span><span class="sr">$/gmi</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">getAuthorNames</span><span class="p">(</span><span class="nx">lines</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">lines</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">line</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">line</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+<span class="kd">function</span> <span class="nf">getAuthorNames</span><span class="p">(</span><span class="nx">lines</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">lines</span><span class="p">.</span><span class="nf">map</span><span class="p">((</span><span class="nx">line</span><span class="p">)</span><span class="o">=&gt;</span><span class="nx">line</span><span class="p">.</span><span class="nf">substr</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
 <span class="p">}</span>
 
 <span class="kd">let</span> <span class="nx">text</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Paper title: TypeScript for the Win</span><span class="se">\n</span><span class="s2">Author: Alex Corvi</span><span class="se">\n</span><span class="s2">Author: John Doe</span><span class="se">\n</span><span class="s2">Author: Jane Doe</span><span class="se">\n</span><span class="dl">"</span><span class="p">;</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getAuthorNames</span><span class="p">(</span><span class="nx">getAuthorLines</span><span class="p">(</span><span class="nx">text</span><span class="p">)));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">getAuthorNames</span><span class="p">(</span><span class="nf">getAuthorLines</span><span class="p">(</span><span class="nx">text</span><span class="p">)));</span>
 
 </code></pre></div></div>
 
@@ -136,7 +136,7 @@
 
 <p>Now add the following line:</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getAuthorNames</span><span class="p">(</span><span class="nx">getAuthorLines</span><span class="p">(</span><span class="nx">text</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">))));</span>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">getAuthorNames</span><span class="p">(</span><span class="nf">getAuthorLines</span><span class="p">(</span><span class="nx">text</span><span class="p">.</span><span class="nf">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">))));</span>
 </code></pre></div></div>
 
 <p>Ouch! That’s a runtime error! That’s because <code class="language-plaintext highlighter-rouge">String.match</code> doesn’t always return an array, it might return <code class="language-plaintext highlighter-rouge">null</code>.</p>
@@ -144,21 +144,21 @@
 <p>Here’s another code, can you spot what’s wrong?</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">theThing</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">replaceThing</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+<span class="kd">var</span> <span class="nx">replaceThing</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
 	<span class="kd">var</span> <span class="nx">priorThing</span> <span class="o">=</span> <span class="nx">theThing</span><span class="p">;</span>
-	<span class="kd">var</span> <span class="nx">unused</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="p">(</span><span class="nx">priorThing</span><span class="p">)</span> <span class="p">{</span>
-			<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hi</span><span class="dl">"</span><span class="p">);</span>
+	<span class="kd">var</span> <span class="nx">unused</span> <span class="o">=</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">if </span><span class="p">(</span><span class="nx">priorThing</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hi</span><span class="dl">"</span><span class="p">);</span>
 		<span class="p">}</span>
 	<span class="p">};</span>
 	<span class="nx">theThing</span> <span class="o">=</span> <span class="p">{</span>
-		<span class="na">longStr</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">1000000</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1">*</span><span class="dl">'</span><span class="p">),</span>
-		<span class="na">someMethod</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-			<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">abc</span><span class="dl">"</span><span class="p">);</span>
+		<span class="na">longStr</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Array</span><span class="p">(</span><span class="mi">1000000</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="dl">'</span><span class="s1">*</span><span class="dl">'</span><span class="p">),</span>
+		<span class="na">someMethod</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+			<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">abc</span><span class="dl">"</span><span class="p">);</span>
 		<span class="p">}</span>
 	<span class="p">};</span>
 <span class="p">};</span>
-<span class="nx">setInterval</span><span class="p">(</span><span class="nx">replaceThing</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+<span class="nf">setInterval</span><span class="p">(</span><span class="nx">replaceThing</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>That was a classic example of how you can cause memory leaks in JavaScript. This one leaks 1 MegaByte per second. In TypeScript, You can’t reassign the <code class="language-plaintext highlighter-rouge">theThing</code> variable from <code class="language-plaintext highlighter-rouge">null</code> to <code class="language-plaintext highlighter-rouge">Object</code>.</p>
@@ -220,41 +220,41 @@ Microsoft Developer Network</p>
 <p>I can easily bet that all javascript developers will be able to understand the following piece of code:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kd">let</span> <span class="nx">x</span><span class="p">:</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">y</span><span class="p">:</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">x</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">y</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
 
-<span class="kd">function</span> <span class="nx">getRand</span> <span class="p">(</span><span class="nx">min</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">max</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">number</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">))</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nf">getRand</span> <span class="p">(</span><span class="nx">min</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">max</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">))</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getRand</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">getRand</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">));</span>
 
 </code></pre></div></div>
 
 <p>So is this:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kd">class</span> <span class="nx">House</span> <span class="p">{</span>
-	<span class="nl">address</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-	<span class="nl">bedrooms</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-	<span class="nl">area</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="kd">class</span> <span class="nc">House</span> <span class="p">{</span>
+	<span class="nl">address</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
+	<span class="nl">bedrooms</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+	<span class="nl">area</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
 	<span class="nl">safeNeighborhood</span><span class="p">:</span><span class="nx">boolean</span><span class="p">;</span>
 	<span class="nl">goodCondition</span><span class="p">:</span><span class="nx">boolean</span><span class="p">;</span>
-	<span class="kr">private</span> <span class="nx">priceCoefficient</span><span class="p">:</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">65</span><span class="p">;</span>
-	<span class="kd">get</span> <span class="nx">price</span><span class="p">():</span> <span class="nx">number</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="p">((</span><span class="k">this</span><span class="p">.</span><span class="nx">bedrooms</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">area</span><span class="p">)</span> <span class="o">+</span>
+	<span class="k">private</span> <span class="nx">priceCoefficient</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mi">65</span><span class="p">;</span>
+	<span class="kd">get</span> <span class="nf">price</span><span class="p">():</span> <span class="kr">number</span> <span class="p">{</span>
+		<span class="k">return </span><span class="p">((</span><span class="k">this</span><span class="p">.</span><span class="nx">bedrooms</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">area</span><span class="p">)</span> <span class="o">+</span>
 			<span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">safeNeighborhood</span> <span class="p">?</span> <span class="mi">1000</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">)</span> <span class="o">+</span>
 			<span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">goodCondition</span> <span class="p">?</span> <span class="mi">1000</span> <span class="p">:</span> <span class="mi">0</span> <span class="p">))</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">priceCoefficient</span><span class="p">;</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kd">let</span> <span class="nx">myHouse</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">House</span><span class="p">();</span>
+<span class="kd">let</span> <span class="nx">myHouse</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">House</span><span class="p">();</span>
 <span class="nx">myHouse</span><span class="p">.</span><span class="nx">bedrooms</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
 <span class="nx">myHouse</span><span class="p">.</span><span class="nx">area</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
 <span class="nx">myHouse</span><span class="p">.</span><span class="nx">safeNeighborhood</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 <span class="nx">myHouse</span><span class="p">.</span><span class="nx">goodCondition</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myHouse</span><span class="p">.</span><span class="nx">price</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">myHouse</span><span class="p">.</span><span class="nx">price</span><span class="p">)</span>
 
 </code></pre></div></div>
 
@@ -266,7 +266,7 @@ Microsoft Developer Network</p>
 
 <p>You can write your object type definition like this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">myObj</span><span class="p">:</span> <span class="p">{</span> <span class="nl">a</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span> <span class="nl">str</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">myObj</span><span class="p">:</span> <span class="p">{</span> <span class="nl">a</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span> <span class="nl">str</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="na">a</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span>
 	<span class="na">str</span><span class="p">:</span> <span class="dl">"</span><span class="s2">my string</span><span class="dl">"</span>
 <span class="p">}</span>
@@ -275,8 +275,8 @@ Microsoft Developer Network</p>
 <p>Or you can declare a re-usable interface:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">MyObj</span> <span class="p">{</span>
-	<span class="nl">a</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
-	<span class="nl">str</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+	<span class="nl">a</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
+	<span class="nl">str</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kd">let</span> <span class="nx">myObj1</span><span class="p">:</span> <span class="nx">MyObj</span> <span class="o">=</span> <span class="p">{</span>
@@ -297,22 +297,22 @@ Microsoft Developer Network</p>
 
 <p>After type-checking, the compiler will emit very clean and readable code. So this:</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">x</span><span class="p">:</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">y</span><span class="p">:</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
-<span class="kd">function</span> <span class="nx">getRand</span> <span class="p">(</span><span class="nx">min</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">max</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">number</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">))</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">x</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">y</span><span class="p">:</span> <span class="kr">number</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nf">getRand</span> <span class="p">(</span><span class="nx">min</span><span class="p">:</span> <span class="kr">number</span><span class="p">,</span> <span class="nx">max</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">))</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getRand</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">getRand</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">));</span>
 </code></pre></div></div>
 
 <p>Will compile to this:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
-<span class="kd">function</span> <span class="nx">getRand</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">))</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nf">getRand</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span><span class="p">))</span> <span class="o">+</span> <span class="nx">min</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">getRand</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nf">getRand</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">));</span>
 </code></pre></div></div>
 
 <p>Have a look at the <a href="http://www.typescriptlang.org/play/">TypeScript Playground</a> where you can compile TypeScript immediately in your browser. Yes, it’s being compiled in the browser. This is possible since the TypeScript compiler is written in TypeScript.</p>
@@ -339,18 +339,18 @@ Microsoft Developer Network</p>
 <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// inferred as a string</span>
 
 <span class="c1">// function return type will also be inferred</span>
-<span class="kd">function</span> <span class="nx">add</span> <span class="p">(</span><span class="nx">a</span><span class="p">:</span><span class="nx">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nf">add</span> <span class="p">(</span><span class="nx">a</span><span class="p">:</span><span class="kr">number</span><span class="p">,</span> <span class="nx">b</span><span class="p">:</span><span class="kr">number</span><span class="p">)</span> <span class="p">{</span>
 	<span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="c1">// type inferred as a number</span>
-<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span> <span class="c1">// compiler will produce an error</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> <span class="c1">// type inferred as a number</span>
+<span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span> <span class="c1">// compiler will produce an error</span>
 </code></pre></div></div>
 
 <p>Another advanced example:</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Notice how we won't declare any types:</span>
-<span class="kd">function</span> <span class="nx">myFunc</span> <span class="p">(</span><span class="nx">param</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nf">myFunc</span> <span class="p">(</span><span class="nx">param</span><span class="p">)</span> <span class="p">{</span>
 	<span class="k">return</span> <span class="p">{</span>
 		<span class="na">n</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 		<span class="na">str</span><span class="p">:</span> <span class="dl">"</span><span class="s2">myString</span><span class="dl">"</span><span class="p">,</span>
@@ -364,7 +364,7 @@ Microsoft Developer Network</p>
 	<span class="p">}</span>
 <span class="p">}</span>
 <span class="c1">// hover over someVal</span>
-<span class="nx">myFunc</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">obj</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">someVal</span>
+<span class="nf">myFunc</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">obj</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">obj</span><span class="p">.</span><span class="nx">someVal</span>
 </code></pre></div></div>
 
 <p>Now when hovering over <code class="language-plaintext highlighter-rouge">someVal</code> you’ll notice that it’s type is declared as:</p>
@@ -414,7 +414,7 @@ Microsoft Developer Network</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// import</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">Response</span><span class="p">,</span> <span class="nx">NextFunction</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@types/express</span><span class="dl">"</span><span class="p">;</span>
 <span class="c1">// declare</span>
-<span class="kd">function</span> <span class="nx">myMiddleWare</span> <span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">res</span><span class="p">:</span> <span class="nx">Response</span><span class="p">,</span> <span class="nx">next</span><span class="p">:</span><span class="nx">NextFunction</span><span class="p">)</span> <span class="p">{</span>
+<span class="kd">function</span> <span class="nf">myMiddleWare</span> <span class="p">(</span><span class="nx">req</span><span class="p">:</span> <span class="nx">Request</span><span class="p">,</span> <span class="nx">res</span><span class="p">:</span> <span class="nx">Response</span><span class="p">,</span> <span class="nx">next</span><span class="p">:</span><span class="nx">NextFunction</span><span class="p">)</span> <span class="p">{</span>
 	<span class="c1">// middleware code</span>
 <span class="p">}</span>
 </code></pre></div></div>

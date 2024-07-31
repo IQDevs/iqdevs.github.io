@@ -114,10 +114,10 @@
   <span class="p">}</span>
 
   <span class="k">fn</span> <span class="nf">compute_results</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">FunctionStatus</span> <span class="p">{</span>
-    <span class="c">// Successful execution would look like the following:</span>
-    <span class="c">// return FunctionStatus::PASS("Everything looks good".to_string());</span>
+    <span class="c1">// Successful execution would look like the following:</span>
+    <span class="c1">// return FunctionStatus::PASS("Everything looks good".to_string());</span>
 
-    <span class="c">// While a failure would be indicated as follows:</span>
+    <span class="c1">// While a failure would be indicated as follows:</span>
     <span class="k">return</span> <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">FAILURE</span><span class="p">(</span><span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">FATAL</span><span class="p">(</span><span class="s">"Continuing beyond this point will cause more damage to the hardware"</span><span class="nf">.to_string</span><span class="p">()));</span>
   <span class="p">}</span>
 </code></pre></div></div>
@@ -128,18 +128,18 @@
     <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">compute_results</span><span class="p">();</span>
     <span class="k">match</span> <span class="n">res</span> <span class="p">{</span>
       <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">PASS</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="c">// Handling a PASS response</span>
+        <span class="c1">// Handling a PASS response</span>
         <span class="nd">println!</span><span class="p">(</span><span class="s">"PASS: {}"</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
       <span class="p">}</span>
       <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">FAILURE</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="c">// Handling a FAILURE response</span>
+        <span class="c1">// Handling a FAILURE response</span>
         <span class="k">match</span> <span class="n">x</span> <span class="p">{</span>
           <span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">BENIGN</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-            <span class="c">// Handling a BENIGN FAILURE response</span>
+            <span class="c1">// Handling a BENIGN FAILURE response</span>
             <span class="nd">println!</span><span class="p">(</span><span class="s">"BENIGN: {}"</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
           <span class="p">}</span>
           <span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">FATAL</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-            <span class="c">// Handling a FATAL FAILURE response</span>
+            <span class="c1">// Handling a FATAL FAILURE response</span>
             <span class="nd">println!</span><span class="p">(</span><span class="s">"FATAL: {}"</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
           <span class="p">}</span>
         <span class="p">};</span>
@@ -165,8 +165,8 @@
           <span class="p">}</span>
         <span class="p">};</span>
       <span class="p">}</span>
-      <span class="mi">_</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="c">// Here goes the handling of "everything else", or it can be left out completely</span>
+      <span class="n">_</span> <span class="k">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Here goes the handling of "everything else", or it can be left out completely</span>
       <span class="p">}</span>
     <span class="p">};</span>
   <span class="p">}</span>
@@ -184,15 +184,15 @@
           <span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">FATAL</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
             <span class="nd">println!</span><span class="p">(</span><span class="s">"FATAL: {}"</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
           <span class="p">}</span>
-          <span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">BENIGN</span><span class="p">(</span><span class="mi">_</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-            <span class="c">// Leaving this case unhandled</span>
-            <span class="c">// NOTE: you can't print _. If you change your mind and decide to</span>
-            <span class="c">// actually handle this case, replace `_` with a valid variable name.</span>
+          <span class="nn">SeverityStatus</span><span class="p">::</span><span class="nf">BENIGN</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
+            <span class="c1">// Leaving this case unhandled</span>
+            <span class="c1">// NOTE: you can't print _. If you change your mind and decide to</span>
+            <span class="c1">// actually handle this case, replace `_` with a valid variable name.</span>
           <span class="p">}</span>
         <span class="p">};</span>
       <span class="p">}</span>
-      <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">PASS</span><span class="p">(</span><span class="mi">_</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="c">// Leaving this case unhandled</span>
+      <span class="nn">FunctionStatus</span><span class="p">::</span><span class="nf">PASS</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Leaving this case unhandled</span>
       <span class="p">}</span>
     <span class="p">};</span>
   <span class="p">}</span>
